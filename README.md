@@ -1,1 +1,3 @@
-# qosmodeling--iotsimulator
+# EDICT
+
+To be completed

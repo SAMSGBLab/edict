@@ -1,0 +1,25 @@
+Device id,Device,Type of Device,Average flow payload length (in Bytes)
+AmazonEcho95,Amazon Echo,Controllers/Hub,8822.44
+BelkinMotionSensor91,Belkin Motion Sensor,Energy Management,15777.98
+BelkinSwitch52,Belkin Switch,Energy Management,25882.48
+BlipcateBPMeter62,Blipcate BP Meter,Health-Monitor,1376.28
+Dropcam98,Dropcam,Cameras,4695192.7
+HPPrinter66,HP Printer,Appliances,31219.71
+iHomePowerPlug06,iHome PowerPlug,Energy Management,36740.13
+LiFXBulb11,LiFX Bulb,Energy Management,2466.73
+NESTSmokeSensor84,NEST Smoke Sensor,Health-Monitor,1916.93
+NetatmoCamera50,Netatmo Camera,Cameras,22744.52
+NetatmoWeatherStation56,Netatmo Weather Station,Health-Monitor,83391.94
+PixstartPhotoFrame24,Pixstart Photo Frame,Appliances,2466.73
+SamsungSmartCam43,Samsung Smart Cam,Cameras,12313.22
+SmartThings39,Smart Things,Controllers/Hub,15789.57
+TP-LinkCamera80,TP-Link Camera,Cameras,38842.93
+TP-LinkPlug30,TP-Link Plug,Energy Management,2250.02
+TribySpeaker84,Triby Speaker,Appliances,58803.94
+WhitingsBabyMonitor10,Whitings Baby Monitor,Cameras,937.42
+WhitingsScale12,Whitings Scale,Health-Monitor,11542.16
+WhitingsSleepSensor86,Whitings Sleep Sensor,Health-Monitor,34801.85
+134,1,1,4
+2,dev2,Cameras,2
+"WhitingsSleepSensor8690","Whitings Sleep Sensor","Health-Monitor","34801.85"
+"zahraa","zahraa","Energy Management","25882.48"

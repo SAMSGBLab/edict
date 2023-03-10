@@ -1,0 +1,6 @@
+type id,type name
+1,Controllers/Hub
+2,Energy Management
+3,Cameras
+4,Health-Monitor
+5,Appliances
