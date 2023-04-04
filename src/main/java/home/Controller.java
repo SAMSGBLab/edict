@@ -1,5 +1,6 @@
 package home;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -1510,6 +1511,12 @@ public class Controller implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@FXML public void handleSignout(ActionEvent event) {
+        
+        Platform.exit();
+    
 	}
 
 }
