@@ -9,6 +9,10 @@ public class ApplicationCategory {
 	public ApplicationCategory() {
 		super();
 	}
+	public ApplicationCategory(String categoryId) {
+		super();
+		this.categoryId = categoryId;
+	}
 
 	public ApplicationCategory(String categoryId, String categoryName) {
 		super();

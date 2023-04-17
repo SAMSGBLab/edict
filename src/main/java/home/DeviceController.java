@@ -44,13 +44,13 @@ public class DeviceController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		id.setText(device.getDevicename());
+//		id.setText(device.getDevicename());
 		name.setText(device.getDeviceType());
 		
 	}
 	
 	public void initData() {
-		id.setText(device.getDevicename());
+//		id.setText(device.getDevicename());
 		name.setText(device.getDeviceType());
 	}
 

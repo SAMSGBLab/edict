@@ -3,8 +3,6 @@ package guimodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import home.Topic;
-
 public class Appl {
 
 	private String appId;
@@ -51,7 +49,10 @@ public class Appl {
 		for(Topic tp : copy.subscribesTo)
 			this.subscribesTo.add(tp);
 	}
-
+	public Appl(String id) {
+		super();
+		this.appId=id;
+	}
 	public String getAppId() {
 		return appId;
 	}

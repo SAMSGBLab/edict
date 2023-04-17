@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import home.Topic;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Device{
 	
 	private String deviceId;
-	
-	private String devicename;
+
+	private  String deviceName;
 	
 	private int publishFrequency;
 	
@@ -22,22 +23,22 @@ public class Device{
 	
 	private List<Topic> publishesTo;
 
-	public Device(String deviceId, String devicename, int publishFrequency, double messageSize, String distribution,
+	public Device(String deviceId, String deviceName, int publishFrequency, double messageSize, String distribution,
 			List<Topic> publishesTo) {
 		super();
 		this.deviceId = deviceId;
-		this.devicename = devicename;
+		this.deviceName =deviceName;
 		this.publishFrequency = publishFrequency;
 		this.messageSize = messageSize;
 		this.distribution = distribution;
 		this.publishesTo = publishesTo;
 	}
 
-	public Device(String deviceId, String devicename, int publishFrequency, double messageSize, String distribution,
+	public Device(String deviceId, String deviceName, int publishFrequency, double messageSize, String distribution,
 			String deviceType, List<Topic> publishesTo) {
 		super();
 		this.deviceId = deviceId;
-		this.devicename = devicename;
+		this.deviceName = deviceName;
 		this.publishFrequency = publishFrequency;
 		this.messageSize = messageSize;
 		this.distribution = distribution;
@@ -49,7 +50,7 @@ public class Device{
 	public Device(Device copy) {
 		super();
 		this.deviceId = copy.deviceId;
-		this.devicename =  copy.devicename;
+		this.deviceName =  copy.deviceName;
 		this.publishFrequency =  copy.publishFrequency;
 		this.messageSize =  copy.messageSize;
 		this.distribution =  copy.distribution;
@@ -59,12 +60,11 @@ public class Device{
 			this.publishesTo.add(tp);
 	}
 
-	public Device(String deviceId, String devicename) {
+	public Device(String id) {
 		super();
-		this.deviceId = deviceId;
-		this.devicename = devicename;
+		this.deviceId=id;
+		
 	}
-
 	public Device() {
 		super();
 	}
@@ -77,13 +77,7 @@ public class Device{
 		this.deviceId = deviceId;
 	}
 
-	public String getDevicename() {
-		return devicename;
-	}
 
-	public void setDevicename(String devicename) {
-		this.devicename = devicename;
-	}
 
 	public int getPublishFrequency() {
 		return publishFrequency;
@@ -91,6 +85,14 @@ public class Device{
 
 	public void setPublishFrequency(int publishFrequency) {
 		this.publishFrequency = publishFrequency;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public String getDistribution() {
@@ -109,7 +111,13 @@ public class Device{
 		this.publishesTo = publishesTo;
 	}
 
-
+	public String getTopicsString() {
+		String topics = "";
+		for(Topic t : publishesTo) {
+			topics += t.getName() + ";";
+		}
+		return topics;
+	}
 
 	public double getMessageSize() {
 		return messageSize;

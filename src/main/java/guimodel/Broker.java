@@ -3,8 +3,6 @@ package guimodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import home.Topic;
-
 public class Broker {
 	
 	private String brokerId;

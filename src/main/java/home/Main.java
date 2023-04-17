@@ -14,11 +14,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         primaryStage.setScene(new Scene(root));
-//        set stage borderless
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setMaximized(true);
-//        primaryStage.getIcons().add(new Image("C:\\Users\\USER\\Downloads\\hii.png"));
-        //drag it here
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();
@@ -32,10 +27,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
 
 
