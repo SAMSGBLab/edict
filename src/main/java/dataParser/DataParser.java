@@ -22,7 +22,7 @@ public class DataParser {
 
 				System.out.println(model.split(",")[0]);
 			}
-			FileWriter fileWriter = new FileWriter("src/main/resources/data/"+filename+".csv", true);
+			FileWriter fileWriter = new FileWriter("data/"+filename+".csv", true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			bufferedWriter.write(model);
 			bufferedWriter.newLine();
@@ -34,7 +34,8 @@ public class DataParser {
 
 	public static Boolean modelExists(String filename, String modelId) {
 		try {
-			FileReader fileReader = new FileReader("src/main/resources/data/"+filename+".csv");
+
+			FileReader fileReader = new FileReader("data/"+filename+".csv");
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line = bufferedReader.readLine();
 			while (line != null) {
@@ -58,8 +59,8 @@ public class DataParser {
 
 	public static void deleteModel(String filename, String modelId) {
 		try {
-			File inputFile = new File("src/main/resources/data/"+filename+".csv");
-			File tempFile = new File("src/main/resources/data/"+filename+"Temp.csv");
+			File inputFile = new File("data/"+filename+".csv");
+			File tempFile = new File("data/"+filename+"Temp.csv");
 
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -68,10 +69,8 @@ public class DataParser {
 			while((currentLine = reader.readLine()) != null) {
 			    String trimmedLine = currentLine.trim();
 			    if(trimmedLine.startsWith(modelId+",")) {
-					System.out.println("starts with:"+modelId);
 			    	continue;
 			    }
-			    System.out.println("doesn't start with: "+modelId);
 			    writer.write(currentLine + System.getProperty("line.separator"));
 			}
 			writer.close(); 
@@ -85,7 +84,18 @@ public class DataParser {
 	public static <T> ArrayList<T> readModelFromCSv(String filename,Class T ) {
 		ArrayList<T> items = new ArrayList<>();
 		try {
-			FileReader fileReader = new FileReader("src/main/resources/data/"+filename+".csv");
+			
+			File dir = new File("data");
+			if(dir.mkdirs()) {
+				System.out.println("Created data dir");
+			}
+			File f = new File(dir, filename+".csv");
+			if(!f.exists()) {
+				System.out.println("file does not exist");
+				f.createNewFile();
+			}
+			File file = new File("data\\"+filename+".csv");
+			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line = "";
 			while ((line = bufferedReader.readLine()) != null) {
@@ -133,11 +143,10 @@ public class DataParser {
 					Appl app = new Appl();
 					app.setAppId(data[0]);
 					app.setAppName(data[1]);
-					app.setApplicationCategory(new ApplicationCategory(data[2]));
-					app.setPriority(Integer.parseInt(data[3]));
-					app.setProcessingRate(Double.parseDouble(data[4]));
-					app.setProcessingDistribution(data[5]);
-					String[] topics = data[6].split(";");
+					app.setPriority(Integer.parseInt(data[2]));
+					app.setProcessingRate(Double.parseDouble(data[3]));
+					app.setApplicationCategory(new ApplicationCategory(data[4]));
+					String[] topics = data[5].split(";");
 					List<Topic> appTopics = new ArrayList<>();
 					for (String topic : topics) {
 						appTopics.add(new Topic(topic));

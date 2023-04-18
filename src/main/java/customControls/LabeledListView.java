@@ -5,9 +5,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class LabeledListView<T> extends VBox {
+public class LabeledListView<T> extends HBox {
     private Label label;
     private ListView<T> listView;
 
@@ -19,7 +20,7 @@ public class LabeledListView<T> extends VBox {
         setPadding(new Insets(10));
         getChildren().addAll(label, listView);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listView.setMaxSize(getMaxWidth(), 50);
     }
     public LabeledListView(String labelText, ObservableList<T> items) {
         this(labelText);
@@ -33,7 +34,12 @@ public class LabeledListView<T> extends VBox {
     public ObservableList<T> getItems() {
         return listView.getItems();
     }
-
+    public void setSelectedItem(T item) {
+        listView.getSelectionModel().select(item);
+    }
+    public T getSelectedItem() {
+        return listView.getSelectionModel().getSelectedItem();
+    }
     public void setSelectedIndex(int index) {
         listView.getSelectionModel().select(index);
     }

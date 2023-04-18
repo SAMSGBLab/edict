@@ -13,7 +13,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        primaryStage.setScene(new Scene(root));
+        Scene scene =new Scene(root);
+        primaryStage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("textField.css").toExternalForm());
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();
@@ -24,9 +27,12 @@ public class Main extends Application {
             primaryStage.setY(event.getScreenY() - y);
 
         });
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
-
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 
 

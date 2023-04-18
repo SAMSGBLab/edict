@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AppCatController implements Initializable{
+public class AppCatController extends BaseAddController{
 
 
     @FXML
@@ -46,7 +46,8 @@ public class AppCatController implements Initializable{
 		name.setText(appCat.getCategoryName());
 		id.setDisable(true);
 
-		
+
+		SubmitButton.setText("Edit");
 	}
 
 
@@ -55,7 +56,10 @@ public class AppCatController implements Initializable{
 		String app_cat="";
 		for (Node node : FormBox.getChildren()) {
 			if(node instanceof LabeledTextField) {
-				System.out.println(((LabeledTextField) node).getText());
+				if (((LabeledTextField) node).getText().isEmpty()) {
+					showAlertDialog("Please fill all the fields");
+					return;	
+				}
 				app_cat+=((LabeledTextField) node).getText()+",";
 			
 			}

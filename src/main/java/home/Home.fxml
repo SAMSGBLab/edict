@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -23,16 +21,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="1012.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
 	<children>
-		<VBox alignment="TOP_CENTER" layoutX="-43.0" layoutY="77.0" prefHeight="512.0" prefWidth="256.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-13.0" AnchorPane.topAnchor="77.0">
+		<VBox alignment="TOP_CENTER" layoutX="-44.0" layoutY="52.0" prefHeight="526.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="52.0">
 			<children>
             <Pane prefHeight="17.0" prefWidth="256.0" />
 				<Button fx:id="btnSimulate" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Simulate">
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8_Slider__32px.png" />
+								<Image url="@images/simulation.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -44,7 +42,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8_Open_Envelope_32px.png" />
+								<Image url="@images/devices.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -56,7 +54,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8-diversity-24%20(2).png" />
+								<Image url="@images/menu.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -68,7 +66,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8-desktop-24.png" />
+								<Image url="@images/applications.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -80,7 +78,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8_Xbox_Menu_32px.png" />
+								<Image url="@images/observe.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -92,7 +90,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../images/icons8_Box_32px.png" />
+								<Image url="@images/system.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -102,7 +100,7 @@
 				</Button>
 			</children>
 		</VBox>
-		<StackPane layoutX="259.0" layoutY="87.0" prefHeight="492.0" prefWidth="793.0" style="-fx-background-color: #ffffff;">
+		<StackPane layoutX="222.0" layoutY="62.0" prefHeight="492.0" prefWidth="854.0" style="-fx-background-color: #ffffff;">
 			<children>
 				<Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
 					<children>
@@ -117,7 +115,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/icons8-sorting-52.png" />
+                                    <Image url="@images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddObservation" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add observation" />
@@ -151,7 +149,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/icons8-sorting-52.png" />
+                                    <Image url="@images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddAppCat" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new category" />
@@ -185,7 +183,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/icons8-sorting-52.png" />
+                                    <Image url="@images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddDevice" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new device" />
@@ -196,8 +194,8 @@
                               <TableView fx:id="deviceTable" layoutY="-3.0" prefHeight="426.0" prefWidth="794.0">
                                 <columns>
                                     <TableColumn fx:id="deviceName" prefWidth="174.39996337890625" text="Name" />
-                                    <TableColumn fx:id="devicePublishFrequency" prefWidth="209.60000610351562" text="Publish frequency" />
-                                    <TableColumn fx:id="deviceMessageSize" prefWidth="152.79998779296875" text="Message size" />
+                                    <TableColumn fx:id="devicePublishFrequency" prefWidth="209.60000610351562" text="Publish frequency (in sec)" />
+                                    <TableColumn fx:id="deviceMessageSize" prefWidth="152.79998779296875" text="Message size (in B)" />
                                     <TableColumn fx:id="deviceEdit" prefWidth="110.4000244140625" text="Edit" />
                                     <TableColumn fx:id="deviceDelete" prefWidth="146.40008544921875" text="Delete" />
                                 </columns>
@@ -219,7 +217,7 @@
 											<children>
 												<ImageView fitHeight="76.0" fitWidth="90.0" layoutX="68.0" layoutY="40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../images/icons8-topic-48.png" />
+														<Image url="@images/icons8-topic-48.png" />
 													</image>
 												</ImageView>
 												<Label layoutX="79.0" layoutY="51.0" prefHeight="38.0" prefWidth="262.0" text="System Specifications" textFill="#007fa2">
@@ -381,7 +379,7 @@
 																<HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
 																	<children>
 																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="100.0" />
-																		<TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																		<TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter Dropping Rate" stylesheets="@../../resources/css/style.css" />
 																	</children>
 																</HBox>
 															</children>
@@ -409,7 +407,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/icons8-sorting-52.png" />
+                                    <Image url="@images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddApp" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add applications" />
@@ -470,14 +468,14 @@
                                  <children>
                                     <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/folder.png" />
+                                          <Image url="@images/folder.png" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="dataPathId" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
                                     <Hyperlink layoutX="275.0" layoutY="19.0" onAction="#chooseDatamodelFolder" text="choose folder" />
                                  </children>
                               </Pane>
-                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model in NGSI-LD">
+                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model in NGSI-LD notation">
                                  <VBox.margin>
                                     <Insets left="15.0" top="3.0" />
                                  </VBox.margin>
@@ -495,7 +493,7 @@
                               <Insets left="15.0" right="15.0" top="15.0" />
                            </VBox.margin>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Dataset Destination">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose dataset destination">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="10.0" top="15.0" />
                                  </VBox.margin>
@@ -510,7 +508,7 @@
                                  <children>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="252.0" layoutY="24.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/file.png" />
+                                          <Image url="@images/file.png" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="dirPathId" fill="#a19d9d" layoutX="356.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
@@ -519,19 +517,26 @@
                               </Pane>
                            </children>
                         </VBox>
-                        <HBox prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
+                        <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#simulate" prefHeight="44.0" prefWidth="201.0" styleClass="button1" text="Simulate" translateX="300.0">
-                                 <HBox.margin>
-                                    <Insets top="27.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
+                              <Pane prefHeight="118.0" prefWidth="761.0">
+                                 <children>
+                                    <Button layoutX="280.0" layoutY="67.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulation Duration :" wrappingWidth="119.45782470703125" />
+                                    <TextField fx:id="durationField" layoutX="131.0" layoutY="10.0" promptText="20" />
+                                    <Text layoutX="293.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alias :" wrappingWidth="33.857818603515625" />
+                                    <TextField fx:id="aliasField" layoutX="332.0" layoutY="10.0" promptText="baseline" />
+                                    <Text layoutX="507.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message Size :" wrappingWidth="84.564453125" />
+                                    <TextField fx:id="messageField" layoutX="599.0" layoutY="9.0" promptText="5284000.0" />
+                                 </children>
+                              </Pane>
                            </children>
                         </HBox>
                      </children>
@@ -540,38 +545,27 @@
             </Pane>
 			</children>
 		</StackPane>
-      <Pane layoutX="-3.0" layoutY="25.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" style="-fx-background-color: #007fa2;">
+      <Pane layoutX="-4.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" style="-fx-background-color: #007fa2;">
          <children>
-            <Text fill="WHITE" layoutX="131.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IoT Simulation Tool" wrappingWidth="286.46376037597656">
+            <Text fill="WHITE" layoutX="131.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDICT" wrappingWidth="286.46376037597656">
                <font>
                   <Font name="Cambria" size="24.0" />
                </font>
             </Text>
             <ImageView fitHeight="54.0" fitWidth="48.0" layoutX="60.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/iot_logo.png" />
+                  <Image url="@images/iot_logo.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <MenuBar layoutX="-1.0" prefHeight="25.0" prefWidth="1054.0" style="-fx-background-color: #ffffff;">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit" />
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
 	</children>
 	<effect>
 		<DropShadow color="#1b1eeb" />
 	</effect>
+   <stylesheets>
+      <URL value="@../../resources/css/style.css" />
+      <URL value="@../../resources/css/textField.css" />
+   </stylesheets>
 
 </AnchorPane>

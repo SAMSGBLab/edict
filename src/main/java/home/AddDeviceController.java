@@ -2,8 +2,10 @@ package home;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,29 +23,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import customControls.*;
 import guimodel.Device;
+import guimodel.Topic;
 import dataParser.DataParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.StageStyle;
-public class AddDeviceController implements Initializable {
+public class AddDeviceController extends BaseAddController {
 
-    @FXML
-    private VBox FormBox;
-
-    @FXML
-    private Pane FormPane;
-
-    @FXML
-    private Button SubmitButton;
-    @FXML
-    private Button BackButton;
 
 	LabeledTextField id;
 	LabeledTextField name;
 	LabeledTextField publishFrequency;
 	LabeledTextField messageSize;
-	LabeledTextField distribution;
+	LabeledListView <String> distribution;
 	LabeledCheckComboBox<String> topics;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -51,8 +44,16 @@ public class AddDeviceController implements Initializable {
 		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
 		publishFrequency= new LabeledTextField("Publish Frequency",LabeledTextField.TYPE_NUM);
 		messageSize= new LabeledTextField("Message Size",LabeledTextField.TYPE_NUM);
-		distribution= new LabeledTextField("Distribution",LabeledTextField.TYPE_TEXT);
-		topics= new LabeledCheckComboBox<String>("Observations",FXCollections.observableArrayList("topic1","topic2","topic3"));
+		distribution=  new LabeledListView<String>("Distribution",FXCollections.observableArrayList("Deterministic","Exponential"));
+		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Topic.class);
+		ObservableList<String> topicsIds = FXCollections.observableArrayList();
+		for(Object topic:observations) {
+			if(topic instanceof Topic) {
+				topicsIds.add(((Topic) topic).getId());	
+			}
+			
+		}
+		topics= new LabeledCheckComboBox<String>("Observations",FXCollections.observableArrayList(topicsIds));
 		FormBox.getChildren().addAll(id,name,publishFrequency,messageSize,distribution,topics);
 		
 		
@@ -62,24 +63,26 @@ public class AddDeviceController implements Initializable {
 		name.setText(device.getDeviceName());
 		publishFrequency.setText(((Integer)device.getPublishFrequency()).toString());
 		messageSize.setText(((Double)device.getMessageSize()).toString());
-		distribution.setText(device.getDistribution());
+		distribution.setSelectedItem(device.getDistribution());
 		id.setDisable(true);
 
+		SubmitButton.setText("Edit");
 		
 	}
-
-
 	@FXML 
-	public void SaveDevice() { 
+	public void SaveModel() { 
 		String device="";
 		for (Node node : FormBox.getChildren()) {
 			if(node instanceof LabeledTextField) {
-				System.out.println(((LabeledTextField) node).getText());
+				if (((LabeledTextField) node).getText().isEmpty()) {
+					showAlertDialog("Please fill all the fields");
+					return;	
+				}
 				device+=((LabeledTextField) node).getText()+",";
 			
 			}
 			if(node instanceof LabeledCheckComboBox) {
-				System.out.println(((LabeledCheckComboBox) node).getCheckedItems());
+				
 				for(Object topic:((LabeledCheckComboBox) node).getCheckedItems()) {
 					device+=topic.toString()+";";
 				}
@@ -89,6 +92,14 @@ public class AddDeviceController implements Initializable {
 				
 				device+=",";
 			}
+			if(node instanceof LabeledListView) {
+				if (((LabeledListView) node).getSelectedItem()==null) {
+					showAlertDialog("Please select a distribution");
+					return;	
+				}
+				else
+				device+=((LabeledListView) node).getSelectedItem().toString() +",";
+			}
 		}
 		DataParser.addModeltoCsv("devices",device);
 		
@@ -97,6 +108,4 @@ public class AddDeviceController implements Initializable {
 
 
 	}
-			   
-
 }

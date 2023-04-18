@@ -1,14 +1,18 @@
 package home;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import customControls.LabeledCheckComboBox;
+import customControls.LabeledListView;
 import customControls.LabeledTextField;
 import dataParser.DataParser;
 import guimodel.Appl;
 import guimodel.ApplicationCategory;
+import guimodel.Topic;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -18,7 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AppController implements Initializable{
+public class AppController  extends BaseAddController{
 
     @FXML
     private VBox FormBox;
@@ -33,19 +37,35 @@ public class AppController implements Initializable{
 	LabeledTextField name;
 	LabeledTextField priotity;
 	LabeledTextField processingRate;
-	LabeledTextField processingDistribution;
-	LabeledTextField applicationCategory;
+	LabeledListView<String> applicationCategory;
 	LabeledCheckComboBox applicationTopics;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id= new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
 		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
-		applicationCategory= new LabeledTextField("Application Category",LabeledTextField.TYPE_TEXT);
 		priotity= new LabeledTextField("Priotity",LabeledTextField.TYPE_NUM);
 		processingRate= new LabeledTextField("Processing Rate",LabeledTextField.TYPE_NUM);
-		processingDistribution= new LabeledTextField("Processing Distribution",LabeledTextField.TYPE_TEXT);
-		applicationTopics= new LabeledCheckComboBox("Application Topics",FXCollections.observableArrayList("topic1","topic2","topic3"));
-		FormBox.getChildren().addAll(id,name,priotity,processingRate,processingDistribution,applicationCategory,applicationTopics);
+		ArrayList<Object> categories = DataParser.readModelFromCSv("applicationCategories",ApplicationCategory.class);
+		ObservableList<String> categoriesIds = FXCollections.observableArrayList();
+		for(Object category:categories) {
+			if(category instanceof ApplicationCategory) {
+				categoriesIds.add(((ApplicationCategory) category).getCategoryId());	
+			}
+			
+		}
+
+		applicationCategory= new LabeledListView("Application Category",FXCollections.observableArrayList(categoriesIds));
+		
+		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Topic.class);
+		ObservableList<String> topicsIds = FXCollections.observableArrayList();
+		for(Object topic:observations) {
+			if(topic instanceof Topic) {
+				topicsIds.add(((Topic) topic).getId());	
+			}
+			
+		}
+		applicationTopics= new LabeledCheckComboBox("Application Topics",FXCollections.observableArrayList(topicsIds));
+		FormBox.getChildren().addAll(id,name,priotity,processingRate,applicationCategory,applicationTopics);
 
 		
 		
@@ -55,9 +75,10 @@ public class AppController implements Initializable{
 		name.setText(app.getAppName());
 		priotity.setText(((Integer) app.getPriority()).toString());
 		processingRate.setText(((Double)app.getProcessingRate()).toString());
-		processingDistribution.setText(app.getProcessingDistribution());
+		applicationCategory.setSelectedItem(app.getApplicationCategory().getCategoryId());
 		id.setDisable(true);
 
+		SubmitButton.setText("Edit");
 		
 	}
 
@@ -66,8 +87,11 @@ public class AppController implements Initializable{
 	public void saveApp() { 
 		String app="";
 		for (Node node : FormBox.getChildren()) {
-			if(node instanceof LabeledTextField) {
-				System.out.println(((LabeledTextField) node).getText());
+			if(node instanceof LabeledTextField) {				
+				if (((LabeledTextField) node).getText().isEmpty()) {
+				showAlertDialog("Please fill all the fields");
+				return;	
+				}
 				app+=((LabeledTextField) node).getText()+",";
 			
 			}
@@ -81,6 +105,14 @@ public class AppController implements Initializable{
 				}
 				
 				app+=",";
+			}			
+			if(node instanceof LabeledListView) {
+				if (((LabeledListView) node).getSelectedItem()==null) {
+					showAlertDialog("Please select a category");
+					return;	
+				}
+				else
+				app+=((LabeledListView) node).getSelectedItem().toString() +",";
 			}
 		}
 		DataParser.addModeltoCsv("applications",app );

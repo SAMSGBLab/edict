@@ -82,8 +82,8 @@
                 <version>0.0.6</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running -->
-                        <!-- Usage: mvn clean javafx:run -->
+                       <!-- //  Default configuration for running 
+                         // Usage: mvn clean javafx:run  -->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>edict.edict_gui.App</mainClass>
@@ -91,6 +91,8 @@
                     </execution>
                 </executions>
             </plugin>
+            
+              
         </plugins>
     </build>
 </project>

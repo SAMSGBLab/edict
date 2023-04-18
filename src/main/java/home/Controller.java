@@ -1,7 +1,6 @@
 package home;
 
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,14 +8,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,55 +30,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import org.controlsfx.control.CheckComboBox;
-//import org.controlsfx.controls.CheckComboBox;
-import org.json.JSONObject;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TableCell;
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-
 import dataParser.DataParser;
 import guimodel.Appl;
 import guimodel.ApplicationCategory;
 import guimodel.Broker;
 import guimodel.Device;
-import guimodel.DeviceType;
 import guimodel.SystemSpecifications;
 import guimodel.Topic;
-//import simulator.App;
-import simulator.ReadSimulationResults;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-
-import java.io.BufferedWriter;
 
 
 public class Controller implements Initializable {
@@ -231,7 +200,14 @@ public class Controller implements Initializable {
 	private TextField applicationCategoryName;
 
 
+	@FXML
+	private TextField durationField;
 
+	@FXML
+	private TextField aliasField;
+
+	@FXML
+	private TextField messageField;
 	@FXML
 	private Text dirPathId;
 	
@@ -248,7 +224,6 @@ public class Controller implements Initializable {
 	@FXML
 	private org.controlsfx.control.CheckComboBox<String> qosAttList;
 
-	private Broker broker;
 
 	private SystemSpecifications systemSpecifications = new SystemSpecifications();
 	@FXML
@@ -266,11 +241,17 @@ public class Controller implements Initializable {
     private Topic obData;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		durationField.textProperty().addListener((observable, oldValue, newValue) -> {
+		    if (!newValue.matches("\\d*")) {
+		    	durationField.setText(newValue.replaceAll("[^\\d]", ""));
+		    }
+		});
+		messageField.textProperty().addListener((observable, oldValue, newValue) -> {
+		    if (!newValue.matches("\\d*\\.?\\d*")) {
+		    	messageField.setText(newValue.replaceAll("[^\\d\\.]", ""));
+		    }
+		});
 
-		broker = new Broker();
-		broker.setBrokerId("input");
-		broker.setBrokerName("input");
-		broker.setBufferSize(100000000);
 		initializeDevicesPane();
 		initializeAppsPane();
 		initializeAppCatsPane();
@@ -608,17 +589,15 @@ public void simulate() {
 	
 	if (dataPathId.getText().isEmpty() || dirPathId.getText().isEmpty()) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Please choose a valid path");
 		alert.setContentText("Please choose a valid path");
 		alert.showAndWait();
 		return;
 	}
 
-	String jarPath= "src\\main\\resources\\simulator\\iotSimulator.jar";
-	int simulationDuration= 600;
-	String alias= "baseline";
-	double globalMessageSize= 52428800.0;
+	String jarPath= "iotSimulator.jar";
+	int simulationDuration= durationField.getText().isEmpty() ? 0 : Integer.valueOf(durationField.getText());
+	String alias= aliasField.getText();
+	double globalMessageSize= messageField.getText().isEmpty() ? 0 : Double.valueOf(messageField.getText());
 
 	try {
 		List<String> command = new ArrayList<>();
@@ -930,18 +909,18 @@ public void simulate() {
 	 public void updateDeviceList() {
 	        new Thread(() -> {
 	            Platform.runLater(() -> {
-			    	 deviceList.clear();
-			    	 deviceList.addAll(DataParser.readModelFromCSv("devices", Device.class));
-				     deviceTable.setItems(deviceList);
-				     appCatList.clear();
-					appCatList.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
-					appCatTable.setItems(appCatList);	
-					appList.clear();
-					appList.addAll(DataParser.readModelFromCSv("applications", Appl.class));
-					appTable.setItems(appList);	
-					obList.clear();
-					obList.addAll(DataParser.readModelFromCSv("observations", Topic.class));
-					obTable.setItems(obList);
+		deviceList.clear();
+		deviceList.addAll(DataParser.readModelFromCSv("devices", Device.class));
+		deviceTable.setItems(deviceList);
+		appCatList.clear();
+		appCatList.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
+		appCatTable.setItems(appCatList);	
+		appList.clear();
+		appList.addAll(DataParser.readModelFromCSv("applications", Appl.class));
+		appTable.setItems(appList);	
+		obList.clear();
+		obList.addAll(DataParser.readModelFromCSv("observations", Topic.class));
+		obTable.setItems(obList);
 	                
 	            });
 	        }).start();
