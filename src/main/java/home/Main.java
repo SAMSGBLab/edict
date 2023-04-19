@@ -17,16 +17,15 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("textField.css").toExternalForm());
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-
-            primaryStage.setX(event.getScreenX() - x);
-            primaryStage.setY(event.getScreenY() - y);
-
-        });
+//        root.setOnMousePressed(event -> {
+//            x = event.getSceneX();
+//            y = event.getSceneY();
+//        });
+//        root.setOnMouseDragged(event -> {
+//            primaryStage.setX(event.getScreenX() - x);
+//            primaryStage.setY(event.getScreenY() - y);
+//
+//        });
         primaryStage.setResizable(false);
         primaryStage.show();
     }

@@ -3,11 +3,12 @@ package home;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import customControls.LabeledCheckComboBox;
 import customControls.LabeledTextField;
 import dataParser.DataParser;
-import guimodel.Appl;
+import guimodel.Application;
 import guimodel.ApplicationCategory;
 import guimodel.Device;
 import javafx.collections.FXCollections;
@@ -20,9 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import guimodel.Topic;
+import guimodel.Observation;
 
-public class ObservationController implements Initializable{
+public class AddObservationController implements Initializable{
 
     @FXML
     private VBox FormBox;
@@ -40,28 +41,30 @@ public class ObservationController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id= new LabeledTextField("id",LabeledTextField.TYPE_TEXT);
+		id.setText("urn:ngsi-ld:edict:Observation:"+UUID.randomUUID().toString());
+		id.setDisable(true);
 		name= new LabeledTextField("name",LabeledTextField.TYPE_TEXT);
 		ArrayList<Object> devices = DataParser.readModelFromCSv("devices",Device.class);
 		ObservableList<String> devicesIds = FXCollections.observableArrayList();
 		for(Object device:devices) {
 			if(device instanceof Device) {
-				devicesIds.add(((Device) device).getDeviceId());	
+				devicesIds.add(((Device) device).getId());	
 			}
 			
 		}
 		CapturedBy= new LabeledCheckComboBox<String>("Captured by",FXCollections.observableArrayList(devicesIds));
-		ArrayList<Object> applications = DataParser.readModelFromCSv("applications",Appl.class);
+		ArrayList<Object> applications = DataParser.readModelFromCSv("applications",Application.class);
 		ObservableList<String> applicationsIds = FXCollections.observableArrayList();
 		for(Object application:applications) {
-			if(application instanceof Appl) {
-				applicationsIds.add(((Appl) application).getAppId());	
+			if(application instanceof Application) {
+				applicationsIds.add(((Application) application).getId());	
 			}
 			
 		}
 		RecievedBy= new LabeledCheckComboBox<String>("Recieved by",FXCollections.observableArrayList(applicationsIds));
 		FormBox.getChildren().addAll(id,name,CapturedBy,RecievedBy);
 	}
-	public void initData(Topic top) {
+	public void initData(Observation top) {
 		id.setText(top.getId());
 		name.setText(top.getName());
 		id.setDisable(true);

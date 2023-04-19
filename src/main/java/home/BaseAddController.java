@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import customControls.*;
 import guimodel.Device;
-import guimodel.Topic;
+import guimodel.Observation;
 import dataParser.DataParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

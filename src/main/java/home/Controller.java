@@ -45,12 +45,12 @@ import javafx.scene.control.TableCell;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import dataParser.DataParser;
-import guimodel.Appl;
+import dataParser.NGSIConverter;
+import guimodel.Application;
 import guimodel.ApplicationCategory;
-import guimodel.Broker;
 import guimodel.Device;
 import guimodel.SystemSpecifications;
-import guimodel.Topic;
+import guimodel.Observation;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -77,6 +77,8 @@ public class Controller implements Initializable {
 
 	@FXML
 	private Button btnDevices;
+    @FXML
+    private Button btnGenerator;
 
 	@FXML
 	private Button btnCustomers;
@@ -110,6 +112,10 @@ public class Controller implements Initializable {
 
 	@FXML
 	private Pane pnlAppCat;
+	
+
+	@FXML
+	private Pane pnlGenerator;
 
 	@FXML
 	private Pane pnlSmlSettings;
@@ -147,30 +153,30 @@ public class Controller implements Initializable {
     private TableColumn<ApplicationCategory, Void> appCatDelete;
     
     @FXML
-    private TableColumn<Appl, Void> appPriority;
+    private TableColumn<Application, Void> appPriority;
     @FXML
-    private TableColumn<Appl, Void> appRate;
+    private TableColumn<Application, Void> appRate;
     @FXML
-    private TableColumn<Appl, Void> appEdit;
+    private TableColumn<Application, Void> appEdit;
     @FXML
-    private TableColumn<Appl, Void> appDelete;
+    private TableColumn<Application, Void> appDelete;
 
     @FXML
-    private TableColumn<Appl, String> appName;
+    private TableColumn<Application, String> appName;
     
     @FXML
-    private TableView<Appl> appTable;
+    private TableView<Application> appTable;
     
     @FXML
-    private TableColumn<Topic, Void> obEdit;
+    private TableColumn<Observation, Void> obEdit;
     @FXML
-    private TableColumn<Topic, Void> obDelete;
+    private TableColumn<Observation, Void> obDelete;
 
     @FXML
-    private TableColumn<Topic, String> obName;
+    private TableColumn<Observation, String> obName;
     
     @FXML
-    private TableView<Topic> obTable;
+    private TableView<Observation> obTable;
 
 	@FXML
 	private TextField commChannelLossRT;
@@ -213,13 +219,17 @@ public class Controller implements Initializable {
 	
 	@FXML
 	private Text dataPathId;
+	
+
+	@FXML
+	private Text ngsiOutputPath;
 
 	@FXML
 	private ComboBox<String> appCategory;
 
 
 	@FXML
-	private org.controlsfx.control.CheckComboBox<Topic> appTopics;
+	private org.controlsfx.control.CheckComboBox<Observation> appTopics;
 
 	@FXML
 	private org.controlsfx.control.CheckComboBox<String> qosAttList;
@@ -229,16 +239,16 @@ public class Controller implements Initializable {
 	@FXML
     private ObservableList<Device> deviceList;
 	@FXML
-    private ObservableList<Appl> appList;
+    private ObservableList<Application> appList;
 	@FXML
     private ObservableList<ApplicationCategory> appCatList;
 	@FXML
-    private ObservableList<Topic> obList;
+    private ObservableList<Observation> obList;
 	
     private Device devicedata;
     private ApplicationCategory appCatData;
-    private Appl appData;
-    private Topic obData;
+    private Application appData;
+    private Observation obData;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		durationField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -261,7 +271,7 @@ public class Controller implements Initializable {
 
 	
 	public void initializeDevicesPane() {
-	     deviceName.setCellValueFactory(new PropertyValueFactory<Device,String>("deviceName"));
+	     deviceName.setCellValueFactory(new PropertyValueFactory<Device,String>("name"));
 	        devicePublishFrequency.setCellValueFactory(new PropertyValueFactory<>("publishFrequency"));
 	        deviceMessageSize.setCellValueFactory(new PropertyValueFactory<>("messageSize"));
 
@@ -292,7 +302,7 @@ public class Controller implements Initializable {
 	                btn.setOnAction((ActionEvent event) -> {
 	                    Device data = getTableView().getItems().get(getIndex());
 	                    System.out.println("deleted: " + data);
-	                    DataParser.deleteModel("devices", data.getDeviceId());
+	                    DataParser.deleteModel("devices", data.getId());
 	                    deviceTable.getItems().remove(data);
 						
 	                });
@@ -318,10 +328,10 @@ public class Controller implements Initializable {
 	}
 
 	public void initializeAppsPane() {
-		appName.setCellValueFactory(new PropertyValueFactory<Appl,String>("appName"));
+		appName.setCellValueFactory(new PropertyValueFactory<Application,String>("name"));
 		appPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
 		appRate.setCellValueFactory(new PropertyValueFactory<>("processingRate"));
-		appEdit.setCellFactory(param -> 	new TableCell<Appl, Void>() {
+		appEdit.setCellFactory(param -> 	new TableCell<Application, Void>() {
 			private final Button btn = new Button("Edit");
 
 			{
@@ -343,14 +353,14 @@ public class Controller implements Initializable {
 				}
 			}
 		});
-		appDelete.setCellFactory(param -> new TableCell<Appl, Void>() {
+		appDelete.setCellFactory(param -> new TableCell<Application, Void>() {
 			private final Button btn = new Button("Delete");
 
 			{
 				btn.setOnAction((ActionEvent event) -> {
-					Appl data = getTableView().getItems().get(getIndex());
+					Application data = getTableView().getItems().get(getIndex());
 					System.out.println("deleted: " + data);
-					DataParser.deleteModel("applications", data.getAppId());
+					DataParser.deleteModel("applications", data.getId());
 					appTable.getItems().remove(data);
 					
 				});
@@ -370,13 +380,13 @@ public class Controller implements Initializable {
 		});
 
 		appList = FXCollections.observableArrayList();
-		appList.addAll(DataParser.readModelFromCSv("applications", Appl.class));
+		appList.addAll(DataParser.readModelFromCSv("applications", Application.class));
 		appTable.setItems(appList);
 
 	}
 
 	public void initializeAppCatsPane() {
-		appCatName.setCellValueFactory(new PropertyValueFactory<ApplicationCategory,String>("categoryName"));
+		appCatName.setCellValueFactory(new PropertyValueFactory<ApplicationCategory,String>("name"));
 
 
         appCatEdit.setCellFactory(param -> 	new TableCell<ApplicationCategory, Void>() {
@@ -407,7 +417,7 @@ public class Controller implements Initializable {
                 btn.setOnAction((ActionEvent event) -> {
                     ApplicationCategory data = getTableView().getItems().get(getIndex());
                     System.out.println("deleted: " + data);
-                    DataParser.deleteModel("applicationCategories",data.getCategoryId());
+                    DataParser.deleteModel("applicationCategories",data.getId());
                     appCatTable.getItems().remove(data);
 					
                 });
@@ -431,8 +441,8 @@ public class Controller implements Initializable {
 
 	}
 	public void initializeTopicsPane() {
-		obName.setCellValueFactory(new PropertyValueFactory<Topic,String>("name"));
-		obEdit.setCellFactory(param -> 	new TableCell<Topic, Void>() {
+		obName.setCellValueFactory(new PropertyValueFactory<Observation,String>("name"));
+		obEdit.setCellFactory(param -> 	new TableCell<Observation, Void>() {
 			private final Button btn = new Button("Edit");
 
 			{
@@ -454,11 +464,11 @@ public class Controller implements Initializable {
 				}
 			}
 		});
-		obDelete.setCellFactory(param -> new TableCell<Topic, Void>() {
+		obDelete.setCellFactory(param -> new TableCell<Observation, Void>() {
 			private final Button btn = new Button("Delete");
 			{
 				btn.setOnAction((ActionEvent event) -> {
-					Topic data = getTableView().getItems().get(getIndex());
+					Observation data = getTableView().getItems().get(getIndex());
 					System.out.println("deleted: " + data);
 					DataParser.deleteModel("observations",data.getId());
 					obTable.getItems().remove(data);
@@ -479,7 +489,7 @@ public class Controller implements Initializable {
 		});
 
 		obList = FXCollections.observableArrayList();
-		obList.addAll(DataParser.readModelFromCSv("observations",Topic.class));
+		obList.addAll(DataParser.readModelFromCSv("observations",Observation.class));
 		obTable.setItems(obList);
 
 	}
@@ -510,6 +520,11 @@ public class Controller implements Initializable {
 		if (actionEvent.getSource() == btnDevices) {
 			pnlDevices.setStyle("-fx-background-color : #FFFFFF");
 			pnlDevices.toFront();
+
+		}
+		if (actionEvent.getSource() == btnGenerator) {
+			pnlGenerator.setStyle("-fx-background-color : #FFFFFF");
+			pnlGenerator.toFront();
 
 		}
 	}
@@ -571,18 +586,14 @@ public class Controller implements Initializable {
 		String path = openFileChooser();
 		if(path != null && !path.isEmpty())
 		dataPathId.setText(path);
-		else {
-			dataPathId.setText("Please choose a valid path");
-		}
+	
 	}
 	
 	public void chooseDestinationFile() {
 		String path = openCsvChooser();
 		if(path != null && !path.isEmpty())
 		dirPathId.setText(path);
-		else {
-			dirPathId.setText("Please choose a valid file");
-		}
+
 	}
 
 public void simulate() {
@@ -650,7 +661,7 @@ public void simulate() {
 				counter++;
 				while ((nextRecord = csvReader.readNext()) != null) {
 					counter++;
-					if (nextRecord[0].equals(device.getDeviceId()))
+					if (nextRecord[0].equals(device.getId()))
 						return counter;
 				}
 
@@ -663,39 +674,43 @@ public void simulate() {
 		return -1;
 	}
 
-//	public void saveDevicesToFile(Set<Device> devs) {
-//		File file = new File(System.getProperty("user.dir")+"\\resources\\deletetest.csv");
-//
-//		Iterator<Device> iterator = devs.iterator();
-//
-//		try {
-//			FileWriter outputfile = new FileWriter(file);
-//
-//			CSVWriter writer = new CSVWriter(outputfile);
-//			while (iterator.hasNext()) {
-//				Device dev = iterator.next();
-//				String[] data = { dev.getDeviceId(), dev.getDevicename(), dev.getDeviceType(), dev.getDeviceType() };
-//				writer.writeNext(data);
-//			}
-//
-//			writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
-	public void saveAppsToFile(Set<Appl> apps) {
+    @FXML
+    void chooseNGSIOutput(ActionEvent event) {
+    	String path = openFileChooser();
+		if(path != null && !path.isEmpty())
+		ngsiOutputPath.setText(path);
+		
+		
+    }
+
+    @FXML
+    void generate(ActionEvent event) {
+    	if (ngsiOutputPath.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Please choose a valid path");
+			alert.showAndWait();
+			return;
+		}
+		NGSIConverter.generateNGSIfromCsv(ngsiOutputPath.getText());
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("NGSI files generated successfully");
+		alert.showAndWait();
+
+    }
+
+	public void saveAppsToFile(Set<Application> apps) {
 		File file = new File(System.getProperty("user.dir")+"\\resources\\deletetest.csv");
 
-		Iterator<Appl> iterator = apps.iterator();
+		Iterator<Application> iterator = apps.iterator();
 
 		try {
 			FileWriter outputfile = new FileWriter(file);
 
 			CSVWriter writer = new CSVWriter(outputfile);
 			while (iterator.hasNext()) {
-				Appl app = iterator.next();
-				String[] data = { app.getAppId(), app.getAppName(), app.getApplicationCategory().getCategoryId(),
+				Application app = iterator.next();
+				String[] data = { app.getId(), app.getName(), app.getApplicationCategory(),
 						app.getProcessingRate() + "" };
 				writer.writeNext(data);
 			}
@@ -717,7 +732,7 @@ public void simulate() {
 			stage.setScene(new Scene(root));
 			stage.initOwner(windows.get(0));
 			stage.initModality(Modality.APPLICATION_MODAL); 
-			ObservationController controller=fxmlLoader.getController();
+			AddObservationController controller=fxmlLoader.getController();
 			if(obData!=null) {
 				
 			controller.initData(obData);
@@ -797,7 +812,7 @@ public void simulate() {
 			stage.setScene(new Scene(root));
 			stage.initOwner(windows.get(0));
 			stage.initModality(Modality.APPLICATION_MODAL); 
-			AppController controller=fxmlLoader.getController();
+			AddAppController controller=fxmlLoader.getController();
 			if(appData!=null) {
 				
 			controller.initData(appData);
@@ -837,7 +852,7 @@ public void simulate() {
 			stage.setScene(new Scene(root));
 			stage.initOwner(windows.get(0));
 			stage.initModality(Modality.APPLICATION_MODAL); 
-			AppCatController controller=fxmlLoader.getController();
+			AddAppCategoryController controller=fxmlLoader.getController();
 			if(appCatData!=null) {
 				
 			controller.initData(appCatData);
@@ -916,10 +931,10 @@ public void simulate() {
 		appCatList.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
 		appCatTable.setItems(appCatList);	
 		appList.clear();
-		appList.addAll(DataParser.readModelFromCSv("applications", Appl.class));
+		appList.addAll(DataParser.readModelFromCSv("applications", Application.class));
 		appTable.setItems(appList);	
 		obList.clear();
-		obList.addAll(DataParser.readModelFromCSv("observations", Topic.class));
+		obList.addAll(DataParser.readModelFromCSv("observations", Observation.class));
 		obTable.setItems(obList);
 	                
 	            });

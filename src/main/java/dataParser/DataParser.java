@@ -102,56 +102,56 @@ public class DataParser {
 				String[] data = line.split(",");
 				if (T == Device.class){
 				Device device = new Device();
-				device.setDeviceId(data[0]);
-				device.setDeviceName(data[1]);
+				device.setId(data[0]);
+				device.setName(data[1]);
 				device.setPublishFrequency(Integer.parseInt(data[2]));
 				device.setMessageSize(Double.parseDouble(data[3]));
-				device.setDistribution(data[4]);
+				device.setDataDistribution(data[4]);
 				String[] topics = data[5].split(";");
-				List<Topic> deviceTopics = new ArrayList<>();
+				List<String> deviceTopics = new ArrayList<>();
 				for (String topic : topics) {
-					deviceTopics.add(new Topic(topic));
+					deviceTopics.add(topic);
 				}
-				device.setPublishesTo(deviceTopics);
+				device.setCapturesObservation(deviceTopics);
 				items.add((T) device);
 				}
-				else if (T == Topic.class){
-					Topic topic = new Topic();
+				else if (T == Observation.class){
+					Observation topic = new Observation();
 					topic.setId(data[0]);
 					topic.setName(data[1]);
 					String[] publishers = data[2].split(";");
-					List<Device> topicPublishers = new ArrayList<>();
+					List<String> topicPublishers = new ArrayList<>();
 					for (String publisher : publishers) {
-						topicPublishers.add(new Device(publisher));
+						topicPublishers.add(publisher);
 					}
-					topic.setPublishers(topicPublishers);
+					topic.setIsCapturedBy(topicPublishers);
 					String[] subscribers = data[3].split(";");
-					List<Appl> topicSubscribers = new ArrayList<>();
+					List<String> topicSubscribers = new ArrayList<>();
 					for (String subscriber : subscribers) {
-						topicSubscribers.add(new Appl(subscriber));
+						topicSubscribers.add(subscriber);
 					}
-					topic.setSubscribers(topicSubscribers);
+					topic.setIsRecievedBy(topicSubscribers);
 					items.add((T) topic);
 				}
 				else if(T==ApplicationCategory.class) {
 					ApplicationCategory appCategory = new ApplicationCategory();
-					appCategory.setCategoryId(data[0]);
-					appCategory.setCategoryName(data[1]);
+					appCategory.setId(data[0]);
+					appCategory.setName(data[1]);
 					items.add((T) appCategory);
 				}
-				else if(T==Appl.class) {
-					Appl app = new Appl();
-					app.setAppId(data[0]);
-					app.setAppName(data[1]);
+				else if(T==Application.class) {
+					Application app = new Application();
+					app.setId(data[0]);
+					app.setName(data[1]);
 					app.setPriority(Integer.parseInt(data[2]));
 					app.setProcessingRate(Double.parseDouble(data[3]));
-					app.setApplicationCategory(new ApplicationCategory(data[4]));
+					app.setApplicationCategory(data[4]);
 					String[] topics = data[5].split(";");
-					List<Topic> appTopics = new ArrayList<>();
+					List<String> appTopics = new ArrayList<>();
 					for (String topic : topics) {
-						appTopics.add(new Topic(topic));
+						appTopics.add(topic);
 					}
-					app.setSubscribesTo(appTopics);
+					app.setRecievesObservation(appTopics);
 
 					items.add((T) app);
 				}

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.UUID;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -23,7 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import customControls.*;
 import guimodel.Device;
-import guimodel.Topic;
+import guimodel.Observation;
 import dataParser.DataParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,15 +43,17 @@ public class AddDeviceController extends BaseAddController {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id= new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
+		id.setText("urn:ngsi-ld:edict:Device:"+UUID.randomUUID().toString());
+		id.setDisable(true);
 		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
 		publishFrequency= new LabeledTextField("Publish Frequency",LabeledTextField.TYPE_NUM);
 		messageSize= new LabeledTextField("Message Size",LabeledTextField.TYPE_NUM);
 		distribution=  new LabeledListView<String>("Distribution",FXCollections.observableArrayList("Deterministic","Exponential"));
-		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Topic.class);
+		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Observation.class);
 		ObservableList<String> topicsIds = FXCollections.observableArrayList();
 		for(Object topic:observations) {
-			if(topic instanceof Topic) {
-				topicsIds.add(((Topic) topic).getId());	
+			if(topic instanceof Observation) {
+				topicsIds.add(((Observation) topic).getId());	
 			}
 			
 		}
@@ -59,11 +63,11 @@ public class AddDeviceController extends BaseAddController {
 		
 	}
 	public void initData(Device device) {
-		id.setText(device.getDeviceId());
-		name.setText(device.getDeviceName());
+		id.setText(device.getId());
+		name.setText(device.getName());
 		publishFrequency.setText(((Integer)device.getPublishFrequency()).toString());
 		messageSize.setText(((Double)device.getMessageSize()).toString());
-		distribution.setSelectedItem(device.getDistribution());
+		distribution.setSelectedItem(device.getDataDistribution());
 		id.setDisable(true);
 
 		SubmitButton.setText("Edit");
