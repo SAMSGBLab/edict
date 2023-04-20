@@ -79,6 +79,7 @@ public class AddAppController  extends BaseAddController{
 		priotity.setText(((Integer) app.getPriority()).toString());
 		processingRate.setText(((Integer)app.getProcessingRate()).toString());
 		applicationCategory.setSelectedItem(app.getApplicationCategory());
+		applicationTopics.setCheckedItems(app.getRecievesObservation());
 		id.setDisable(true);
 
 		SubmitButton.setText("Edit");

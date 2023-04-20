@@ -18,9 +18,11 @@ public class LabeledListView<T> extends HBox {
         listView = new ListView<>();
         setSpacing(10);
         setPadding(new Insets(10));
+        listView.setPlaceholder(new Label("Select a value"));
+        listView.setMaxSize(200, 50);
         getChildren().addAll(label, listView);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        listView.setMaxSize(getMaxWidth(), 50);
+        
     }
     public LabeledListView(String labelText, ObservableList<T> items) {
         this(labelText);

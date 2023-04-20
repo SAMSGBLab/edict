@@ -68,6 +68,7 @@ public class AddDeviceController extends BaseAddController {
 		publishFrequency.setText(((Integer)device.getPublishFrequency()).toString());
 		messageSize.setText(((Integer)device.getMessageSize()).toString());
 		distribution.setSelectedItem(device.getDataDistribution());
+		topics.setCheckedItems(device.getCapturesObservation());
 		id.setDisable(true);
 
 		SubmitButton.setText("Edit");

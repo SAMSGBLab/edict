@@ -67,6 +67,8 @@ public class AddObservationController implements Initializable{
 	public void initData(Observation top) {
 		id.setText(top.getId());
 		name.setText(top.getName());
+		CapturedBy.setCheckedItems(top.getIsCapturedBy());
+		ReceivedBy.setCheckedItems(top.getIsRecievedBy());
 		id.setDisable(true);
 		
 		SubmitButton.setText("Edit");

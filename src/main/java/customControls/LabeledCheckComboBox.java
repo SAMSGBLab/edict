@@ -1,5 +1,7 @@
 package customControls;
 
+import java.util.List;
+
 import org.controlsfx.control.CheckComboBox;
 
 import javafx.collections.ObservableList;
@@ -16,6 +18,8 @@ public class LabeledCheckComboBox<T> extends HBox {
         checkComboBox = new CheckComboBox<>();
         setSpacing(10);
         setPadding(new Insets(10));
+        checkComboBox.setTitle("Select value");
+        checkComboBox.setMaxWidth(300);
         getChildren().addAll(label, checkComboBox);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     }
@@ -32,5 +36,10 @@ public class LabeledCheckComboBox<T> extends HBox {
     public ObservableList<T> getCheckedItems() {
         return checkComboBox.getCheckModel().getCheckedItems();
     }
-    
+    public void setCheckedItems(List<T> items) {
+        for (T item : items) {
+            checkComboBox.getCheckModel().check(item);
+        }
+        
+    }
 }
