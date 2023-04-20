@@ -98,7 +98,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="System ">
+				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="System Parameters">
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
@@ -254,6 +254,81 @@
                   </VBox>
 					</children>
 				</Pane>
+            <Pane fx:id="pnlGenerator" layoutX="10.0" layoutY="10.0" prefHeight="524.0" prefWidth="793.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <HBox layoutY="36.0" prefHeight="494.0" prefWidth="793.0">
+                     <children>
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="34.0" prefWidth="794.0" style="-fx-background-color: #B6D6E6;" text="Generator" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <VBox alignment="TOP_CENTER" layoutY="36.0" prefHeight="477.0" prefWidth="791.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
+                     <children>
+                        <VBox prefHeight="136.0" prefWidth="761.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose generated data location">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/folder.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fx:id="ngsiOutputPath" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
+                                    <Hyperlink layoutX="275.0" layoutY="19.0" onAction="#chooseNGSIOutput" text="choose folder" />
+                                 </children>
+                              </Pane>
+                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model will be generated in NGSI-LD notation">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" top="50.0" />
+                           </VBox.margin>
+                           <children>
+                              <Pane prefHeight="118.0" prefWidth="761.0">
+                                 <children>
+                                    <Button layoutX="280.0" layoutY="50.0" mnemonicParsing="false" onAction="#generate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Generate">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
 				<Pane fx:id="pnlOrders" prefHeight="417.0" prefWidth="669.0" style="-fx-background-color: #ffffff;">
 					<children>
 						<VBox prefHeight="614.0" prefWidth="870.0" styleClass="vbox">
@@ -268,7 +343,7 @@
 														<Image url="@images/icons8-topic-48.png" />
 													</image>
 												</ImageView>
-												<Label layoutX="82.0" layoutY="14.0" prefHeight="38.0" prefWidth="262.0" text="System Specifications" textFill="#007fa2">
+												<Label layoutX="82.0" layoutY="14.0" prefHeight="38.0" prefWidth="262.0" text="System Parameters" textFill="#007fa2">
 													<font>
 														<Font name="System Bold" size="24.0" />
 													</font>
@@ -288,148 +363,138 @@
 									</children>
 								</HBox>
 								<Line endX="390.0" opacity="0.26" startX="-397.0" stroke="DARKGRAY" />
-								<ScrollPane prefHeight="432.0" prefWidth="851.0">
+								<ScrollPane prefHeight="408.0" prefWidth="870.0">
 									<content>
-										<VBox prefWidth="779.0" styleClass="vbox">
+										<VBox fx:id="settingsBox" prefWidth="779.0" styleClass="vbox">
 											<children>
-												<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="779.0">
+												<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="842.0">
 													<children>
                                           <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
-														<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="41.0" />
-														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="317.0" spacing="2.0">
+														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="389.0" spacing="20.0">
 															<padding>
 																<Insets bottom="5.0" left="5.0" right="5.0" />
 															</padding>
 															<children>
 																<HBox alignment="BASELINE_LEFT" prefHeight="35.0" prefWidth="341.0">
 																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="26.0" />
-																		<Label prefHeight="19.0" prefWidth="187.0" text="Available Network Resources">
+																		<Label prefHeight="55.0" prefWidth="182.0" text="Available Network Resources">
 																			<font>
-																				<Font size="13.0" />
+																				<Font size="11.0" />
 																			</font>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
 																		</Label>
+																		<TextField fx:id="systemBandwidth" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="44.0" prefWidth="219.0" promptText="Enter  Available Network Resources" stylesheets="@style.css">
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin></TextField>
 																	</children>
 																</HBox>
-																<HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
-																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="20.0" />
-																		<TextField fx:id="systemBandwidth" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter  Available Network Resources" stylesheets="@style.css" />
-																	</children>
-																</HBox>
-                                                <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="378.0">
                                                    <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="25.0" />
-                                                      <Label prefHeight="19.0" prefWidth="318.0" text="Dropping Rate For Analytics Apps (In %)">
+                                                      <Label prefHeight="39.0" prefWidth="243.0" text="Dropping Rate For Analytics Apps (In %)">
                                                          <font>
-                                                            <Font size="13.0" />
+                                                            <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="306.0">
-                                                   <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="20.0" />
-                                                      <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter Dropping Rate" stylesheets="@../../resources/css/style.css" />
+                                                      <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="162.0" promptText="Enter Dropping Rate" stylesheets="@../../resources/css/style.css" />
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
                                                    <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="25.0" />
-                                                      <Label prefHeight="19.0" prefWidth="302.0" text="Dropping Rate For Video Streaming Apps (In %)">
+                                                      <Label prefHeight="42.0" prefWidth="286.0" text="Dropping Rate For Video Streaming Apps (In %)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="134.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="System Capacity">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
+                                                      <TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter System Capacity" stylesheets="@style.css" />
                                                    </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
+                                                <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="300.0" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="20.0" />
-                                                      <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="252.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Simulation Duration">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="durationField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter simulation  duration" stylesheets="@style.css" />
                                                    </children>
                                                 </HBox>
 															</children>
 														</VBox>
-														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="350.0" spacing="2.0">
+														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="374.0" spacing="20.0">
 															<padding>
-																<Insets bottom="5.0" left="5.0" right="5.0" />
+																<Insets bottom="5.0" left="5.0" right="20.0" />
 															</padding>
 															<children>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
                                                    <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="23.0" />
-                                                      <Label prefHeight="19.0" prefWidth="221.0" text="Network Allocation Policy">
+                                                      <Label prefHeight="39.0" prefWidth="240.0" text="Network Allocation Policy">
                                                          <font>
-                                                            <Font size="13.0" />
+                                                            <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
-                                                   <children>
-                                                      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="20.0" />
-                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="283.0" promptText="Enter Network Allocation Policy" stylesheets="@style.css" />
+                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="199.0" promptText="Enter Network Allocation Policy" stylesheets="@style.css" />
                                                    </children>
                                                 </HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0">
 																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="23.0" />
-																		<Label prefHeight="19.0" prefWidth="279.0" text="Dropping Rate For Realtime Apps (In %)">
-																			<font>
-																				<Font size="13.0" />
-																			</font>
+																		<Label prefHeight="46.0" prefWidth="262.0" text="Dropping Rate For Realtime Apps (In %)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
 																		</Label>
-																	</children>
-																</HBox>
-																<HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
-																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="20.0" />
-																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="280.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="141.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
 																	</children>
 																</HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
 																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="23.0" />
-																		<Label prefHeight="19.0" prefWidth="290.0" text=" Dropping Rate Ror Transactional Apps (In %)">
+																		<Label prefHeight="38.0" prefWidth="278.0" text=" Dropping Rate Ror Transactional Apps (In %)">
 																			<font>
-																				<Font size="13.0" />
+																				<Font size="11.0" />
 																			</font>
 																		</Label>
+																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="121.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
 																	</children>
 																</HBox>
-																<HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
-																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="20.0" />
-																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="280.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
-																	</children>
-																</HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Alias">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter Alias" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="296.0" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Global Message Size">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="212.0" promptText="Enter Global Message Size" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
 															</children>
-														</VBox>
-													</children>
-												</HBox>
-												<HBox fillHeight="false" prefHeight="161.0" prefWidth="779.0">
-													<children>
-														<Pane prefHeight="200.0" prefWidth="0.0" style="-fx-background-color:#ffffff;" />
-														<VBox alignment="TOP_CENTER" prefHeight="16.0" prefWidth="478.0">
-                                             <children>
-																<HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
-																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="76.0" />
-																		<Label prefHeight="38.0" prefWidth="151.0" text="System Capacity">
-																			<font>
-																				<Font size="13.0" />
-																			</font>
-																		</Label>
-																	</children>
-																</HBox>
-																<HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="210.0">
-																	<children>
-																		<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="70.0" />
-																		<TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter System Capacity" stylesheets="@style.css" />
-																	</children>
-																</HBox>
-                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="40.0" />
+                                             </HBox.margin>
 														</VBox>
 													</children>
 												</HBox>
@@ -535,88 +600,7 @@
                            <children>
                               <Pane prefHeight="118.0" prefWidth="761.0">
                                  <children>
-                                    <Button layoutX="280.0" layoutY="67.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Button>
-                                    <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulation Duration :" wrappingWidth="119.45782470703125" />
-                                    <TextField fx:id="durationField" layoutX="131.0" layoutY="10.0" promptText="20" />
-                                    <Text layoutX="293.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alias :" wrappingWidth="33.857818603515625" />
-                                    <TextField fx:id="aliasField" layoutX="332.0" layoutY="10.0" promptText="baseline" />
-                                    <Text layoutX="507.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message Size :" wrappingWidth="84.564453125" />
-                                    <TextField fx:id="messageField" layoutX="599.0" layoutY="9.0" promptText="5284000.0" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </Pane>
-            <Pane fx:id="pnlGenerator" layoutX="10.0" layoutY="10.0" prefHeight="524.0" prefWidth="793.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <HBox layoutY="36.0" prefHeight="494.0" prefWidth="793.0">
-                     <children>
-                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
-                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
-                     </children>
-                  </HBox>
-                  <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="34.0" prefWidth="794.0" style="-fx-background-color: #B6D6E6;" text="Generator" textFill="WHITE">
-                     <font>
-                        <Font name="Cambria" size="23.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Label>
-                  <VBox alignment="TOP_CENTER" layoutY="36.0" prefHeight="477.0" prefWidth="791.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
-                     <children>
-                        <VBox prefHeight="136.0" prefWidth="761.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose generated data location">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="10.0" top="15.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Text>
-                              <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
-                                 <VBox.margin>
-                                    <Insets left="10.0" right="10.0" top="5.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/folder.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text fx:id="ngsiOutputPath" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
-                                    <Hyperlink layoutX="275.0" layoutY="19.0" onAction="#chooseNGSIOutput" text="choose folder" />
-                                 </children>
-                              </Pane>
-                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model will be generated in NGSI-LD notation">
-                                 <VBox.margin>
-                                    <Insets left="15.0" top="3.0" />
-                                 </VBox.margin>
-                              </Text>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="15.0" right="15.0" />
-                           </VBox.margin>
-                        </VBox>
-                        <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
-                           <VBox.margin>
-                              <Insets left="15.0" right="15.0" top="50.0" />
-                           </VBox.margin>
-                           <children>
-                              <Pane prefHeight="118.0" prefWidth="761.0">
-                                 <children>
-                                    <Button layoutX="280.0" layoutY="50.0" mnemonicParsing="false" onAction="#generate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Generate">
+                                    <Button layoutX="266.0" layoutY="49.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>

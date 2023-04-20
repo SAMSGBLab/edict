@@ -1,2 +1,2 @@
-ob 1,ob,ab;,app 1;120;,
-ob 2,ob2,ab;ba;,app 1;,
+urn:ngsi-ld:edict:Observation:1c15549e-e60d-43e6-b7b6-31bc6fd3eb15,obs2,;,;,
+urn:ngsi-ld:edict:Observation:33b39010-8ab5-4d94-bb07-787f0afa8d60,obs1,urn:ngsi-ld:edict:Device:2aa4a4be-a610-4cf5-9ca2-f486ead3c8c8;,urn:ngsi-ld:edict:Application:afdab3f0-5900-4330-962e-b98e84b87d3c;,

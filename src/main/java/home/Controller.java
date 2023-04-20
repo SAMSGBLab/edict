@@ -261,6 +261,8 @@ public class Controller implements Initializable {
 		    	messageField.setText(newValue.replaceAll("[^\\d\\.]", ""));
 		    }
 		});
+		if(systemSpecifications.loadSystemSpecifications())
+			initializeSystemSpecifications();
 
 		initializeDevicesPane();
 		initializeAppsPane();
@@ -268,7 +270,18 @@ public class Controller implements Initializable {
 		initializeTopicsPane();
 
 	}
-
+	public void initializeSystemSpecifications () {
+		commChannelLossRT.setText(systemSpecifications.getCommChannelLossRT()+"");
+		commChannelLossTS.setText(systemSpecifications.getCommChannelLossTS()+"");
+		commChannelLossVS.setText(systemSpecifications.getCommChannelLossVS()+"");
+		commChannelLossAN.setText(systemSpecifications.getCommChannelLossAN()+"");
+		bandwidthPolicy.setText(systemSpecifications.getBandwidthPolicy()+"");
+		brokerCapacity.setText(systemSpecifications.getBrokerCapacity()+"");
+		systemBandwidth.setText(systemSpecifications.getSystemBandwidth()+"");
+		durationField.setText(systemSpecifications.getSimulationDuration()+"");
+		aliasField.setText(systemSpecifications.getAlias()+"");
+		messageField.setText(systemSpecifications.getGlobalMessageSize()+"");
+	}
 	
 	public void initializeDevicesPane() {
 	     deviceName.setCellValueFactory(new PropertyValueFactory<Device,String>("name"));
@@ -538,8 +551,16 @@ public class Controller implements Initializable {
 		systemSpecifications.setCommChannelLossRT(Integer.valueOf(commChannelLossRT.getText()));
 		systemSpecifications.setCommChannelLossTS(Integer.valueOf(commChannelLossTS.getText()));
 		systemSpecifications.setCommChannelLossVS(Integer.valueOf(commChannelLossVS.getText()));
-
-		System.out.println("saved!");
+		systemSpecifications.setSimulationDuration(Integer.valueOf(durationField.getText()));
+		systemSpecifications.setAlias(aliasField.getText());
+		systemSpecifications.setGlobalMessageSize(Double.valueOf(messageField.getText()));
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		if(systemSpecifications.saveSystemSpecifications())
+			alert.setContentText("Settings saved successfully");
+		else
+			alert.setContentText("Settings not saved ");
+		alert.showAndWait();
+	
 	}
 
 	public String openFileChooser() {
@@ -622,18 +643,24 @@ public void simulate() {
             command.add(globalMessageSize+""); 
     System.out.println("command"+command);
 	System.out.println("current dir = " + System.getProperty("user.dir"));
-	ProcessBuilder pb = new ProcessBuilder(command);
-	Process process = pb.start();
-	BufferedReader reader =
-			new BufferedReader(new InputStreamReader(process.getInputStream()));
+	Alert alert = new Alert(AlertType.INFORMATION);
+	Platform.runLater(() -> {
+		alert.setContentText("Simulation started");
+		alert.showAndWait();
+	});
+	Thread t = new Thread(() -> {
+		ProcessBuilder pb = new ProcessBuilder(command);
+		try {
+			Process process = pb.start();
+			BufferedReader reader =
+					new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-	String line;
-	while ((line = reader.readLine()) != null) {
-		System.out.println(line);
-	}
-
-
-	int exitCode = process.waitFor();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			
+			int exitCode = process.waitFor();
 
 		if (exitCode == 0) {
 			System.out.println("Process completed successfully.");
@@ -642,6 +669,18 @@ public void simulate() {
 		}
 	} 
 	catch (IOException | InterruptedException e) {
+		e.printStackTrace();
+	}
+	
+	finally {
+		Platform.runLater(() -> {
+			alert.setContentText("Simulation ended");
+			if(!alert.isShowing())
+				alert.showAndWait();
+		});
+	}});
+	t.start();
+	} catch (Exception e) {
 		e.printStackTrace();
 	}
 }

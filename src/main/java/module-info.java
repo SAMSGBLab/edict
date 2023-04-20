@@ -7,6 +7,7 @@ module edict.edict_gui {
     requires com.opencsv;
     requires org.controlsfx.controls;
 	requires com.fasterxml.jackson.databind;
+	requires java.prefs;
 
     opens customControls;
     opens home to javafx.fxml;

@@ -1,3 +1,2 @@
-dev 1,dev1,22,22,Deterministic,ob 2;
-urn:ngsi-ld:edict:Device:6c494c35-7b8a-4633-b68c-84a06dbaf0f9,Dev 3,11,22,Exponential,ob 2;,
-urn:ngsi-ld:edict:Device:871adc8a-80f9-4920-9c49-5d1fc1b7953a,Dev 4,33,22,Exponential,;,
+urn:ngsi-ld:edict:Device:2aa4a4be-a610-4cf5-9ca2-f486ead3c8c8,dev1,1122,21231,Deterministic,urn:ngsi-ld:edict:Observation:1c15549e-e60d-43e6-b7b6-31bc6fd3eb15;,
+urn:ngsi-ld:edict:Device:48862fd2-e6f9-4991-890b-014e26111fb2,Dev2,12112,1231,Deterministic,urn:ngsi-ld:edict:Observation:33b39010-8ab5-4d94-bb07-787f0afa8d60;,

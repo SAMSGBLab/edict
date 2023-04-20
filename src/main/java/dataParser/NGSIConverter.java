@@ -36,14 +36,14 @@ public class NGSIConverter {
             ArrayList<Object> list=DataParser.readModelFromCSv(model,map.get(model));
             for (Object t : list) {
                if (t instanceof Device) {
-                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Device)t).getId()+".json"), ((Device) t).toMap());
+                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Device)t).getId().replace(":", "_")+".jsonld"), ((Device) t).toMap());
                    }
                else if (t instanceof Application)
-                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Application)t).getId()+".json"), ((Application) t).toMap());
+                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Application)t).getId().replace(":", "_")+".jsonld"), ((Application) t).toMap());
                else if (t instanceof ApplicationCategory)
-                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((ApplicationCategory)t).getId()+".json"), ((ApplicationCategory) t).toMap());
+                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((ApplicationCategory)t).getId().replace(":", "_")+".jsonld"), ((ApplicationCategory) t).toMap());
                else if (t instanceof Observation)
-                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Observation)t).getId()+".json"), ((Observation) t).toMap());
+                   NGSI_parse(new File(OutputFolder+"/"+model+"/"+((Observation)t).getId().replace(":", "_")+".jsonld"), ((Observation) t).toMap());
                                
             }
         }
