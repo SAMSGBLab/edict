@@ -48,7 +48,7 @@ public class AddDeviceController extends BaseAddController {
 		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
 		publishFrequency= new LabeledTextField("Publish Frequency",LabeledTextField.TYPE_NUM);
 		messageSize= new LabeledTextField("Message Size",LabeledTextField.TYPE_NUM);
-		distribution=  new LabeledListView<String>("Distribution",FXCollections.observableArrayList("Deterministic","Exponential"));
+		distribution=  new LabeledListView<String>("Distribution",FXCollections.observableArrayList("deterministic","exponential"));
 		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Observation.class);
 		ObservableList<String> topicsIds = FXCollections.observableArrayList();
 		for(Object topic:observations) {
@@ -66,7 +66,7 @@ public class AddDeviceController extends BaseAddController {
 		id.setText(device.getId());
 		name.setText(device.getName());
 		publishFrequency.setText(((Integer)device.getPublishFrequency()).toString());
-		messageSize.setText(((Double)device.getMessageSize()).toString());
+		messageSize.setText(((Integer)device.getMessageSize()).toString());
 		distribution.setSelectedItem(device.getDataDistribution());
 		id.setDisable(true);
 

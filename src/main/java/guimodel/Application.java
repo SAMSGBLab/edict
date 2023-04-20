@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.HashMap;
 public class Application {
  enum ProcessingDistribution{
-	 Exponential,
-	 Deterministic 
+	 exponential,
+	 deterministic 
 }
 	
 	private String id;
@@ -18,7 +18,7 @@ public class Application {
 	
 	private int priority;
 	
-	private double processingRate;
+	private int processingRate;
 	private ProcessingDistribution processingDistribution;
 	
 	
@@ -29,7 +29,7 @@ public class Application {
 	}
 
 	public Application(String appId, String appName, String applicationCategory, int priority,
-			double processingRate, ProcessingDistribution processingDistribution, List<String> recievesObservation) {
+			int processingRate, ProcessingDistribution processingDistribution, List<String> recievesObservation) {
 		super();
 		this.id = appId;
 		this.name = appName;
@@ -77,11 +77,11 @@ public class Application {
 		this.priority = priority;
 	}
 
-	public double getProcessingRate() {
+	public int getProcessingRate() {
 		return processingRate;
 	}
 
-	public void setProcessingRate(double processingRate) {
+	public void setProcessingRate(int processingRate) {
 		this.processingRate = processingRate;
 	}
 
@@ -109,7 +109,6 @@ public class Application {
 		map.put("applicationCategory", tempMap("Property",applicationCategory));
 		map.put("priority", tempMap("Property",priority));
 		map.put("processingRate", tempMap("Property",processingRate));
-		map.put("processingDistribution", tempMap("Property",processingDistribution));
 		map.put("recievesObservation", tempMap("Relationship",recievesObservation));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
 		return map;

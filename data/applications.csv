@@ -1,2 +1,1 @@
-urn:ngsi-ld:edict:Application:a7d6f89c-d6e0-41d4-8264-1673fa94dec9,app1,22,22,urn:ngsi-ld:edict:ApplicationCategory:f12f096b-269c-46e2-8673-b015ee8142ed,urn:ngsi-ld:edict:Observation:33b39010-8ab5-4d94-bb07-787f0afa8d60;,
-urn:ngsi-ld:edict:Application:afdab3f0-5900-4330-962e-b98e84b87d3c,app2,222,10,urn:ngsi-ld:edict:ApplicationCategory:80e8968b-345b-4846-87c6-7e90c306122b,urn:ngsi-ld:edict:Observation:33b39010-8ab5-4d94-bb07-787f0afa8d60;urn:ngsi-ld:edict:Observation:1c15549e-e60d-43e6-b7b6-31bc6fd3eb15;,
+urn:ngsi-ld:edict:Application:c33d0348-df72-4f0a-af97-627d9b5fdb83,app1,0,1000,urn:ngsi-ld:edict:ApplicationCategory:6d0f2b42-80a2-4dd5-9373-66ab6ecfd1c3,urn:ngsi-ld:edict:Observation:a17594dc-1076-411c-a8f3-d514a9f32716;,

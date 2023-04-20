@@ -1,2 +1,1 @@
-urn:ngsi-ld:edict:Device:2aa4a4be-a610-4cf5-9ca2-f486ead3c8c8,dev1,1122,21231,Deterministic,urn:ngsi-ld:edict:Observation:1c15549e-e60d-43e6-b7b6-31bc6fd3eb15;,
-urn:ngsi-ld:edict:Device:48862fd2-e6f9-4991-890b-014e26111fb2,Dev2,12112,1231,Deterministic,urn:ngsi-ld:edict:Observation:33b39010-8ab5-4d94-bb07-787f0afa8d60;,
+urn:ngsi-ld:edict:Device:064b6b41-7a6b-41bf-91d5-b57919015593,topic1,260,200,deterministic,;,

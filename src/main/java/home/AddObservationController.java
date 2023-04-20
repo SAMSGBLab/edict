@@ -37,7 +37,7 @@ public class AddObservationController implements Initializable{
 	LabeledTextField id;
 	LabeledTextField name;
 	LabeledCheckComboBox<String> CapturedBy;
-	LabeledCheckComboBox<String> RecievedBy;
+	LabeledCheckComboBox<String> ReceivedBy;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id= new LabeledTextField("id",LabeledTextField.TYPE_TEXT);
@@ -61,8 +61,8 @@ public class AddObservationController implements Initializable{
 			}
 			
 		}
-		RecievedBy= new LabeledCheckComboBox<String>("Recieved by",FXCollections.observableArrayList(applicationsIds));
-		FormBox.getChildren().addAll(id,name,CapturedBy,RecievedBy);
+		ReceivedBy= new LabeledCheckComboBox<String>("Recieved by",FXCollections.observableArrayList(applicationsIds));
+		FormBox.getChildren().addAll(id,name,CapturedBy,ReceivedBy);
 	}
 	public void initData(Observation top) {
 		id.setText(top.getId());

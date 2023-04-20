@@ -77,7 +77,7 @@ public class AddAppController  extends BaseAddController{
 		id.setText(app.getId());
 		name.setText(app.getName());
 		priotity.setText(((Integer) app.getPriority()).toString());
-		processingRate.setText(((Double)app.getProcessingRate()).toString());
+		processingRate.setText(((Integer)app.getProcessingRate()).toString());
 		applicationCategory.setSelectedItem(app.getApplicationCategory());
 		id.setDisable(true);
 

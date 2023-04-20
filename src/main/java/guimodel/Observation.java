@@ -18,7 +18,7 @@ public class Observation {
 	
 	private List<String> isCapturedBy = new ArrayList<>(); //publishers
 	
-	private List<String> isRecievedBy = new ArrayList<>(); //subscribers
+	private List<String> isReceivedBy = new ArrayList<>(); //subscribers
 	public Observation() {
 		super();
 	}
@@ -28,7 +28,7 @@ public class Observation {
 		this.name = name;
 		this.priority = priority;
 		this.isCapturedBy = isCapturedBy;
-		this.isRecievedBy = isRecievedBy;
+		this.isReceivedBy = isRecievedBy;
 	}
 	public String getId() {
 		return id;
@@ -55,10 +55,10 @@ public class Observation {
 		this.isCapturedBy = isCapturedBy;
 	}
 	public List<String> getIsRecievedBy() {
-		return isRecievedBy;
+		return isReceivedBy;
 	}
 	public void setIsRecievedBy(List<String> isRecievedBy) {
-		this.isRecievedBy = isRecievedBy;
+		this.isReceivedBy = isRecievedBy;
 	}
 	
 	public Map<String, Object> toMap() {
@@ -67,8 +67,8 @@ public class Observation {
 		map.put("type", "Observation");
 		map.put("name",tempMap("Property",name));
 		map.put("priority", tempMap("Property",priority));
-		map.put("isCapturedBy", tempMap("RelationShip",isCapturedBy));
-		map.put("isRecievedBy", tempMap("Relationship",isRecievedBy));
+		map.put("isCapturedBy", tempMap("Relationship",isCapturedBy));
+		map.put("isReceivedBy", tempMap("Relationship",isReceivedBy));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
 		return map;
 	}

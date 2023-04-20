@@ -105,7 +105,7 @@ public class DataParser {
 				device.setId(data[0]);
 				device.setName(data[1]);
 				device.setPublishFrequency(Integer.parseInt(data[2]));
-				device.setMessageSize(Double.parseDouble(data[3]));
+				device.setMessageSize(Integer.parseInt(data[3]));
 				device.setDataDistribution(data[4]);
 				String[] topics = data[5].split(";");
 				List<String> deviceTopics = new ArrayList<>();
@@ -144,7 +144,7 @@ public class DataParser {
 					app.setId(data[0]);
 					app.setName(data[1]);
 					app.setPriority(Integer.parseInt(data[2]));
-					app.setProcessingRate(Double.parseDouble(data[3]));
+					app.setProcessingRate(Integer.parseInt(data[3]));
 					app.setApplicationCategory(data[4]);
 					String[] topics = data[5].split(";");
 					List<String> appTopics = new ArrayList<>();

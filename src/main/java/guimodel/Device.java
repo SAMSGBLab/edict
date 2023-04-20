@@ -12,7 +12,7 @@ public class Device{
 	private String id;
 	private  String name;
 	private int publishFrequency;
-	private double messageSize;
+	private int messageSize;
 	private String dataDistribution;
 	private List<String> capturesObservation;
 	
@@ -20,7 +20,7 @@ public class Device{
 		super();
 	}
 
-	public Device(String id, String name, int publishFrequency, double messageSize, String dataDistribution,
+	public Device(String id, String name, int publishFrequency, int messageSize, String dataDistribution,
 			List<String> capturesObservation) {
 		super();
 		this.id = id;
@@ -55,11 +55,11 @@ public class Device{
 		this.publishFrequency = publishFrequency;
 	}
 
-	public double getMessageSize() {
+	public int getMessageSize() {
 		return messageSize;
 	}
 
-	public void setMessageSize(double messageSize) {
+	public void setMessageSize(int messageSize) {
 		this.messageSize = messageSize;
 	}
 
