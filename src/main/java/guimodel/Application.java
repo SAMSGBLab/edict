@@ -109,7 +109,7 @@ public class Application {
 		map.put("applicationCategory", tempMap("Property",applicationCategory));
 		map.put("priority", tempMap("Property",priority));
 		map.put("processingRate", tempMap("Property",processingRate));
-		map.put("recievesObservation", tempMap("Relationship",recievesObservation));
+		map.put("receivesObservation", tempMap("Relationship",recievesObservation));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
 		return map;
 	}
