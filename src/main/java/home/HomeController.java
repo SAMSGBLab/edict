@@ -679,6 +679,7 @@ public class HomeController implements Initializable {
 			stage.setScene(new Scene(root));
 			stage.initOwner(windows.get(0));
 			stage.initModality(Modality.APPLICATION_MODAL); 
+			stage.setResizable(false);
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
