@@ -59,7 +59,7 @@ tmp/
 local.properties
 .loadpath
 .factorypath
-
+*.st
 ##############################
 ## NetBeans
 ##############################
