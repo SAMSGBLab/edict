@@ -1,3 +1,0 @@
-# EDICT
-
-To be completed

@@ -60,6 +60,7 @@ local.properties
 .loadpath
 .factorypath
 *.st
+/target/
 ##############################
 ## NetBeans
 ##############################

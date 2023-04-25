@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="1012.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.HomeController">
+	<children>
+		<VBox alignment="TOP_CENTER" layoutX="-44.0" layoutY="52.0" prefHeight="526.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="52.0">
+			<children>
+            <Pane prefHeight="17.0" prefWidth="256.0" />
+				<Button fx:id="btnSimulate" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Simulate">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/simulation.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+				<Button fx:id="btnDevices" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="IoT Devices">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/devices.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+				<Button fx:id="btnAppCat" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="App Categories">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/menu.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+				<Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Applications">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/applications.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+				<Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Observations">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/observe.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+            <Button fx:id="btnGenerator" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="32.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Generator">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/generator.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="System Parameters">
+					<graphic>
+						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@images/system.png" />
+							</image>
+						</ImageView>
+					</graphic>
+					<padding>
+						<Insets left="50.0" />
+					</padding>
+				</Button>
+			</children>
+		</VBox>
+		<StackPane layoutX="222.0" layoutY="62.0" prefHeight="492.0" prefWidth="854.0" style="-fx-background-color: #ffffff;">
+			<children>
+				<Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+					<children>
+                  <VBox alignment="TOP_CENTER" prefHeight="505.0" prefWidth="794.0" style="-fx-background-radius: 10;">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="794.0">
+                           <children>
+                              <Label layoutX="68.0" layoutY="9.0" prefHeight="38.0" prefWidth="251.0" text="Observations" textFill="#007fa2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/icons8-sorting-52.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddObservation" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add observation" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="422.0" prefWidth="794.0">
+                           <children>
+                              <TableView fx:id="obTable" layoutY="-3.0" prefHeight="426.0" prefWidth="794.0">
+                                 <columns>
+                                    <TableColumn fx:id="obName" prefWidth="472.0" text="Name" />
+                                    <TableColumn fx:id="obEdit" minWidth="0.0" prefWidth="162.39996337890625" text="Edit" />
+                                    <TableColumn fx:id="obDelete" prefWidth="160.800048828125" text="Delete" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+					</children>
+				</Pane>
+      				<Pane fx:id="pnlAppCat" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+      					<children>
+                  <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="794.0" style="-fx-background-radius: 10;">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="794.0">
+                           <children>
+                              <Label layoutX="68.0" layoutY="9.0" prefHeight="38.0" prefWidth="251.0" text="App Categories" textFill="#007fa2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/icons8-sorting-52.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddAppCat" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new category" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="422.0" prefWidth="794.0">
+                           <children>
+                              <TableView fx:id="appCatTable" layoutY="-3.0" prefHeight="426.0" prefWidth="794.0">
+                                 <columns>
+                                    <TableColumn fx:id="appCatName" prefWidth="472.0" text="Name" />
+                                    <TableColumn fx:id="appCatEdit" minWidth="0.0" prefWidth="162.39996337890625" text="Edit" />
+                                    <TableColumn fx:id="appCatDelete" prefWidth="160.800048828125" text="Delete" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+      					</children>
+      				</Pane>
+            <Pane fx:id="pnlDevices" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="794.0" style="-fx-background-radius: 10;">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="794.0">
+                           <children>
+                              <Label layoutX="68.0" layoutY="9.0" prefHeight="38.0" prefWidth="251.0" text="IoT devices" textFill="#007fa2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/icons8-sorting-52.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddDevice" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new device" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="422.0" prefWidth="794.0">
+                           <children>
+                              <TableView fx:id="deviceTable" layoutY="-3.0" prefHeight="426.0" prefWidth="794.0">
+                                <columns>
+                                    <TableColumn fx:id="deviceName" prefWidth="174.39996337890625" text="Name" />
+                                    <TableColumn fx:id="devicePublishFrequency" prefWidth="209.60000610351562" text="Publish frequency (in sec)" />
+                                    <TableColumn fx:id="deviceMessageSize" prefWidth="152.79998779296875" text="Message size (in B)" />
+                                    <TableColumn fx:id="deviceEdit" prefWidth="110.4000244140625" text="Edit" />
+                                    <TableColumn fx:id="deviceDelete" prefWidth="146.40008544921875" text="Delete" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+				<Pane fx:id="pnlApplication" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+					<children>
+                  <VBox alignment="TOP_CENTER" prefHeight="542.0" prefWidth="794.0" style="-fx-background-radius: 10;">
+                     <children>
+                        <Pane prefHeight="68.0" prefWidth="794.0">
+                           <children>
+                              <Label layoutX="68.0" layoutY="9.0" prefHeight="38.0" prefWidth="251.0" text="Applications" textFill="#007fa2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/icons8-sorting-52.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddApp" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add applications" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="422.0" prefWidth="794.0">
+                           <children>
+                              <TableView fx:id="appTable" layoutY="-3.0" prefHeight="426.0" prefWidth="794.0">
+                                 <columns>
+                                    <TableColumn fx:id="appName" prefWidth="114.66671752929688" text="Name" />
+                                    <TableColumn fx:id="appPriority" prefWidth="273.0666198730469" text="Priority" />
+                                    <TableColumn fx:id="appRate" prefWidth="105.066650390625" text="Processing Rate" />
+                                    <TableColumn fx:id="appEdit" minWidth="0.0" prefWidth="146.9334716796875" text="Edit" />
+                                    <TableColumn fx:id="appDelete" prefWidth="151.5999755859375" text="Delete" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+					</children>
+				</Pane>
+            <Pane fx:id="pnlGenerator" layoutX="10.0" layoutY="10.0" prefHeight="524.0" prefWidth="793.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <HBox layoutY="36.0" prefHeight="494.0" prefWidth="793.0">
+                     <children>
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="34.0" prefWidth="794.0" style="-fx-background-color: #B6D6E6;" text="Generator" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <VBox alignment="TOP_CENTER" layoutY="36.0" prefHeight="477.0" prefWidth="791.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
+                     <children>
+                        <VBox prefHeight="136.0" prefWidth="761.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose generated data location">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/folder.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fx:id="ngsiOutputPath" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
+                                    <Hyperlink layoutX="275.0" layoutY="19.0" onAction="#chooseNGSIOutput" text="choose folder" />
+                                 </children>
+                              </Pane>
+                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model will be generated in NGSI-LD notation">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" top="50.0" />
+                           </VBox.margin>
+                           <children>
+                              <Pane prefHeight="118.0" prefWidth="761.0">
+                                 <children>
+                                    <Button layoutX="280.0" layoutY="50.0" mnemonicParsing="false" onAction="#generate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Generate">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+				<Pane fx:id="pnlOrders" prefHeight="417.0" prefWidth="669.0" style="-fx-background-color: #ffffff;">
+					<children>
+						<VBox prefHeight="614.0" prefWidth="870.0" styleClass="vbox">
+							<children>
+								<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="794.0">
+									<children>
+                              <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+										<Pane prefHeight="102.0" prefWidth="854.0">
+											<children>
+												<ImageView fitHeight="76.0" fitWidth="90.0" layoutX="68.0" layoutY="40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@images/icons8-topic-48.png" />
+													</image>
+												</ImageView>
+												<Label layoutX="82.0" layoutY="14.0" prefHeight="38.0" prefWidth="262.0" text="System Parameters" textFill="#007fa2">
+													<font>
+														<Font name="System Bold" size="24.0" />
+													</font>
+												</Label>
+												<Label layoutX="82.0" layoutY="42.0" opacity="0.87" prefHeight="38.0" prefWidth="151.0" text="Specify System Parameters" textFill="DARKGRAY">
+													<font>
+														<Font size="11.0" />
+													</font>
+												</Label>
+												<Button layoutX="560.0" layoutY="20.0" mnemonicParsing="false" onAction="#saveSystemSpecifications" prefHeight="41.0" prefWidth="129.0" style="-fx-border-radius: 30; -fx-background-color: #007fa2;" styleClass="button1" stylesheets="@style.css" text="Save" textAlignment="CENTER">
+													<font>
+														<Font name="System Bold" size="15.0" />
+													</font>
+												</Button>
+											</children>
+										</Pane>
+									</children>
+								</HBox>
+								<Line endX="390.0" opacity="0.26" startX="-397.0" stroke="DARKGRAY" />
+								<ScrollPane prefHeight="408.0" prefWidth="870.0">
+									<content>
+										<VBox fx:id="settingsBox" prefWidth="779.0" styleClass="vbox">
+											<children>
+												<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="842.0">
+													<children>
+                                          <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="389.0" spacing="20.0">
+															<padding>
+																<Insets bottom="5.0" left="5.0" right="5.0" />
+															</padding>
+															<children>
+																<HBox alignment="BASELINE_LEFT" prefHeight="35.0" prefWidth="341.0">
+																	<children>
+																		<Label prefHeight="55.0" prefWidth="182.0" text="Available Network Resources">
+																			<font>
+																				<Font size="11.0" />
+																			</font>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                         <padding>
+                                                            <Insets top="10.0" />
+                                                         </padding>
+																		</Label>
+																		<TextField fx:id="systemBandwidth" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="44.0" prefWidth="219.0" promptText="Enter  Available Network Resources" stylesheets="@style.css">
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin></TextField>
+																	</children>
+																</HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="378.0">
+                                                   <children>
+                                                      <Label prefHeight="39.0" prefWidth="243.0" text="Dropping Rate For Analytics Apps (In %)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="162.0" promptText="Enter Dropping Rate" stylesheets="@../../resources/css/style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="42.0" prefWidth="286.0" text="Dropping Rate For Video Streaming Apps (In %)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="134.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="System Capacity">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter System Capacity" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="300.0" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Simulation Duration">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="durationField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter simulation  duration" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+															</children>
+														</VBox>
+														<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="374.0" spacing="20.0">
+															<padding>
+																<Insets bottom="5.0" left="5.0" right="20.0" />
+															</padding>
+															<children>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="39.0" prefWidth="240.0" text="Network Allocation Policy">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="199.0" promptText="Enter Network Allocation Policy" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+																<HBox alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0">
+																	<children>
+																		<Label prefHeight="46.0" prefWidth="262.0" text="Dropping Rate For Realtime Apps (In %)">
+                                                         <font>
+                                                            <Font size="11.0" />
+                                                         </font>
+																		</Label>
+																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="141.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																	</children>
+																</HBox>
+																<HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
+																	<children>
+																		<Label prefHeight="38.0" prefWidth="278.0" text=" Dropping Rate Ror Transactional Apps (In %)">
+																			<font>
+																				<Font size="11.0" />
+																			</font>
+																		</Label>
+																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="121.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																	</children>
+																</HBox>
+                                                <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Alias">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="41.0" prefWidth="250.0" promptText="Enter Alias" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="296.0" prefHeight="18.0" prefWidth="478.0">
+                                                   <children>
+                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Global Message Size">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="212.0" promptText="Enter Global Message Size" stylesheets="@style.css" />
+                                                   </children>
+                                                </HBox>
+															</children>
+                                             <HBox.margin>
+                                                <Insets right="40.0" />
+                                             </HBox.margin>
+														</VBox>
+													</children>
+												</HBox>
+											</children>
+										</VBox>
+									</content>
+								</ScrollPane>
+							</children>
+						</VBox>
+					</children>
+				</Pane>
+            <Pane fx:id="pnlSmlSettings" prefHeight="524.0" prefWidth="793.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <HBox layoutY="36.0" prefHeight="494.0" prefWidth="793.0">
+                     <children>
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                        <Line endX="254.0" opacity="0.26" startX="254.0" startY="575.2929077148438" stroke="DARKGRAY" />
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="34.0" prefWidth="794.0" style="-fx-background-color: #B6D6E6;" text="Simulation" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria" size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <VBox alignment="TOP_CENTER" layoutY="36.0" prefHeight="477.0" prefWidth="791.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
+                     <children>
+                        <VBox prefHeight="136.0" prefWidth="761.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose data model location">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/folder.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fx:id="dataPathId" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
+                                    <Hyperlink layoutX="275.0" layoutY="19.0" onAction="#chooseDatamodelFolder" text="choose folder" />
+                                 </children>
+                              </Pane>
+                              <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model in NGSI-LD notation">
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="3.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="130.0" prefWidth="761.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" top="15.0" />
+                           </VBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose dataset destination">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Pane prefHeight="66.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="252.0" layoutY="24.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/file.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fx:id="dirPathId" fill="#a19d9d" layoutX="356.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
+                                    <Hyperlink layoutX="275.0" layoutY="20.0" onAction="#chooseDestinationFile" text="choose csv file" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <children>
+                              <Pane prefHeight="118.0" prefWidth="761.0">
+                                 <children>
+                                    <Button layoutX="266.0" layoutY="49.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+			</children>
+		</StackPane>
+      <Pane layoutX="-4.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" style="-fx-background-color: #007fa2;">
+         <children>
+            <Text fill="WHITE" layoutX="131.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDICT" wrappingWidth="286.46376037597656">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="54.0" fitWidth="48.0" layoutX="60.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/iot_logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+	</children>
+	<effect>
+		<DropShadow color="#1b1eeb" />
+	</effect>
+   <stylesheets>
+      <URL value="@../../resources/css/style.css" />
+      <URL value="@../../resources/css/textField.css" />
+   </stylesheets>
+
+</AnchorPane>
