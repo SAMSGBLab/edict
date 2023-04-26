@@ -5,9 +5,9 @@ module edict.edict_gui {
     requires org.json;
     requires org.apache.commons.lang3;
     requires org.controlsfx.controls;
+	requires com.fasterxml.jackson.annotation;
 	requires com.fasterxml.jackson.databind;
 	requires java.prefs;
-	
 
     opens customControls;
     opens home to javafx.fxml;

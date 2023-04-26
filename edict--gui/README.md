@@ -1,3 +1,1 @@
-# EDICT
-
-To be completed
+# EDICT GUI
