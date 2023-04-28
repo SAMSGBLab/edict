@@ -106,7 +106,7 @@ public class Application {
 		map.put("id", id);
 		map.put("type", "Application");
 		map.put("name", tempMap("Property",name));
-		map.put("applicationCategory", tempMap("Property",applicationCategory));
+		map.put("applicationCategory", tempMap("Relationship",applicationCategory));
 		map.put("priority", tempMap("Property",priority));
 		map.put("processingRate", tempMap("Property",processingRate));
 		map.put("receivesObservation", tempMap("Relationship",recievesObservation));

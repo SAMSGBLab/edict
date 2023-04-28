@@ -61,6 +61,7 @@ local.properties
 .factorypath
 *.st
 /target/
+*.csv
 ##############################
 ## NetBeans
 ##############################
