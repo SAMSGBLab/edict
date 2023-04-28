@@ -1,0 +1,102 @@
+.button {
+	-fx-background-color: rgb(255, 255, 255);
+	-fx-text-fill: rgb(0, 0, 0);
+}
+
+.button1 {
+	-fx-background-color: #007fa2;
+	-fx-text-fill: rgb(255, 255, 255);
+	-fx-border-radius: 50;
+	-fx-background-radius: 30;
+}
+
+.button:hover {
+	-fx-background-color:  #007fa2;
+	-fx-text-fill: #FFFFFF;
+}
+
+.button:pressed {
+	-fx-background-color: #0090e8;
+}
+
+.shadow{
+	-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 10.0);
+}
+
+.scroll-pane {
+	-fx-background-color: #FFFFFF;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+	-fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
+	-fx-background-color: transparent;
+	-fx-background-radius: 5em;
+}
+
+.scroll-pane>.corner {
+	-fx-background-color: #ffffff;
+}
+
+.text-field {
+	-fx-background-color: -fx-text-box-border, #ffffff;
+	-fx-background-insets: 0, 0 0 1 0;
+	-fx-background-radius: 0;
+	-fx-text-fill: rgb(0,0,0);
+}
+
+.text-field:focused {
+	-fx-background-color: -fx-focus-color, #CADCE8;
+	-fx-background-radius: 10;
+	-fx-border-color: transparent;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell {
+	-fx-background-color: -fx-focus-color, #ffffff;
+	-fx-border-color: transparent;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:section-header {
+	-fx-background-color: -fx-focus-color, #ffffff;
+	-fx-font: italic 10pt sans-serif;
+	-fx-padding: 4 0 4 5;
+	-fx-background-radius: 10;
+	-fx-border-color: transparent;
+	-fx-text-fill: black;
+}
+
+.field-outlined:focused {
+	-fx-border-color: transparent transparent -base transparent;
+	-fx-border-width: 0 0 2 0;
+}
+
+.combo-box-base {
+	-fx-background-color:
+		#ffffff;
+	-fx-background-insets: 0, 0 0 2 0;
+	-fx-background-radius: 0;
+	-fx-text-fill: black;
+}
+
+.vbox {
+	-fx-background-color: #FFFFFF;
+}
+
+.hbox {
+	-fx-background-color: #FFFFFF;
+}

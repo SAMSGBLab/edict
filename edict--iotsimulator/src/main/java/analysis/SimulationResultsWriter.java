@@ -130,9 +130,12 @@ public class SimulationResultsWriter {
 	}
 	
 	public void addResultsToDataset(String datasetPath, String alias) throws IOException {
+		datasetPath+="/output.csv";
 		File datasetFile = new File (datasetPath);
+
 		if (!datasetFile.exists() && !datasetFile.isDirectory()) {
 			File file = new File(datasetPath);
+			file.createNewFile();
 			FileWriter fileWriter = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(fileWriter);
 			String[] header = {"topic", "app", alias};

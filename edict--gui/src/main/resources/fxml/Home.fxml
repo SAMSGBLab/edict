@@ -30,7 +30,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/simulation.png" />
+								<Image url="@../images/simulation.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -42,7 +42,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/devices.png" />
+								<Image url="@../images/devices.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -54,7 +54,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/menu.png" />
+								<Image url="@../images/menu.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -66,7 +66,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/applications.png" />
+								<Image url="@../images/applications.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -78,7 +78,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/observe.png" />
+								<Image url="@../images/observe.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -90,7 +90,7 @@
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/generator.png" />
+                        <Image url="@../images/generator.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -102,7 +102,7 @@
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@images/system.png" />
+								<Image url="@../images/system.png" />
 							</image>
 						</ImageView>
 					</graphic>
@@ -127,7 +127,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/icons8-sorting-52.png" />
+                                    <Image url="@../images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddObservation" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add observation" />
@@ -161,7 +161,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/icons8-sorting-52.png" />
+                                    <Image url="@../images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddAppCat" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new category" />
@@ -195,7 +195,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/icons8-sorting-52.png" />
+                                    <Image url="@../images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddDevice" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add new device" />
@@ -231,7 +231,7 @@
                               </Label>
                               <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/icons8-sorting-52.png" />
+                                    <Image url="@../images/icons8-sorting-52.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="594.0" layoutY="16.0" mnemonicParsing="false" onAction="#openAddApp" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #007fa7; -fx-background-radius: 20;" text="Add applications" />
@@ -292,7 +292,7 @@
                                  <children>
                                     <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/folder.png" />
+                                          <Image url="@../images/folder.png" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="ngsiOutputPath" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
@@ -340,7 +340,7 @@
 											<children>
 												<ImageView fitHeight="76.0" fitWidth="90.0" layoutX="68.0" layoutY="40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@images/icons8-topic-48.png" />
+														<Image url="@../images/icons8-topic-48.png" />
 													</image>
 												</ImageView>
 												<Label layoutX="82.0" layoutY="14.0" prefHeight="38.0" prefWidth="262.0" text="System Parameters" textFill="#007fa2">
@@ -544,7 +544,7 @@
                                  <children>
                                     <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/folder.png" />
+                                          <Image url="@../images/folder.png" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="dataPathId" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
@@ -584,7 +584,7 @@
                                  <children>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="252.0" layoutY="24.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/file.png" />
+                                          <Image url="@../images/file.png" />
                                        </image>
                                     </ImageView>
                                     <Text fx:id="dirPathId" fill="#a19d9d" layoutX="356.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
@@ -624,7 +624,7 @@
             </Text>
             <ImageView fitHeight="54.0" fitWidth="48.0" layoutX="60.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/iot_logo.png" />
+                  <Image url="@../images/iot_logo.png" />
                </image>
             </ImageView>
          </children>

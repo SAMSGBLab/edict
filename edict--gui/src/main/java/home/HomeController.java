@@ -551,12 +551,12 @@ public class HomeController implements Initializable {
 	}
 	public String openCsvChooser() {
 		String path;
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Choose csv File");
-		chooser.getExtensionFilters().add(new ExtensionFilter("csv Files", "*.csv"));
+		DirectoryChooser chooser = new DirectoryChooser();
+		chooser.setTitle("Choose csv File Location");
+//		chooser.getExtensionFilters().add(new ExtensionFilter("csv Files", "*.csv"));
 		File defaultDirectory = new File(System.getProperty("user.dir"));
 		chooser.setInitialDirectory(defaultDirectory);
-		File selectedDirectory = chooser.showOpenDialog(new Stage());
+		File selectedDirectory = chooser.showDialog(new Stage());
 		path = selectedDirectory.getPath();
 		return path;
 	}
@@ -584,7 +584,7 @@ public class HomeController implements Initializable {
 			return;
 		}
 		
-		 String jarPath= "iotSimulator.jar";
+		 String jarPath= "iotsimulator.jar";
 		int simulationDuration= durationField.getText().isEmpty() ? 0 : Integer.valueOf(durationField.getText());
 		String alias= aliasField.getText();
 		double globalMessageSize= messageField.getText().isEmpty() ? 0 : Double.valueOf(messageField.getText());
@@ -611,7 +611,9 @@ public class HomeController implements Initializable {
 			try {
 				Process process = pb.start();
 				 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				 BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			         StringBuilder outputBuilder = new StringBuilder();
+					 StringBuilder errorOutputBuilder = new StringBuilder();
 			        String line; 
 			        while ((line = reader.readLine()) != null) {
 			            final String currentLine = line; 
@@ -623,6 +625,16 @@ public class HomeController implements Initializable {
 			                
 			            });
 			        }
+					while ((line = errorReader.readLine()) != null) {
+						final String currentLine = line;
+						Platform.runLater(() -> {
+							System.out.println(currentLine);
+							if (!alert.isShowing())
+								alert.showAndWait();
+							alert.setContentText(currentLine);
+
+						});
+					}
 				
 			int exitCode = process.waitFor();
 			if (exitCode == 0) {
@@ -681,7 +693,7 @@ public class HomeController implements Initializable {
 		FXMLLoader fxmlLoader=new FXMLLoader();
 		try {
 			List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).collect(Collectors.toList()); 	
-			fxmlLoader.setLocation((getClass().getResource(resource)));
+			fxmlLoader.setLocation((getClass().getResource("/fxml/"+resource)));
 			Parent root  = fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Add "+type);

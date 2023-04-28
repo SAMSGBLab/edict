@@ -94,7 +94,7 @@ public class DataParser {
 				System.out.println("file does not exist");
 				f.createNewFile();
 			}
-			File file = new File("data\\"+filename+".csv");
+			File file = new File("data/"+filename+".csv");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line = "";
