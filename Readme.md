@@ -18,7 +18,7 @@ OR
 - VcXsrv you can download it from [here](https://sourceforge.net/projects/vcxsrv/).
   
 <B>For linux: </B>
-<B> TODO: add the display server for linux. </B>
+- X11 server is already installed in linux.
 
 ### Installation Steps
 - Clone the repository.
@@ -33,9 +33,35 @@ docker build -t <ImageName> .
 
 ### Running the application
 - Run the docker image.
+<B> For windows: </B>
 ```
 docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v <local/path>:<path/in/docker> <ImageName>
 # example:
 # docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v /home/edict:/home edict
 ```
+<B> For linux: </B>
+
+```
+# run the following commands in the terminal to allow the docker image to access the display server
+
+export DISPLAY=:0.0
+xhost +local:docker
+
+docker run -it --rm -e  DISPLAY=$DISPLAY -v <local/path>:<path/in/docker> --net=host <ImageName>
+
+# example:
+# docker run -it --rm -e  DISPLAY=$DISPLAY -v /home/edict:/home --net=host edict
+
+```
+
+## Usage
+after running the docker image, you will see the following interface:
+
+![home screen](/images/homescreen.png)
+
+### Model Data Generation
+If you want to generate data from the model you created in this interface you can choose the data folder path in the generator part and click on generate data button.
+
+### Model Data Simulation
+If you want to simulate a model you can choose the path to the model folder in the simulator part and choose the path to the output folder and click on simulate button. 
 
