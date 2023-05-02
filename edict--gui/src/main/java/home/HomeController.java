@@ -675,15 +675,15 @@ public class HomeController implements Initializable {
 
     @FXML
     void generate(ActionEvent event) {
+    	String path=ngsiOutputPath.getText();
     	if (ngsiOutputPath.getText().isEmpty()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setContentText("Please choose a valid path");
-			alert.showAndWait();
-			return;
+    		File dir = new File("output");
+			dir.mkdirs();
+			path="./output";
 		}
-		NGSIConverter.generateNGSIfromCsv(ngsiOutputPath.getText());
+		NGSIConverter.generateNGSIfromCsv(path);
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("NGSI files generated successfully");
+		alert.setContentText("NGSI files generated successfully in :" +path);
 		alert.showAndWait();
 
     }
