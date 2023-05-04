@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -96,6 +97,18 @@
 						<Insets left="50.0" />
 					</padding>
 				</Button>
+            <Button fx:id="btnModeling" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="32.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Modeling">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/observe.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
 				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="System Parameters">
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -652,6 +665,37 @@
 						</VBox>
 					</children>
 				</Pane>
+            <Pane fx:id="pnlModeling" layoutX="10.0" layoutY="10.0" prefHeight="417.0" prefWidth="669.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <GridPane layoutX="1.0" layoutY="-3.0" prefHeight="38.0" prefWidth="822.0" style="-fx-background-color: #AAAAAA;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="121.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="130.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="140.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="0.0" prefWidth="39.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="btnaddDevice" layoutX="50.0" mnemonicParsing="false" text="Add Device">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btnaddApp" layoutX="20.0" layoutY="37.0" mnemonicParsing="false" text="Add Application" GridPane.columnIndex="1" />
+                        <Button fx:id="btnaddBroker" layoutX="131.0" layoutY="37.0" mnemonicParsing="false" text="Add broker" GridPane.columnIndex="2" GridPane.columnSpan="2" />
+                        <Button fx:id="btnDeleteEntity" mnemonicParsing="false" text="Delete" GridPane.columnIndex="7" />
+                        <Button fx:id="btnSaveEntities" layoutX="733.0" layoutY="17.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="6" />
+                     </children>
+                  </GridPane>
+                  <Pane fx:id="pnlDraw" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="842.0" />
+               </children>
+            </Pane>
 			</children>
 		</StackPane>
       <Pane layoutX="-4.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" style="-fx-background-color: #007fa2;">
