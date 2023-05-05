@@ -1,10 +1,25 @@
 package modelingEntities;
 
-public class ApplicationEntity extends BaseEntity {
+import guimodel.Application;
 
-    public ApplicationEntity(double width, double height) {
-        super(50, 20, width, height);
+public class ApplicationEntity extends BaseEntity {
+    private Application application;
+    public ApplicationEntity(double x,double y) {
+        super(x, y, 70, 70);
         this.getRectangle().setStyle("-fx-fill: #3fb0dc; -fx-stroke: #000000; -fx-stroke-width: 2px;");
         this.getEntityName().setText("Application");
+        makeDraggable(this);
+
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+    public String toString() {
+        return application.toString() + "," + super.toString();
     }
 }

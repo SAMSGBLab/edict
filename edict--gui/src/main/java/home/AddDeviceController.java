@@ -42,7 +42,6 @@ public class AddDeviceController extends BaseAddController {
 	LabeledTextField messageSize;
 	LabeledListView <String> distribution;
 	LabeledCheckComboBox<String> topics;
-	private DeviceEntity deviceEntity;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id= new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
@@ -77,9 +76,7 @@ public class AddDeviceController extends BaseAddController {
 		SubmitButton.setText("Edit");
 		
 	}
-	public void initEntity(DeviceEntity device) {
-		deviceEntity=device;
-	}
+
 	@FXML
 	public void SaveModel() {
 		Device device = new Device();
@@ -89,38 +86,10 @@ public class AddDeviceController extends BaseAddController {
 		device.setMessageSize(Integer.parseInt(messageSize.getText()));
 		device.setDataDistribution(distribution.getSelectedItem());
 		device.setCapturesObservation(topics.getCheckedItems());
-		deviceEntity.setDevice(device);
-//		String device="";
-//		for (Node node : FormBox.getChildren()) {
-//			if(node instanceof LabeledTextField) {
-//				if (((LabeledTextField) node).getText().isEmpty()) {
-//					showAlertDialog("Please fill all the fields");
-//					return;
-//				}
-//				device+=((LabeledTextField) node).getText()+",";
-//
-//			}
-//			if(node instanceof LabeledCheckComboBox) {
-//
-//				for(Object topic:((LabeledCheckComboBox) node).getCheckedItems()) {
-//					device+=topic.toString()+";";
-//				}
-//				if(((LabeledCheckComboBox) node).getCheckedItems().size()==0) {
-//					device+=";";
-//				}
-//
-//				device+=",";
-//			}
-//			if(node instanceof LabeledListView) {
-//				if (((LabeledListView) node).getSelectedItem()==null) {
-//					showAlertDialog("Please select a distribution");
-//					return;
-//				}
-//				else
-//				device+=((LabeledListView) node).getSelectedItem().toString() +",";
-//			}
-//		}
-//		DataParser.addModeltoCsv("devices",device);
+
+		DeviceEntity entity= new DeviceEntity(20,20);
+		entity.setDevice(device);
+		DataParser.addModeltoCsv("devices",entity.toString());
 		
 		  Stage stage = (Stage) SubmitButton.getScene().getWindow();
 		  stage.close();

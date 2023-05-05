@@ -104,8 +104,8 @@ public class Device{
 	@Override
 	public String toString() {
 		StringBuilder device= new StringBuilder(id + "," + name + "," + publishFrequency + "," + messageSize + "," + dataDistribution + ",");
-		if (capturesObservation == null) {
-			device.append(";,");
+		if (capturesObservation.isEmpty()) {
+			device.append(";");
 			return device.toString();
 		}
 		for(String topic:capturesObservation) {

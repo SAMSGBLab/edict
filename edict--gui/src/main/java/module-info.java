@@ -11,6 +11,7 @@ module edict.edict_gui {
 
     opens customControls;
     opens home to javafx.fxml;
+    opens modelingEntities to javafx.base,com.fasterxml.jackson.databind;
     opens guimodel to javafx.base,com.fasterxml.jackson.databind;
     exports home;
 }

@@ -44,11 +44,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -266,7 +263,12 @@ public class HomeController implements Initializable {
     private ObservableList<ApplicationCategory> appCatList;
     @FXML
     private ObservableList<Observation> obList;
-
+    @FXML
+    private ObservableList<DeviceEntity> deviceEntityList;
+    @FXML
+    private ObservableList<BrokerEntity> brokerEntityList;
+    @FXML
+    private ObservableList<ApplicationEntity> applicationEntityList;
     public Device devicedata;
     private ApplicationCategory appCatData;
     private Application appData;
@@ -294,42 +296,107 @@ public class HomeController implements Initializable {
         if (systemSpecifications.loadSystemSpecifications())
             initializeSystemSpecifications();
 
-        initializeDevicesPane();
-        initializeAppsPane();
+//        initializeDevicesPane();
+//        initializeAppsPane();
         initializeAppCatsPane();
         initializeTopicsPane();
         initializeModelingPane();
 
     }
 
+    private void loadEntities() {
+
+        pnlDraw.getChildren().clear();
+        BrokerEntity entity = new BrokerEntity();
+        pnlDraw.getChildren().add(entity);
+        deviceEntityList = FXCollections.observableArrayList();
+        deviceEntityList.addAll(DataParser.readEntityFromCsv("devices", DeviceEntity.class));
+        brokerEntityList =FXCollections.observableArrayList();
+        brokerEntityList.addAll(DataParser.readEntityFromCsv("brokers", BrokerEntity.class));
+        applicationEntityList=FXCollections.observableArrayList();
+        applicationEntityList.addAll(DataParser.readEntityFromCsv("applications", ApplicationEntity.class));
+        for (DeviceEntity deviceEntity : deviceEntityList) {
+            deviceEntity.setEntityName(deviceEntity.getDevice().getName());
+            deviceEntity.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
+                    controller.initData(deviceEntity.getDevice());
+                }
+            });
+
+            pnlDraw.getChildren().add(deviceEntity);
+        }
+        for (ApplicationEntity applicationEntity : applicationEntityList) {
+            applicationEntity.setEntityName(applicationEntity.getApplication().getName());
+            applicationEntity.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    AddAppController controller = showPanel("AddApp.fxml", "Application").getController();
+                    controller.initData(applicationEntity.getApplication());
+                }
+            });
+            pnlDraw.getChildren().add(applicationEntity);
+        }
+
+    }
+
     private void initializeModelingPane() {
+
+        loadEntities();
         btnaddDevice.setOnAction(e -> {
-            DeviceEntity entity = new DeviceEntity(70, 70);
-            pnlDraw.getChildren().add(entity);
+            openAddDevice();
         });
         btnaddApp.setOnAction(e -> {
-            ApplicationEntity entity = new ApplicationEntity(70, 70);
-            pnlDraw.getChildren().add(entity);
+            openAddApp();
         });
-        btnaddBroker.setOnAction(e -> {
-            BrokerEntity entity = new BrokerEntity(100, 100);
-            pnlDraw.getChildren().add(entity);
-        });
+
         btnDeleteEntity.setOnAction(e -> {
-            for (Node node : pnlDraw.getChildren()) {
-                if (node instanceof BaseEntity && ((BaseEntity) node).isSelected) {
-                    pnlDraw.getChildren().remove(node);
+            Thread backgroundThread = new Thread(new Runnable() {
+                public void run() {
+                    for (Node node : pnlDraw.getChildren()) {
+                        if (node instanceof BaseEntity && !((BaseEntity) node).isSelected) {
+                            continue;
+                        }
+                        if (node instanceof DeviceEntity) {
+                            DeviceEntity deviceEntity = (DeviceEntity) node;
+                            DataParser.deleteObject("devices", deviceEntity.getDevice().getId());
+                        } else if (node instanceof ApplicationEntity) {
+                            ApplicationEntity applicationEntity = (ApplicationEntity) node;
+                            DataParser.deleteObject("applications", applicationEntity.getApplication().getId());
+                        } else if (node instanceof BrokerEntity) {
+                            BrokerEntity brokerEntity = (BrokerEntity) node;
+                            DataParser.deleteObject("brokers", brokerEntity.getBrokerId());
+                        }
+                    }
+                    Platform.runLater(() -> {
+                        loadEntities();
+                    });
                 }
-            }
+            });
+
+            backgroundThread.start();
         });
         btnSaveEntities.setOnAction(e -> {
-            for (Node node : pnlDraw.getChildren()) {
-                if (node instanceof DeviceEntity) {
-                    DeviceEntity deviceEntity = (DeviceEntity) node;
-                    DataParser.addModeltoCsv("devices",deviceEntity.getDevice().toString());
+            Thread backgroundThread = new Thread(new Runnable() {
+                public void run() {
+                    for (Node node : pnlDraw.getChildren()) {
+                        if (node instanceof DeviceEntity) {
+                            DeviceEntity deviceEntity = (DeviceEntity) node;
+                            DataParser.addEntityToCsv("devices", deviceEntity.toString());
+                        } else if (node instanceof ApplicationEntity) {
+                            ApplicationEntity applicationEntity = (ApplicationEntity) node;
+                            DataParser.addEntityToCsv("applications", applicationEntity.toString());
+                        }
 
+
+                    }
+                    Platform.runLater(() -> {
+                        loadEntities();
+                    });
                 }
-            }
+            });
+
+            backgroundThread.start();
+
         });
 
 
@@ -383,7 +450,7 @@ public class HomeController implements Initializable {
                 btn.setOnAction((ActionEvent event) -> {
                     Device data = getTableView().getItems().get(getIndex());
                     System.out.println("deleted: " + data);
-                    DataParser.deleteModel("devices", data.getId());
+                    DataParser.deleteObject("devices", data.getId());
                     deviceTable.getItems().remove(data);
 
                 });
@@ -441,7 +508,7 @@ public class HomeController implements Initializable {
                 btn.setOnAction((ActionEvent event) -> {
                     Application data = getTableView().getItems().get(getIndex());
                     System.out.println("deleted: " + data);
-                    DataParser.deleteModel("applications", data.getId());
+                    DataParser.deleteObject("applications", data.getId());
                     appTable.getItems().remove(data);
 
                 });
@@ -497,7 +564,7 @@ public class HomeController implements Initializable {
                 btn.setOnAction((ActionEvent event) -> {
                     ApplicationCategory data = getTableView().getItems().get(getIndex());
                     System.out.println("deleted: " + data);
-                    DataParser.deleteModel("applicationCategories", data.getId());
+                    DataParser.deleteObject("applicationCategories", data.getId());
                     appCatTable.getItems().remove(data);
 
                 });
@@ -552,7 +619,7 @@ public class HomeController implements Initializable {
                 btn.setOnAction((ActionEvent event) -> {
                     Observation data = getTableView().getItems().get(getIndex());
                     System.out.println("deleted: " + data);
-                    DataParser.deleteModel("observations", data.getId());
+                    DataParser.deleteObject("observations", data.getId());
                     obTable.getItems().remove(data);
 
                 });
@@ -796,14 +863,14 @@ public class HomeController implements Initializable {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    updateList();
+                    loadEntities();
                 }
             });
             stage.setOnHidden(new EventHandler<WindowEvent>() {
 
                 @Override
                 public void handle(WindowEvent paramT) {
-                    updateList();
+                    loadEntities();
 
                 }
             });

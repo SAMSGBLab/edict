@@ -100,7 +100,17 @@ public class Application {
 	public void setRecievesObservation(List<String> recievesObservation) {
 		this.recievesObservation = recievesObservation;
 	}
-	
+	public String toString() {
+		StringBuilder app= new StringBuilder(id + "," + name + "," + priority + "," + processingRate +"," +applicationCategory+"," + processingDistribution);
+		if (recievesObservation.isEmpty()) {
+			app.append(";");
+		}
+		for(String s:recievesObservation) {
+			app.append(s).append(";");
+		}
+
+		return app.toString();
+	}
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);

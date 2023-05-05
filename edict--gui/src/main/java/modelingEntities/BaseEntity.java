@@ -1,5 +1,6 @@
 package modelingEntities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import home.HomeController;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -21,7 +22,9 @@ public class BaseEntity extends Pane {
     private TextField entityName;
     private double startX;
     private double startY;
+
     public boolean isSelected = false;
+
     public BaseEntity(double x, double y, double width, double height) {
         this.setLayoutX(0);
         this.setLayoutY(0);
@@ -38,7 +41,7 @@ public class BaseEntity extends Pane {
 
         entityName = new TextField();
         entityName.setLayoutX(0);
-        entityName.setLayoutY(10);
+        entityName.setLayoutY((height/2)-10);
         entityName.setText("");
         entityName.setEditable(false);
         entityName.setPrefWidth(width);
@@ -65,11 +68,11 @@ public class BaseEntity extends Pane {
         rightNode.setCenterY(height / 2);
         makeConnectable(rightNode);
 
-        this.setOnMouseClicked(event -> {
+        this.setOnMousePressed(event -> {
             isSelected = !isSelected;
             Pane parent = (Pane) this.getParent();
             for (Node n : parent.getChildren()) {
-                if(n==this)
+                if (n == this)
                     continue;
                 if (n instanceof BaseEntity) {
                     ((BaseEntity) n).isSelected = false;
@@ -81,21 +84,18 @@ public class BaseEntity extends Pane {
             } else {
                 rectangle.setStroke(Color.BLACK);
             }
-
+            startX = event.getSceneX() - getTranslateX();
+            startY = event.getSceneY() - getTranslateY();
         });
         this.getChildren().addAll(rectangle, topNode, bottomNode, leftNode, rightNode, entityName);
-        makeDraggable(this);
 
     }
 
-    private void makeDraggable(Node node) {
-        node.setOnMousePressed(e -> {
-            startX = e.getSceneX() - node.getTranslateX();
-            startY = e.getSceneY() - node.getTranslateY();
-        });
+    public void makeDraggable(Node node) {
+
 
         node.setOnMouseDragged(e -> {
-            if(!(e.getTarget()==rectangle)) {
+            if (!(e.getTarget() == rectangle)) {
                 return;
             }
             double newX = e.getSceneX() - startX;
@@ -106,47 +106,61 @@ public class BaseEntity extends Pane {
             if (newX < 0) {
                 newX = 0;
             }
-            if (newX> parent.getWidth()-100) {
-                newX = parent.getWidth()-100;
+            if (newX > parent.getWidth() - 100) {
+                newX = parent.getWidth() - 100;
             }
             if (newY < 0) {
                 newY = 0;
             }
-            if (newY  > parent.getHeight()-50) {
-                newY = parent.getHeight() -50;
+            if (newY > parent.getHeight() - 50) {
+                newY = parent.getHeight() - 50;
             }
 
             node.setTranslateX(newX);
             node.setTranslateY(newY);
         });
     }
+
     private void makeConnectable(Circle node) {
         node.setOnMousePressed(event -> {
             Arrow arrow = new Arrow(node.getCenterX(), node.getCenterY(), event.getX(), event.getY());
             getChildren().add(arrow);
         });
     }
+
+
     public Rectangle getRectangle() {
         return rectangle;
     }
 
-    public Circle getTopNode() {
-        return topNode;
+    public double getStartX() {
+        return startX;
     }
 
-    public Circle getBottomNode() {
-        return bottomNode;
+    public void setStartX(double startX) {
+        this.startX = startX;
     }
 
-    public Circle getLeftNode() {
-        return leftNode;
+    public double getStartY() {
+        return startY;
     }
 
-    public Circle getRightNode() {
-        return rightNode;
+    public void setStartY(double startY) {
+        this.startY = startY;
     }
+
 
     public TextField getEntityName() {
         return entityName;
+    }
+
+
+    public void setEntityName(String name) {
+        this.entityName.setText(name);
+    }
+
+    @Override
+    public String toString() {
+        return Math.round(this.getTranslateX() * 100.0) / 100.0+","+Math.round(this.getTranslateY() * 100.0) / 100.0;
     }
 }
