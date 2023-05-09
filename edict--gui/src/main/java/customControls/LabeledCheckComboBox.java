@@ -29,6 +29,7 @@ public class LabeledCheckComboBox<T> extends HBox {
         getItems().addAll(items);
     }
     public void setItems(ObservableList<T> items) {
+        getItems().clear();
         getItems().addAll(items);
     }
     public ObservableList<T> getItems() {
@@ -42,6 +43,9 @@ public class LabeledCheckComboBox<T> extends HBox {
             checkComboBox.getCheckModel().check(item);
         }
         
+    }
+    public CheckComboBox<T> getCheckComboBox() {
+        return checkComboBox;
     }
     public void setConverter(StringConverter converter){
         checkComboBox.setConverter(converter);

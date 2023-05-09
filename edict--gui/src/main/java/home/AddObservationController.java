@@ -9,7 +9,6 @@ import customControls.LabeledCheckComboBox;
 import customControls.LabeledTextField;
 import dataParser.DataParser;
 import guimodel.Application;
-import guimodel.ApplicationCategory;
 import guimodel.Device;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -68,7 +66,7 @@ public class AddObservationController implements Initializable{
 		id.setText(top.getId());
 		name.setText(top.getName());
 		CapturedBy.setCheckedItems(top.getIsCapturedBy());
-		ReceivedBy.setCheckedItems(top.getIsRecievedBy());
+		ReceivedBy.setCheckedItems(top.getIsReceivedBy());
 		id.setDisable(true);
 		
 		SubmitButton.setText("Edit");

@@ -688,7 +688,6 @@
                            </GridPane.margin>
                         </Button>
                         <Button fx:id="btnaddApp" layoutX="20.0" layoutY="37.0" mnemonicParsing="false" text="Add Application" GridPane.columnIndex="1" />
-                        <Button fx:id="btnaddBroker" layoutX="131.0" layoutY="37.0" mnemonicParsing="false" text="Add broker" GridPane.columnIndex="2" GridPane.columnSpan="2" />
                         <Button fx:id="btnDeleteEntity" mnemonicParsing="false" text="Delete" GridPane.columnIndex="7" />
                         <Button fx:id="btnSaveEntities" layoutX="733.0" layoutY="17.0" mnemonicParsing="false" text="Save" GridPane.columnIndex="6" />
                      </children>

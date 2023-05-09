@@ -2,12 +2,9 @@ package guimodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
-import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 public class Observation {
 	
 	private String id;
@@ -23,7 +20,7 @@ public class Observation {
 	}
 
 	public Observation(String id) {
-		this.id = "urn:ngsi-ld:edict:Device:"+id;
+		this.id = "urn:ngsi-ld:edict:Observation:"+id;
 	}
 
 	public Observation(String id, String name, List<String> isCapturedBy, List<String> isReceivedBy) {
@@ -51,10 +48,10 @@ public class Observation {
 	public void setIsCapturedBy(List<String> isCapturedBy) {
 		this.isCapturedBy = isCapturedBy;
 	}
-	public List<String> getIsRecievedBy() {
+	public List<String> getIsReceivedBy() {
 		return isReceivedBy;
 	}
-	public void setIsRecievedBy(List<String> isRecievedBy) {
+	public void setIsReceivedBy(List<String> isRecievedBy) {
 		this.isReceivedBy = isRecievedBy;
 	}
 	

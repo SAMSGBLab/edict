@@ -1,6 +1,5 @@
 package guimodel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ public class Application {
 	private ProcessingDistribution processingDistribution;
 	
 	
-	private List<String> recievesObservation;
+	private List<String> receivesObservation;
 
 	public Application() {
 		super();
@@ -37,7 +36,7 @@ public class Application {
 		this.priority = priority;
 		this.processingRate = processingRate;
 		this.processingDistribution = processingDistribution;
-		this.recievesObservation = recievesObservation;
+		this.receivesObservation = recievesObservation;
 	}
 
 	public Application(String id) {
@@ -93,19 +92,19 @@ public class Application {
 		this.processingDistribution = processingDistribution;
 	}
 
-	public List<String> getRecievesObservation() {
-		return recievesObservation;
+	public List<String> getReceivesObservation() {
+		return receivesObservation;
 	}
 
-	public void setRecievesObservation(List<String> recievesObservation) {
-		this.recievesObservation = recievesObservation;
+	public void setReceivesObservation(List<String> receivesObservation) {
+		this.receivesObservation = receivesObservation;
 	}
 	public String toString() {
-		StringBuilder app= new StringBuilder(id + "," + name + "," + priority + "," + processingRate +"," +applicationCategory+"," + processingDistribution);
-		if (recievesObservation.isEmpty()) {
+		StringBuilder app= new StringBuilder(id + "," + name + "," + priority + "," + processingRate +"," +applicationCategory+"," );
+		if (receivesObservation.isEmpty()) {
 			app.append(";");
 		}
-		for(String s:recievesObservation) {
+		for(String s: receivesObservation) {
 			app.append(s).append(";");
 		}
 
@@ -119,7 +118,7 @@ public class Application {
 		map.put("applicationCategory", tempMap("Relationship",applicationCategory));
 		map.put("priority", tempMap("Property",priority));
 		map.put("processingRate", tempMap("Property",processingRate));
-		map.put("receivesObservation", tempMap("Relationship",recievesObservation));
+		map.put("receivesObservation", tempMap("Relationship", receivesObservation));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
 		return map;
 	}

@@ -37,104 +37,117 @@ import modelingEntities.DeviceEntity;
 public class AddDeviceController extends BaseAddController {
 
 
-	LabeledTextField id;
-	LabeledTextField name;
-	LabeledTextField publishFrequency;
-	LabeledTextField messageSize;
-	LabeledListView <String> distribution;
-	LabeledCheckComboBox<Observation> topics;
-	ObservableList<Observation> observationList;
-	StringConverter<Observation> converter;
+    LabeledTextField id;
+    LabeledTextField name;
+    LabeledTextField publishFrequency;
+    LabeledTextField messageSize;
+    LabeledListView<String> distribution;
+    LabeledCheckComboBox<Observation> topics;
+    ObservableList<Observation> observationList;
+    StringConverter<Observation> converter;
+    ArrayList<Object> observations;
 
-	public void getObservations(){
-		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Observation.class);
-		observationList = FXCollections.observableArrayList();
-		observationList.addAll( observations.stream().map(obs -> (Observation) obs).collect(Collectors.toList()));
-	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		id= new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
-		id.setText("urn:ngsi-ld:edict:Device:"+UUID.randomUUID().toString());
-		id.setDisable(true);
-		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
-		publishFrequency= new LabeledTextField("Publish Frequency",LabeledTextField.TYPE_NUM);
-		messageSize= new LabeledTextField("Message Size",LabeledTextField.TYPE_NUM);
-		distribution=  new LabeledListView<String>("Distribution",FXCollections.observableArrayList("deterministic","exponential"));
-		getObservations();
+    public void getObservations() {
+        observations = DataParser.readModelFromCSv("observations", Observation.class);
+        observationList.clear();
+        observationList.addAll(observations.stream().map(obs -> (Observation) obs).collect(Collectors.toList()));
+    }
 
-		topics= new LabeledCheckComboBox<>("Observations",observationList);
-		 converter = new StringConverter<>() {
-			@Override
-			public String toString(Observation observation) {
-				return observation.getName();
-			}
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        id = new LabeledTextField("Id", LabeledTextField.TYPE_TEXT);
+        id.setText("urn:ngsi-ld:edict:Device:" + UUID.randomUUID().toString());
+        id.setDisable(true);
+        name = new LabeledTextField("Name", LabeledTextField.TYPE_TEXT);
+        publishFrequency = new LabeledTextField("Publish Frequency", LabeledTextField.TYPE_NUM);
+        messageSize = new LabeledTextField("Message Size", LabeledTextField.TYPE_NUM);
+        distribution = new LabeledListView<String>("Distribution", FXCollections.observableArrayList("deterministic", "exponential"));
+        observationList = FXCollections.observableArrayList();
 
-			@Override
-			public Observation fromString(String id) {
-				for (Observation observation : observationList) {
-					if (observation.getId().equals(id)) {
-						return observation;
-					}
-				}
-				return null;
-			}
-		};
-		topics.setConverter(converter);
-		TextField textField = new TextField();
-		Button addButton = new Button("Add");
-		addButton.setOnAction(event -> {
-			String newItem = textField.getText();
-			if (!newItem.isEmpty()) {
-				Observation ob=new Observation(UUID.randomUUID().toString());
-				ob.setName(newItem);
-				DataParser.addModeltoCsv("observations",ob.toString());
-				textField.clear();
-			}
-			getObservations();
-		});
-		HBox topicsField = new HBox(topics,textField, addButton);
-		FormBox.getChildren().addAll(id,name,publishFrequency,messageSize,distribution,topicsField);
-		
-		
-	}
-	public void initData(Device device) {
-		id.setText(device.getId());
-		name.setText(device.getName());
-		publishFrequency.setText(((Integer)device.getPublishFrequency()).toString());
-		messageSize.setText(((Integer)device.getMessageSize()).toString());
-		distribution.setSelectedItem(device.getDataDistribution());
+        getObservations();
 
-		List<Observation> selectedTopics = device.getCapturesObservation().stream()
-				.map(converter::fromString)
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
-		topics.setCheckedItems(selectedTopics);
-		id.setDisable(true);
+        topics = new LabeledCheckComboBox<>("Observations", observationList);
+        converter = new StringConverter<>() {
+            @Override
+            public String toString(Observation observation) {
+                return observation.getName();
+            }
 
-		SubmitButton.setText("Edit");
-		
-	}
-
-	@FXML
-	public void SaveModel() {
-		Device device = new Device();
-		device.setId(id.getText());
-		device.setName(name.getText());
-		device.setPublishFrequency(Integer.parseInt(publishFrequency.getText()));
-		device.setMessageSize(Integer.parseInt(messageSize.getText()));
-		device.setDataDistribution(distribution.getSelectedItem());
-		List<String> selectedIds = topics.getCheckedItems().stream()
-				.map(Observation::getId)
-				.collect(Collectors.toList());
-		device.setCapturesObservation(selectedIds);
-
-		DeviceEntity entity= new DeviceEntity(20,20);
-		entity.setDevice(device);
-		DataParser.addModeltoCsv("devices",entity.toString());
-		
-		  Stage stage = (Stage) SubmitButton.getScene().getWindow();
-		  stage.close();
+            @Override
+            public Observation fromString(String id) {
+                for (Observation observation : observationList) {
+                    if (observation.getId().equals(id)) {
+                        return observation;
+                    }
+                }
+                return null;
+            }
+        };
+        topics.setConverter(converter);
+        TextField textField = new TextField();
+        Button addButton = new Button("Add");
+        addButton.setOnAction(event -> {
+            String newItem = textField.getText();
+            if (!newItem.isEmpty()) {
+                Observation ob = new Observation(UUID.randomUUID().toString());
+                ob.setName(newItem);
+                DataParser.addModeltoCsv("observations", ob.toString());
+                textField.clear();
+            }
+            getObservations();
+            topics.setItems(observationList);
+        });
+        HBox topicsField = new HBox(topics, textField, addButton);
+        FormBox.getChildren().addAll(id, name, publishFrequency, messageSize, distribution, topicsField);
 
 
-	}
+    }
+
+    public void initData(Device device) {
+        id.setText(device.getId());
+        name.setText(device.getName());
+        publishFrequency.setText(((Integer) device.getPublishFrequency()).toString());
+        messageSize.setText(((Integer) device.getMessageSize()).toString());
+        distribution.setSelectedItem(device.getDataDistribution());
+
+        List<Observation> selectedTopics = device.getCapturesObservation().stream()
+                .map(converter::fromString)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        topics.setCheckedItems(selectedTopics);
+        id.setDisable(true);
+
+        SubmitButton.setText("Edit");
+
+    }
+
+    @FXML
+    public void SaveModel() {
+        Device device = new Device();
+        device.setId(id.getText());
+        device.setName(name.getText());
+        device.setPublishFrequency(Integer.parseInt(publishFrequency.getText()));
+        device.setMessageSize(Integer.parseInt(messageSize.getText()));
+        device.setDataDistribution(distribution.getSelectedItem());
+        List<String> selectedIds = topics.getCheckedItems().stream()
+                .map(Observation::getId)
+                .collect(Collectors.toList());
+        topics.getCheckedItems().forEach(observation -> {
+            List<String> capturedBy = observation.getIsCapturedBy();
+            capturedBy.add(device.getId());
+            observation.setIsCapturedBy(capturedBy);
+            DataParser.deleteObject("observations", observation.getId());
+            DataParser.addModeltoCsv("observations", observation.toString());
+        });
+        device.setCapturesObservation(selectedIds);
+
+        DeviceEntity entity = new DeviceEntity(20, 20);
+        entity.setDevice(device);
+        DataParser.addModeltoCsv("devices", entity.toString());
+
+        Stage stage = (Stage) SubmitButton.getScene().getWindow();
+        stage.close();
+
+
+    }
 }

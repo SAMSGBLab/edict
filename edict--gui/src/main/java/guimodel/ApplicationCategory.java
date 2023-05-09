@@ -10,7 +10,10 @@ public class ApplicationCategory {
 	public ApplicationCategory() {
 		super();
 	}
-
+	public ApplicationCategory(String id) {
+		super();
+		this.id = "urn:ngsi-ld:ApplicationCategory:"+id;
+	}
 
 	public String getId() {
 		return id;
@@ -41,5 +44,10 @@ public class ApplicationCategory {
 		else
 			map.put("value", value);
 		return map;
+	}
+
+	@Override
+	public String toString() {
+		return id + "," + name;
 	}
 }

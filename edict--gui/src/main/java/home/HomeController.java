@@ -362,9 +362,6 @@ public class HomeController implements Initializable {
                         } else if (node instanceof ApplicationEntity) {
                             ApplicationEntity applicationEntity = (ApplicationEntity) node;
                             DataParser.deleteObject("applications", applicationEntity.getApplication().getId());
-                        } else if (node instanceof BrokerEntity) {
-                            BrokerEntity brokerEntity = (BrokerEntity) node;
-                            DataParser.deleteObject("brokers", brokerEntity.getBrokerId());
                         }
                     }
                     Platform.runLater(() -> {

@@ -7,15 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import guimodel.*;
 import modelingEntities.ApplicationEntity;
-import modelingEntities.BrokerEntity;
 import modelingEntities.DeviceEntity;
+
 
 public class DataParser {
 
@@ -31,6 +29,7 @@ public class DataParser {
             bufferedWriter.write(model);
             bufferedWriter.newLine();
             bufferedWriter.close();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +45,7 @@ public class DataParser {
             bufferedWriter.write(entity);
             bufferedWriter.newLine();
             bufferedWriter.close();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,6 +66,7 @@ public class DataParser {
                 line = bufferedReader.readLine();
             }
             bufferedReader.close();
+            fileReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -89,6 +90,7 @@ public class DataParser {
                 line = bufferedReader.readLine();
             }
             bufferedReader.close();
+            fileReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -96,7 +98,6 @@ public class DataParser {
         }
         return false;
     }
-
 
 
     public static void deleteObject(String filename, String modelId) {
@@ -107,7 +108,6 @@ public class DataParser {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
             String currentLine;
-
             while ((currentLine = reader.readLine()) != null) {
                 String trimmedLine = currentLine.trim();
                 if (trimmedLine.startsWith(modelId + ",")) {
@@ -117,8 +117,9 @@ public class DataParser {
             }
             writer.close();
             reader.close();
-            inputFile.delete();
-            tempFile.renameTo(inputFile);
+            Files.delete(inputFile.toPath());
+            Files.move(tempFile.toPath(), inputFile.toPath());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,7 +173,7 @@ public class DataParser {
                     for (String subscriber : subscribers) {
                         topicSubscribers.add(subscriber);
                     }
-                    topic.setIsRecievedBy(topicSubscribers);
+                    topic.setIsReceivedBy(topicSubscribers);
                     items.add((T) topic);
                 } else if (T == ApplicationCategory.class) {
                     ApplicationCategory appCategory = new ApplicationCategory();
@@ -191,7 +192,7 @@ public class DataParser {
                     for (String topic : topics) {
                         appTopics.add(topic);
                     }
-                    app.setRecievesObservation(appTopics);
+                    app.setReceivesObservation(appTopics);
 
                     items.add((T) app);
                 } else {
@@ -199,16 +200,16 @@ public class DataParser {
                 }
             }
             bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return items;
     }
-    public static <T> ArrayList<T> readEntityFromCsv(String filename,Class T){
+
+    public static <T> ArrayList<T> readEntityFromCsv(String filename, Class T) {
         ArrayList<T> items = new ArrayList<>();
-        try{
+        try {
             File dir = new File("data");
             if (dir.mkdirs()) {
                 System.out.println("Created data dir");
@@ -222,9 +223,9 @@ public class DataParser {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = "";
-            while ((line= bufferedReader.readLine())!=null){
+            while ((line = bufferedReader.readLine()) != null) {
                 String[] data = line.split(",");
-                if(T== DeviceEntity.class){
+                if (T == DeviceEntity.class) {
                     Device device = new Device();
                     device.setId(data[0]);
                     device.setName(data[1]);
@@ -237,11 +238,10 @@ public class DataParser {
                         deviceTopics.add(topic);
                     }
                     device.setCapturesObservation(deviceTopics);
-                    DeviceEntity deviceEntity = new DeviceEntity(Double.parseDouble(data[6]),Double.parseDouble(data[7]));
+                    DeviceEntity deviceEntity = new DeviceEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]));
                     deviceEntity.setDevice(device);
                     items.add((T) deviceEntity);
-                }
-                else if (T== ApplicationEntity.class){
+                } else if (T == ApplicationEntity.class) {
                     Application app = new Application();
                     app.setId(data[0]);
                     app.setName(data[1]);
@@ -253,16 +253,18 @@ public class DataParser {
                     for (String topic : topics) {
                         appTopics.add(topic);
                     }
-                    app.setRecievesObservation(appTopics);
-                    ApplicationEntity applicationEntity = new ApplicationEntity(Double.parseDouble(data[6]),Double.parseDouble(data[7]));
+                    app.setReceivesObservation(appTopics);
+                    ApplicationEntity applicationEntity = new ApplicationEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]));
                     applicationEntity.setApplication(app);
                     items.add((T) applicationEntity);
-                }  else{
+                } else {
                     System.err.println("Error: Class not found");
                 }
             }
+            bufferedReader.close();
+            fileReader.close();
 
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
