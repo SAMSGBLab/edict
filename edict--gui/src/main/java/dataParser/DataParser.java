@@ -19,7 +19,7 @@ import modelingEntities.DeviceEntity;
 
 public class DataParser {
 
-    //change this function from csv to json
+
     public static void addModeltoCsv(String filename, String model) {
         try {
 

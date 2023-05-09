@@ -12,8 +12,7 @@ public class Observation {
 	
 	private String id;
 	private String name;
-	
-	private int priority;
+
 	
 	
 	private List<String> isCapturedBy = new ArrayList<>(); //publishers
@@ -22,14 +21,18 @@ public class Observation {
 	public Observation() {
 		super();
 	}
-	public Observation(String id, String name, int priority, List<String> isCapturedBy, List<String> isRecievedBy) {
-		super();
+
+	public Observation(String id) {
+		this.id = "urn:ngsi-ld:edict:Device:"+id;
+	}
+
+	public Observation(String id, String name, List<String> isCapturedBy, List<String> isReceivedBy) {
 		this.id = id;
 		this.name = name;
-		this.priority = priority;
 		this.isCapturedBy = isCapturedBy;
-		this.isReceivedBy = isRecievedBy;
+		this.isReceivedBy = isReceivedBy;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -41,12 +44,6 @@ public class Observation {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getPriority() {
-		return priority;
-	}
-	public void setPriority(int priority) {
-		this.priority = priority;
 	}
 	public List<String> getIsCapturedBy() {
 		return isCapturedBy;
@@ -66,7 +63,6 @@ public class Observation {
 		map.put("id", id);
 		map.put("type", "Observation");
 		map.put("name",tempMap("Property",name));
-		map.put("priority", tempMap("Property",priority));
 		map.put("isCapturedBy", tempMap("Relationship",isCapturedBy));
 		map.put("isReceivedBy", tempMap("Relationship",isReceivedBy));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
@@ -80,5 +76,27 @@ public class Observation {
 		else
 			map.put("value", value);
 		return map;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder ob= new StringBuilder(id + ',' + name + ',');
+		if(isCapturedBy.isEmpty()){
+			ob.append(";");
+		}
+		for(String device:isCapturedBy){
+			ob.append(device).append(";");
+		}
+		ob.append(',');
+		if(isReceivedBy.isEmpty()){
+			ob.append(";");
+		}
+		for(String app:isReceivedBy){
+			ob.append(app).append(";");
+		}
+		ob.append(',');
+		return ob.toString();
+
+
+	}
 }

@@ -2,6 +2,7 @@ package customControls;
 
 import java.util.List;
 
+import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
 
 import javafx.collections.ObservableList;
@@ -41,5 +42,8 @@ public class LabeledCheckComboBox<T> extends HBox {
             checkComboBox.getCheckModel().check(item);
         }
         
+    }
+    public void setConverter(StringConverter converter){
+        checkComboBox.setConverter(converter);
     }
 }
