@@ -61,8 +61,8 @@ public class Application implements Subscriber{
 	}
 	@JsonProperty("applicationCategory")
 	private void unpackApplicationCategory(Map<String, Object> categoryMap) {
-		if (categoryMap.containsKey("value")) {
-			applicationCategory = (String) categoryMap.get("value");
+		if (categoryMap.containsKey("object")) {
+			applicationCategory = (String) categoryMap.get("object");
 		}
 	}
 	@JsonProperty("receivesObservation")

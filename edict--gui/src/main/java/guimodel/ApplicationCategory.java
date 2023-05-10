@@ -12,7 +12,7 @@ public class ApplicationCategory {
 	}
 	public ApplicationCategory(String id) {
 		super();
-		this.id = "urn:ngsi-ld:ApplicationCategory:"+id;
+		this.id = "urn:ngsi-ld:edict:ApplicationCategory:"+id;
 	}
 
 	public String getId() {

@@ -70,24 +70,7 @@ import java.io.InputStreamReader;
 
 public class HomeController implements Initializable {
     @FXML
-    private VBox pnItems = null;
-
-    @FXML
-    private VBox pnDeviceItems = null;
-
-    @FXML
-    private VBox pnAppItems = null;
-
-    @FXML
-    private VBox pnAppCatItems;
-
-    @FXML
-    private Button btnOverview;
-
-    @FXML
     private Button btnDevices;
-    @FXML
-    private Button btnGenerator;
 
     @FXML
     private Button btnCustomers;
@@ -120,8 +103,6 @@ public class HomeController implements Initializable {
     @FXML
     private Pane pnlAppCat;
 
-    @FXML
-    private Pane pnlGenerator;
 
     @FXML
     private Pane pnlSmlSettings;
@@ -133,8 +114,6 @@ public class HomeController implements Initializable {
     private Button btnaddDevice;
     @FXML
     private Button btnaddApp;
-    @FXML
-    private Button btnaddBroker;
     @FXML
     private Button btnDeleteEntity;
     @FXML
@@ -216,11 +195,7 @@ public class HomeController implements Initializable {
     @FXML
     private TextField systemBandwidth;
 
-    @FXML
-    private TextField applicationCategoryId;
 
-    @FXML
-    private TextField applicationCategoryName;
 
 
     @FXML
@@ -241,17 +216,7 @@ public class HomeController implements Initializable {
     @FXML
     private Text ngsiOutputPath;
 
-    @FXML
-    private ComboBox<String> appCategory;
 
-    @FXML
-    private Canvas modelingCanvas;
-
-    @FXML
-    private org.controlsfx.control.CheckComboBox<Observation> appTopics;
-
-    @FXML
-    private org.controlsfx.control.CheckComboBox<String> qosAttList;
 
 
     private SystemSpecifications systemSpecifications = new SystemSpecifications();
@@ -275,11 +240,7 @@ public class HomeController implements Initializable {
     private Observation obData;
 
 
-    private Rectangle selectedRectangle = null;
-    private Point2D start = null;
-    private Point2D end = null;
-    private Line line = new Line();
-    private Polygon arrowhead = new Polygon();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -298,8 +259,8 @@ public class HomeController implements Initializable {
 
 //        initializeDevicesPane();
 //        initializeAppsPane();
-        initializeAppCatsPane();
-        initializeTopicsPane();
+//        initializeAppCatsPane();
+//        initializeTopicsPane();
         initializeModelingPane();
 
     }
@@ -307,6 +268,18 @@ public class HomeController implements Initializable {
     private void loadEntities() {
 
         pnlDraw.getChildren().clear();
+        int NUM_ROWS = 80;
+        int NUM_COLS = 80;
+        int CELL_SIZE = 20;
+
+        for (int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                Rectangle cell = new Rectangle(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                cell.setStroke(Color.GRAY);
+                cell.setFill(Color.WHITE);
+                pnlDraw.getChildren().add(cell);
+            }
+        }
         BrokerEntity entity = new BrokerEntity();
         pnlDraw.getChildren().add(entity);
         deviceEntityList = FXCollections.observableArrayList();
@@ -820,22 +793,21 @@ public class HomeController implements Initializable {
         }
     }
 
-    @FXML
-    void chooseNGSIOutput(ActionEvent event) {
+
+    String chooseNGSIOutput() {
         String path = openFileChooser();
         if (path != null && !path.isEmpty())
-            ngsiOutputPath.setText(path);
-
-
+            return path;
+        return null;
     }
 
     @FXML
-    void generate(ActionEvent event) {
-        String path = ngsiOutputPath.getText();
-        if (ngsiOutputPath.getText().isEmpty()) {
+    void generateNGSI(ActionEvent event) {
+        String path =chooseNGSIOutput();
+        if (path == null || path.isEmpty()) {
             File dir = new File("output");
             dir.mkdirs();
-            path = "./output";
+            path = "output";
         }
         NGSIConverter.generateNGSIfromCsv(path);
         Alert alert = new Alert(AlertType.INFORMATION);
