@@ -5,12 +5,16 @@ import home.HomeController;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseEntity extends Pane {
 
@@ -19,10 +23,10 @@ public class BaseEntity extends Pane {
     private Circle bottomNode;
     private Circle leftNode;
     private Circle rightNode;
-    private TextField entityName;
+    private Label entityName;
     private double startX;
     private double startY;
-
+    private List<Arrow> arrows;
     public boolean isSelected = false;
 
     public BaseEntity(double x, double y, double width, double height) {
@@ -31,19 +35,18 @@ public class BaseEntity extends Pane {
         this.setTranslateX(x);
         this.setTranslateY(y);
         double radius = 7;
+        arrows= new ArrayList<>();
 
-        // create the rectangle and set its properties
         rectangle = new Rectangle(width, height, Color.GRAY);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(2);
         rectangle.setX(0);
         rectangle.setY(0);
 
-        entityName = new TextField();
+        entityName = new Label();
         entityName.setLayoutX(0);
         entityName.setLayoutY((height/2)-10);
         entityName.setText("");
-        entityName.setEditable(false);
         entityName.setPrefWidth(width);
         entityName.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-alignment: center;");
 
@@ -115,6 +118,8 @@ public class BaseEntity extends Pane {
             if (newY > parent.getHeight() - 50) {
                 newY = parent.getHeight() - 50;
             }
+            double finalNewX = newX;
+            double finalNewY = newY;
 
             node.setTranslateX(newX);
             node.setTranslateY(newY);
@@ -125,32 +130,23 @@ public class BaseEntity extends Pane {
         node.setOnMousePressed(event -> {
             Arrow arrow = new Arrow(node.getCenterX(), node.getCenterY(), event.getX(), event.getY());
             getChildren().add(arrow);
+            arrows.add(arrow);
         });
     }
 
+    public List<Arrow> getArrows() {
+        return arrows;
+    }
+
+    public void setArrows(List<Arrow> arrows) {
+        this.arrows = arrows;
+    }
 
     public Rectangle getRectangle() {
         return rectangle;
     }
 
-    public double getStartX() {
-        return startX;
-    }
-
-    public void setStartX(double startX) {
-        this.startX = startX;
-    }
-
-    public double getStartY() {
-        return startY;
-    }
-
-    public void setStartY(double startY) {
-        this.startY = startY;
-    }
-
-
-    public TextField getEntityName() {
+    public Label getEntityName() {
         return entityName;
     }
 

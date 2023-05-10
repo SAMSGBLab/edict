@@ -52,5 +52,33 @@ public class Arrow extends Group {
         head.setTranslateX(endX);
         head.setTranslateY(endY);
     }
+    public void setStartX(double startX) {
+        line.setStartX(startX);
+        updateArrow();
+    }
+    public void setStartY(double startY) {
+        line.setStartY(startY);
+        updateArrow();
+    }
+    public void setEndX(double endX) {
+        line.setEndX(endX);
+        updateArrow();
+    }
+    public void setEndY(double endY) {
+        line.setEndY(endY);
+        updateArrow();
+    }
+    public Double getStartX() {
+        return line.getStartX();
+    }
+    public Double getStartY() {
+        return line.getStartY();
+    }
+    public Double getEndX() {
+        return line.getEndX();
+    }
+    public Double getEndY() {
+        return line.getEndY();
+    }
 
 }

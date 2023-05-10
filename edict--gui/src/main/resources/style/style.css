@@ -100,3 +100,7 @@
 .hbox {
 	-fx-background-color: #FFFFFF;
 }
+.banner{
+	-fx-background-color:linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #007fa2AA 0.0%, #007fa2ff 100.0%)
+
+}

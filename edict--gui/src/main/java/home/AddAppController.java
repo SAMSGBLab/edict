@@ -46,6 +46,8 @@ public class AddAppController extends BaseAddController {
     ArrayList<Object> applicationCategories;
     ObservableList<ApplicationCategory> applicationCategoriesList;
     StringConverter<ApplicationCategory> applicationCategoryConverter;
+    Double X = 70.0;
+    Double Y = 70.0;
 
     public void getObservations() {
         observations = DataParser.readModelFromCSv("observations", Observation.class);
@@ -127,7 +129,7 @@ public class AddAppController extends BaseAddController {
 
     }
 
-    public void initData(Application app) {
+    public void initData(Application app,Double x,Double y) {
         id.setText(app.getId());
         name.setText(app.getName());
         priotity.setText(((Integer) app.getPriority()).toString());
@@ -145,6 +147,8 @@ public class AddAppController extends BaseAddController {
 
         applicationTopics.setCheckedItems(selectedTopics);
         id.setDisable(true);
+        X=x;
+        Y=y;
 
         SubmitButton.setText("Edit");
 
@@ -173,7 +177,7 @@ public class AddAppController extends BaseAddController {
                 });
 
         app.setReceivesObservation(selectedIds);
-        ApplicationEntity appEntity = new ApplicationEntity(20, 20);
+        ApplicationEntity appEntity = new ApplicationEntity(X,Y);
         appEntity.setApplication(app);
         DataParser.addEntityToCsv("applications", appEntity.toString());
 

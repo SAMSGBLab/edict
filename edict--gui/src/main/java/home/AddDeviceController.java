@@ -46,6 +46,8 @@ public class AddDeviceController extends BaseAddController {
     ObservableList<Observation> observationList;
     StringConverter<Observation> converter;
     ArrayList<Object> observations;
+    Double X= 20.0;
+    Double Y= 20.0;
 
     public void getObservations() {
         observations = DataParser.readModelFromCSv("observations", Observation.class);
@@ -103,7 +105,7 @@ public class AddDeviceController extends BaseAddController {
 
     }
 
-    public void initData(Device device) {
+    public void initData(Device device,Double x,Double y) {
         id.setText(device.getId());
         name.setText(device.getName());
         publishFrequency.setText(((Integer) device.getPublishFrequency()).toString());
@@ -116,7 +118,8 @@ public class AddDeviceController extends BaseAddController {
                 .collect(Collectors.toList());
         topics.setCheckedItems(selectedTopics);
         id.setDisable(true);
-
+        X=x;
+        Y=y;
         SubmitButton.setText("Edit");
 
     }
@@ -141,7 +144,7 @@ public class AddDeviceController extends BaseAddController {
         });
         device.setCapturesObservation(selectedIds);
 
-        DeviceEntity entity = new DeviceEntity(20, 20);
+        DeviceEntity entity = new DeviceEntity(X, Y);
         entity.setDevice(device);
         DataParser.addModeltoCsv("devices", entity.toString());
 

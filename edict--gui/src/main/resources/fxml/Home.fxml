@@ -423,7 +423,7 @@
                         </Button>
                         <Button fx:id="btnaddApp" layoutX="20.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #007fa2; -fx-text-fill: #ffffff;" text="Add Application" GridPane.columnIndex="1" />
                         <Button fx:id="btnGenerate" layoutX="130.0" layoutY="17.0" mnemonicParsing="false" onAction="#generateNGSI" prefHeight="28.0" prefWidth="177.0" style="-fx-background-color: #007fa2; -fx-text-fill: #ffffff;" text="Generate NGSI-LD " GridPane.columnIndex="3" />
-                        <Button fx:id="btnDeleteEntity" mnemonicParsing="false" style="-fx-background-color: #007fa2; -fx-text-fill: #ffffff;" text="Delete" GridPane.columnIndex="7" />
+                        <Button fx:id="btnDeleteEntity" mnemonicParsing="false" style="-fx-background-color: #df0029; -fx-text-fill: #ffffff;" text="Delete" GridPane.columnIndex="7" />
                         <Button fx:id="btnSaveEntities" layoutX="733.0" layoutY="17.0" mnemonicParsing="false" style="-fx-background-color: #007fa2; -fx-text-fill: #ffffff;" text="Save Design" GridPane.columnIndex="6" />
                      </children>
                   </GridPane>
@@ -432,7 +432,7 @@
             </Pane>
 			</children>
 		</StackPane>
-      <Pane layoutX="-4.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" style="-fx-background-color: #007fa2;">
+      <Pane layoutX="-4.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="1069.0" styleClass="banner">
          <children>
             <Text fill="WHITE" layoutX="131.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDICT" wrappingWidth="286.46376037597656">
                <font>
