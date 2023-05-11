@@ -26,12 +26,14 @@ import modelingEntities.BaseEntity;
 import modelingEntities.BrokerEntity;
 import modelingEntities.DeviceEntity;
 
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -115,7 +117,6 @@ public class HomeController implements Initializable {
     private ObservableList<ApplicationEntity> applicationEntityList;
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         durationField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -151,30 +152,48 @@ public class HomeController implements Initializable {
         }
         BrokerEntity entity = new BrokerEntity();
         pnlDraw.getChildren().add(entity);
+
         deviceEntityList = FXCollections.observableArrayList();
         deviceEntityList.addAll(DataParser.readEntityFromCsv("devices", DeviceEntity.class));
-        brokerEntityList = FXCollections.observableArrayList();
-        brokerEntityList.addAll(DataParser.readEntityFromCsv("brokers", BrokerEntity.class));
         applicationEntityList = FXCollections.observableArrayList();
         applicationEntityList.addAll(DataParser.readEntityFromCsv("applications", ApplicationEntity.class));
+        ArrayList<Observation> observations = DataParser.readModelFromCSv("observations", Observation.class);
+        HashMap<String, String> observationHashMap = new HashMap<>();
+        for (Observation observation : observations) {
+            observationHashMap.put(observation.getId(), observation.getName());
+        }
         for (DeviceEntity deviceEntity : deviceEntityList) {
             deviceEntity.setEntityName(deviceEntity.getDevice().getName());
+            if (deviceEntity.getArrow() != null) {
 
-            deviceEntity.setOnMouseClicked(event -> {
+                StringBuilder Names = new StringBuilder();
+                deviceEntity.getDevice().getCapturesObservation()
+                        .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
+                deviceEntity.getArrow().getLabel().setText(String.valueOf(Names));
+                deviceEntity.getArrow().updateLabelPosition();
+            }
+            deviceEntity.getRectangle().setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
-                    controller.initData(deviceEntity.getDevice(),deviceEntity.getTranslateX(),deviceEntity.getTranslateY());
+                    controller.initData(deviceEntity.getDevice(), deviceEntity.getTranslateX(), deviceEntity.getTranslateY());
                 }
+
             });
 
             pnlDraw.getChildren().add(deviceEntity);
         }
         for (ApplicationEntity applicationEntity : applicationEntityList) {
             applicationEntity.setEntityName(applicationEntity.getApplication().getName());
-            applicationEntity.setOnMouseClicked(event -> {
+            if (applicationEntity.getArrow() != null) {
+                StringBuilder Names = new StringBuilder();
+                applicationEntity.getApplication().getReceivesObservation()
+                        .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
+                applicationEntity.getArrow().getLabel().setText(String.valueOf(Names));
+            }
+            applicationEntity.getRectangle().setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     AddAppController controller = showPanel("AddApp.fxml", "Application").getController();
-                    controller.initData(applicationEntity.getApplication(),applicationEntity.getTranslateX(),applicationEntity.getTranslateY());
+                    controller.initData(applicationEntity.getApplication(), applicationEntity.getTranslateX(), applicationEntity.getTranslateY());
                 }
             });
             pnlDraw.getChildren().add(applicationEntity);
@@ -423,6 +442,7 @@ public class HomeController implements Initializable {
         alert.showAndWait();
 
     }
+
     FXMLLoader showPanel(String resource, String type) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
@@ -446,10 +466,9 @@ public class HomeController implements Initializable {
     }
 
 
-
     @FXML
     public void openAddApp() {
-      showPanel("AddApp.fxml", "Application").getController();
+        showPanel("AddApp.fxml", "Application").getController();
     }
 
 

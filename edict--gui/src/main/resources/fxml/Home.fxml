@@ -28,7 +28,7 @@
 		<VBox alignment="TOP_CENTER" layoutX="-44.0" layoutY="52.0" prefHeight="526.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="52.0">
 			<children>
             <Pane prefHeight="17.0" prefWidth="256.0" />
-            <Button fx:id="btnModeling" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="32.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Modeling">
+            <Button fx:id="btnModeling" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="32.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" text="Modeling">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +40,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-				<Button fx:id="btnSimulate" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../style/style.css" text="Simulate">
+				<Button fx:id="btnSimulate" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" text="Simulate">
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
@@ -52,7 +52,7 @@
 						<Insets left="50.0" />
 					</padding>
 				</Button>
-				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="System Parameters">
+				<Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" text="System Parameters">
 					<graphic>
 						<ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
 							<image>
@@ -196,7 +196,7 @@
 														<Font size="11.0" />
 													</font>
 												</Label>
-												<Button layoutX="560.0" layoutY="20.0" mnemonicParsing="false" onAction="#saveSystemSpecifications" prefHeight="41.0" prefWidth="129.0" style="-fx-border-radius: 30; -fx-background-color: #007fa2;" styleClass="button1" stylesheets="@style.css" text="Save" textAlignment="CENTER">
+												<Button layoutX="560.0" layoutY="20.0" mnemonicParsing="false" onAction="#saveSystemSpecifications" prefHeight="41.0" prefWidth="129.0" style="-fx-border-radius: 30; -fx-background-color: #007fa2;" styleClass="button1" text="Save" textAlignment="CENTER">
 													<font>
 														<Font name="System Bold" size="15.0" />
 													</font>
@@ -231,7 +231,7 @@
                                                             <Insets top="10.0" />
                                                          </padding>
 																		</Label>
-																		<TextField fx:id="systemBandwidth" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="44.0" prefWidth="206.0" promptText="Enter  Available Network Resources" stylesheets="@style.css">
+																		<TextField fx:id="systemBandwidth" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="44.0" prefWidth="206.0" promptText="Enter  Available Network Resources">
                                                          <HBox.margin>
                                                             <Insets />
                                                          </HBox.margin></TextField>
@@ -249,7 +249,7 @@
                                                             <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="210.0" promptText="Enter Dropping Rate" stylesheets="@../../resources/css/style.css" />
+                                                      <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="210.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="23.0" text="❓">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -264,7 +264,7 @@
                                                             <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="209.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+                                                      <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="209.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="26.0" text="❓">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -279,7 +279,7 @@
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="216.0" promptText="Enter System Capacity" stylesheets="@style.css" />
+                                                      <TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="216.0" promptText="Enter System Capacity" />
                                                       <Label alignment="CENTER" layoutX="368.0" layoutY="14.0" prefHeight="38.0" prefWidth="28.0" text="❓">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -294,7 +294,7 @@
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="durationField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="206.0" promptText="Enter simulation  duration" stylesheets="@style.css" />
+                                                      <TextField fx:id="durationField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="206.0" promptText="Enter simulation  duration" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="34.0" text="❓">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -316,7 +316,7 @@
                                                             <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="193.0" promptText="Enter Network Allocation Policy" stylesheets="@style.css" />
+                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="193.0" promptText="Enter Network Allocation Policy" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="28.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -331,7 +331,7 @@
                                                             <Font size="11.0" />
                                                          </font>
 																		</Label>
-																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="202.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="202.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="39.0" prefWidth="27.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -346,7 +346,7 @@
 																				<Font size="11.0" />
 																			</font>
 																		</Label>
-																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="198.0" promptText="Enter Dropping Rate" stylesheets="@style.css" />
+																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="198.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="18.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -361,7 +361,7 @@
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="222.0" promptText="Enter Alias" stylesheets="@style.css" />
+                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="222.0" promptText="Enter Alias" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="23.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -376,7 +376,7 @@
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Global Message Size" stylesheets="@style.css" />
+                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Global Message Size" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="40.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
