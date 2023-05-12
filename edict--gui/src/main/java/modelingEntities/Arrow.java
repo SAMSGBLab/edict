@@ -1,11 +1,9 @@
 package modelingEntities;
 
-import javafx.scene.Cursor;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 
 public class Arrow extends Group {
     private final Line line;
@@ -23,7 +21,7 @@ public class Arrow extends Group {
         line.startYProperty().addListener((observable, oldValue, newValue) -> updateLabelPosition());
         line.endXProperty().addListener((observable, oldValue, newValue) -> updateLabelPosition());
         line.endYProperty().addListener((observable, oldValue, newValue) -> updateLabelPosition());
-        updateLabelPosition();
+        Platform.runLater(this::updateLabelPosition);
     }
     public void updateLabelPosition() {
         double startX = line.getStartX();
@@ -49,10 +47,14 @@ public class Arrow extends Group {
 
 
 
-    public void updateArrow(double newEndX, double newEndY) {
+    public void updateArrowEnd(double newEndX, double newEndY) {
         line.setEndX(newEndX);
         line.setEndY(newEndY);
 
+    }
+    public void updateArrowStart(double newStartX, double newStartY) {
+        line.setStartX(newStartX);
+        line.setStartY(newStartY);
     }
 
     public Double getStartX() {

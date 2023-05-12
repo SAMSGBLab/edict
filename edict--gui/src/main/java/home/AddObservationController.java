@@ -96,7 +96,7 @@ public class AddObservationController implements Initializable{
 				topic+=",";
 			}
 		}
-		DataParser.addModeltoCsv("observations",topic );
+		DataParser.addToCsv("observations",topic );
 		
 		  Stage stage = (Stage) SubmitButton.getScene().getWindow();
 		  stage.close();

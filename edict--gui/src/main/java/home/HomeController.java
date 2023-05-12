@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +25,6 @@ import modelingEntities.BaseEntity;
 import modelingEntities.BrokerEntity;
 import modelingEntities.DeviceEntity;
 
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -157,6 +155,12 @@ public class HomeController implements Initializable {
         deviceEntityList.addAll(DataParser.readEntityFromCsv("devices", DeviceEntity.class));
         applicationEntityList = FXCollections.observableArrayList();
         applicationEntityList.addAll(DataParser.readEntityFromCsv("applications", ApplicationEntity.class));
+        ObservableList<ApplicationCategory> applicationCategories = FXCollections.observableArrayList();
+        applicationCategories.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
+        HashMap<String, String> applicationCategoryHashMap = new HashMap<>();
+        for (ApplicationCategory applicationCategory : applicationCategories) {
+            applicationCategoryHashMap.put(applicationCategory.getId(), applicationCategory.getName());
+        }
         ArrayList<Observation> observations = DataParser.readModelFromCSv("observations", Observation.class);
         HashMap<String, String> observationHashMap = new HashMap<>();
         for (Observation observation : observations) {
@@ -184,6 +188,7 @@ public class HomeController implements Initializable {
         }
         for (ApplicationEntity applicationEntity : applicationEntityList) {
             applicationEntity.setEntityName(applicationEntity.getApplication().getName());
+            applicationEntity.getApplicationCategory().setText(applicationCategoryHashMap.get(applicationEntity.getApplication().getApplicationCategory()));
             if (applicationEntity.getArrow() != null) {
                 StringBuilder Names = new StringBuilder();
                 applicationEntity.getApplication().getReceivesObservation()
@@ -215,10 +220,10 @@ public class HomeController implements Initializable {
                     }
                     if (node instanceof DeviceEntity) {
                         DeviceEntity deviceEntity = (DeviceEntity) node;
-                        DataParser.deleteObject("devices", deviceEntity.getDevice().getId());
+                        DataParser.deleteFromCsv("devices", deviceEntity.getDevice().getId());
                     } else if (node instanceof ApplicationEntity) {
                         ApplicationEntity applicationEntity = (ApplicationEntity) node;
-                        DataParser.deleteObject("applications", applicationEntity.getApplication().getId());
+                        DataParser.deleteFromCsv("applications", applicationEntity.getApplication().getId());
                     }
                 }
                 Platform.runLater(this::loadEntities);
@@ -231,10 +236,10 @@ public class HomeController implements Initializable {
                 for (Node node : pnlDraw.getChildren()) {
                     if (node instanceof DeviceEntity) {
                         DeviceEntity deviceEntity = (DeviceEntity) node;
-                        DataParser.addEntityToCsv("devices", deviceEntity.toString());
+                        DataParser.addToCsv("devices", deviceEntity.toString());
                     } else if (node instanceof ApplicationEntity) {
                         ApplicationEntity applicationEntity = (ApplicationEntity) node;
-                        DataParser.addEntityToCsv("applications", applicationEntity.toString());
+                        DataParser.addToCsv("applications", applicationEntity.toString());
                     }
                 }
                 Platform.runLater(this::loadEntities);
@@ -267,7 +272,9 @@ public class HomeController implements Initializable {
         }
         if (actionEvent.getSource() == btnModeling) {
             pnlModeling.toFront();
-
+            for (DeviceEntity deviceEntity : deviceEntityList) {
+                deviceEntity.getArrow().updateLabelPosition();
+            }
         }
     }
 

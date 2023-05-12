@@ -46,8 +46,8 @@ public class AddAppController extends BaseAddController {
     ArrayList<Object> applicationCategories;
     ObservableList<ApplicationCategory> applicationCategoriesList;
     StringConverter<ApplicationCategory> applicationCategoryConverter;
-    Double X = 70.0;
-    Double Y = 70.0;
+    Double X = 400.0;
+    Double Y = 250.0;
 
     public void getObservations() {
         observations = DataParser.readModelFromCSv("observations", Observation.class);
@@ -97,7 +97,7 @@ public class AddAppController extends BaseAddController {
             if (!newItem.isEmpty()) {
                 ApplicationCategory ob = new ApplicationCategory(UUID.randomUUID().toString());
                 ob.setName(newItem);
-                DataParser.addModeltoCsv("applicationCategories", ob.toString());
+                DataParser.addToCsv("applicationCategories", ob.toString());
                 textField.clear();
             }
             getApplicationCategories();
@@ -171,15 +171,15 @@ public class AddAppController extends BaseAddController {
                     List<String> receivedBy = observation.getIsReceivedBy();
                     receivedBy.add(app.getId());
                     observation.setIsReceivedBy(receivedBy);
-                    DataParser.deleteObject("observations", observation.getId());
-                    DataParser.addModeltoCsv("observations", observation.toString());
+                    DataParser.deleteFromCsv("observations", observation.getId());
+                    DataParser.addToCsv("observations", observation.toString());
 
                 });
 
         app.setReceivesObservation(selectedIds);
-        ApplicationEntity appEntity = new ApplicationEntity(X,Y);
+        ApplicationEntity appEntity = new ApplicationEntity(X,Y,70,70);
         appEntity.setApplication(app);
-        DataParser.addEntityToCsv("applications", appEntity.toString());
+        DataParser.addToCsv("applications", appEntity.toString());
 
         Stage stage = (Stage) SubmitButton.getScene().getWindow();
         stage.close();

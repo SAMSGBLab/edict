@@ -1,36 +1,20 @@
 package home;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import customControls.*;
 import guimodel.Device;
 import guimodel.Observation;
 import dataParser.DataParser;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import modelingEntities.DeviceEntity;
 
@@ -93,7 +77,7 @@ public class AddDeviceController extends BaseAddController {
             if (!newItem.isEmpty()) {
                 Observation ob = new Observation(UUID.randomUUID().toString());
                 ob.setName(newItem);
-                DataParser.addModeltoCsv("observations", ob.toString());
+                DataParser.addToCsv("observations", ob.toString());
                 textField.clear();
             }
             getObservations();
@@ -139,14 +123,14 @@ public class AddDeviceController extends BaseAddController {
             List<String> capturedBy = observation.getIsCapturedBy();
             capturedBy.add(device.getId());
             observation.setIsCapturedBy(capturedBy);
-            DataParser.deleteObject("observations", observation.getId());
-            DataParser.addModeltoCsv("observations", observation.toString());
+            DataParser.deleteFromCsv("observations", observation.getId());
+            DataParser.addToCsv("observations", observation.toString());
         });
         device.setCapturesObservation(selectedIds);
 
-        DeviceEntity entity = new DeviceEntity(X, Y);
+        DeviceEntity entity = new DeviceEntity(X, Y,70,70);
         entity.setDevice(device);
-        DataParser.addModeltoCsv("devices", entity.toString());
+        DataParser.addToCsv("devices", entity.toString());
 
         Stage stage = (Stage) SubmitButton.getScene().getWindow();
         stage.close();

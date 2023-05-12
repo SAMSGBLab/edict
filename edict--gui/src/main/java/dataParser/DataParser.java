@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import guimodel.*;
 import modelingEntities.ApplicationEntity;
@@ -18,11 +19,11 @@ import modelingEntities.DeviceEntity;
 public class DataParser {
 
 
-    public static void addModeltoCsv(String filename, String model) {
+    public static void addToCsv(String filename, String model) {
         try {
 
-            if (modelExists(filename, model.split(",")[0])) {
-                deleteObject(filename, model.split(",")[0]);
+            if (Exists(filename, model.split(",")[0])) {
+                deleteFromCsv(filename, model.split(",")[0]);
             }
             FileWriter fileWriter = new FileWriter("data/" + filename + ".csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -35,47 +36,8 @@ public class DataParser {
         }
     }
 
-    public static void addEntityToCsv(String filename, String entity) {
-        try {
-            if (entityExists(filename, entity.split(",")[0])) {
-                deleteObject(filename, entity.split(",")[0]);
-            }
-            FileWriter fileWriter = new FileWriter("data/" + filename + ".csv", true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(entity);
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static Boolean modelExists(String filename, String modelId) {
-        try {
-
-            FileReader fileReader = new FileReader("data/" + filename + ".csv");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                String[] model = line.split(",");
-                if (model[0].equals(modelId)) {
-                    bufferedReader.close();
-                    return true;
-                }
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static Boolean entityExists(String filename, String entityId) {
+    private static Boolean Exists(String filename, String entityId) {
         try {
 
             FileReader fileReader = new FileReader("data/" + filename + ".csv");
@@ -100,7 +62,7 @@ public class DataParser {
     }
 
 
-    public static void deleteObject(String filename, String modelId) {
+    public static void deleteFromCsv(String filename, String modelId) {
         try {
             File inputFile = new File("data/" + filename + ".csv");
             File tempFile = new File("data/" + filename + "Temp.csv");
@@ -144,35 +106,15 @@ public class DataParser {
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (T == Device.class) {
-                    Device device = new Device();
-                    device.setId(data[0]);
-                    device.setName(data[1]);
-                    device.setPublishFrequency(Integer.parseInt(data[2]));
-                    device.setMessageSize(Integer.parseInt(data[3]));
-                    device.setDataDistribution(data[4]);
-                    String[] topics = data[5].split(";");
-                    List<String> deviceTopics = new ArrayList<>();
-                    for (String topic : topics) {
-                        deviceTopics.add(topic);
-                    }
-                    device.setCapturesObservation(deviceTopics);
-                    items.add((T) device);
-                } else if (T == Observation.class) {
+                if (T == Observation.class) {
                     Observation topic = new Observation();
                     topic.setId(data[0]);
                     topic.setName(data[1]);
                     String[] publishers = data[2].split(";");
-                    List<String> topicPublishers = new ArrayList<>();
-                    for (String publisher : publishers) {
-                        topicPublishers.add(publisher);
-                    }
+                    List<String> topicPublishers = new ArrayList<>(Arrays.asList(publishers));
                     topic.setIsCapturedBy(topicPublishers);
                     String[] subscribers = data[3].split(";");
-                    List<String> topicSubscribers = new ArrayList<>();
-                    for (String subscriber : subscribers) {
-                        topicSubscribers.add(subscriber);
-                    }
+                    List<String> topicSubscribers = new ArrayList<>(Arrays.asList(subscribers));
                     topic.setIsReceivedBy(topicSubscribers);
                     items.add((T) topic);
                 } else if (T == ApplicationCategory.class) {
@@ -180,22 +122,7 @@ public class DataParser {
                     appCategory.setId(data[0]);
                     appCategory.setName(data[1]);
                     items.add((T) appCategory);
-                } else if (T == Application.class) {
-                    Application app = new Application();
-                    app.setId(data[0]);
-                    app.setName(data[1]);
-                    app.setPriority(Integer.parseInt(data[2]));
-                    app.setProcessingRate(Integer.parseInt(data[3]));
-                    app.setApplicationCategory(data[4]);
-                    String[] topics = data[5].split(";");
-                    List<String> appTopics = new ArrayList<>();
-                    for (String topic : topics) {
-                        appTopics.add(topic);
-                    }
-                    app.setReceivesObservation(appTopics);
-
-                    items.add((T) app);
-                } else {
+                }else {
                     System.err.println("Error: Class not found");
                 }
             }
@@ -238,7 +165,8 @@ public class DataParser {
                         deviceTopics.add(topic);
                     }
                     device.setCapturesObservation(deviceTopics);
-                    DeviceEntity deviceEntity = new DeviceEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]));
+                    DeviceEntity deviceEntity = new DeviceEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]), Double.parseDouble(data[9]));
+
                     deviceEntity.setDevice(device);
                     items.add((T) deviceEntity);
                 } else if (T == ApplicationEntity.class) {
@@ -254,7 +182,7 @@ public class DataParser {
                         appTopics.add(topic);
                     }
                     app.setReceivesObservation(appTopics);
-                    ApplicationEntity applicationEntity = new ApplicationEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]));
+                    ApplicationEntity applicationEntity = new ApplicationEntity(Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]), Double.parseDouble(data[9]));
                     applicationEntity.setApplication(app);
                     items.add((T) applicationEntity);
                 } else {

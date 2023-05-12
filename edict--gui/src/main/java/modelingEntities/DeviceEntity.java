@@ -12,8 +12,8 @@ public class DeviceEntity extends BaseEntity {
 
     private Device device;
 
-    public DeviceEntity(double x, double y) {
-        super(x, y, 70, 70);
+    public DeviceEntity(double x, double y,double width,double height) {
+        super(x, y, width, height);
 
         this.getRectangle().setStyle("-fx-fill: #e59636; -fx-stroke: #000000; -fx-stroke-width: 2px;");
         this.getEntityName().setText("Device");
