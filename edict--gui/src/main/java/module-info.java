@@ -8,9 +8,11 @@ module edict.edict_gui {
 	requires com.fasterxml.jackson.annotation;
 	requires com.fasterxml.jackson.databind;
 	requires java.prefs;
+    requires com.opencsv;
 
     opens customControls;
     opens home to javafx.fxml;
+    opens modelingEntities to javafx.base,com.fasterxml.jackson.databind;
     opens guimodel to javafx.base,com.fasterxml.jackson.databind;
     exports home;
 }

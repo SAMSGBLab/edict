@@ -1,9 +1,8 @@
 package home;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import customControls.LabeledCheckComboBox;
 import customControls.LabeledListView;
@@ -15,15 +14,16 @@ import guimodel.Observation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import modelingEntities.ApplicationEntity;
 
-public class AddAppController  extends BaseAddController{
+public class AddAppController extends BaseAddController {
 
     @FXML
     private VBox FormBox;
@@ -34,96 +34,160 @@ public class AddAppController  extends BaseAddController{
     @FXML
     private Button SubmitButton;
 
-	LabeledTextField id;
-	LabeledTextField name;
-	LabeledTextField priotity;
-	LabeledTextField processingRate;
-	LabeledListView<String> applicationCategory;
-	LabeledCheckComboBox applicationTopics;
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		id= new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
-		id.setText("urn:ngsi-ld:edict:Application:"+UUID.randomUUID().toString());
-		id.setDisable(true);
-		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
-		priotity= new LabeledTextField("Priotity",LabeledTextField.TYPE_NUM);
-		processingRate= new LabeledTextField("Processing Rate",LabeledTextField.TYPE_NUM);
-		ArrayList<Object> categories = DataParser.readModelFromCSv("applicationCategories",ApplicationCategory.class);
-		ObservableList<String> categoriesIds = FXCollections.observableArrayList();
-		for(Object category:categories) {
-			if(category instanceof ApplicationCategory) {
-				categoriesIds.add(((ApplicationCategory) category).getId());	
-			}
-			
-		}
+    LabeledTextField id;
+    LabeledTextField name;
+    LabeledTextField priotity;
+    LabeledTextField processingRate;
+    LabeledListView<ApplicationCategory> applicationCategory;
+    LabeledCheckComboBox<Observation> applicationTopics;
+    ArrayList<Object> observations;
+    ObservableList<Observation> observationList;
+    StringConverter<Observation> observationConverter;
+    ArrayList<Object> applicationCategories;
+    ObservableList<ApplicationCategory> applicationCategoriesList;
+    StringConverter<ApplicationCategory> applicationCategoryConverter;
+    Double X = 400.0;
+    Double Y = 250.0;
 
-		applicationCategory= new LabeledListView("Application Category",FXCollections.observableArrayList(categoriesIds));
-		
-		ArrayList<Object> observations = DataParser.readModelFromCSv("observations",Observation.class);
-		ObservableList<String> topicsIds = FXCollections.observableArrayList();
-		for(Object topic:observations) {
-			if(topic instanceof Observation) {
-				topicsIds.add(((Observation) topic).getId());	
-			}
-			
-		}
-		applicationTopics= new LabeledCheckComboBox("Application Topics",FXCollections.observableArrayList(topicsIds));
-		FormBox.getChildren().addAll(id,name,priotity,processingRate,applicationCategory,applicationTopics);
+    public void getObservations() {
+        observations = DataParser.readModelFromCSv("observations", Observation.class);
+        observationList = FXCollections.observableArrayList();
 
-		
-		
-	}
-	public void initData(Application app) {
-		id.setText(app.getId());
-		name.setText(app.getName());
-		priotity.setText(((Integer) app.getPriority()).toString());
-		processingRate.setText(((Integer)app.getProcessingRate()).toString());
-		applicationCategory.setSelectedItem(app.getApplicationCategory());
-		applicationTopics.setCheckedItems(app.getRecievesObservation());
-		id.setDisable(true);
+        observationList.addAll(observations.stream().map(obs -> (Observation) obs).collect(Collectors.toList()));
+    }
 
-		SubmitButton.setText("Edit");
-		
-	}
+    public void getApplicationCategories() {
+        applicationCategories = DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class);
+        applicationCategoriesList = FXCollections.observableArrayList();
+        applicationCategoriesList.addAll(applicationCategories.stream().map(category -> (ApplicationCategory) category).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        id = new LabeledTextField("Id", LabeledTextField.TYPE_TEXT);
+        id.setText("urn:ngsi-ld:edict:Application:" + UUID.randomUUID().toString());
+        id.setDisable(true);
+        name = new LabeledTextField("Name", LabeledTextField.TYPE_TEXT);
+        priotity = new LabeledTextField("Priotity", LabeledTextField.TYPE_NUM);
+        processingRate = new LabeledTextField("Processing Rate", LabeledTextField.TYPE_NUM);
+        getApplicationCategories();
+        applicationCategory = new LabeledListView<>("Application Category", FXCollections.observableArrayList(applicationCategoriesList));
+        applicationCategoryConverter = new StringConverter<>() {
+            @Override
+            public String toString(ApplicationCategory applicationCategory) {
+                return applicationCategory.getName();
+            }
+
+            @Override
+            public ApplicationCategory fromString(String id) {
+                for (ApplicationCategory applicationCategory : applicationCategoriesList) {
+                    if (applicationCategory.getId().equals(id)) {
+                        return applicationCategory;
+                    }
+                }
+                return null;
+            }
+        };
+
+        applicationCategory.setConverter(applicationCategoryConverter);
+        TextField categoryName = new TextField();
+        TextField categoryCode = new TextField();
+        Button addButton = new Button("Add");
+        addButton.setOnAction(event -> {
+            String name = categoryName.getText();
+            String code = categoryCode.getText();
+            if (!name.isEmpty() && !code.isEmpty()) {
+                ApplicationCategory ac = new ApplicationCategory(UUID.randomUUID().toString());
+                ac.setName(name);
+                ac.setCode(code);
+                DataParser.addToCsv("applicationCategories", ac.toString());
+                categoryCode.clear();
+                categoryName.clear();
+            }
+            getApplicationCategories();
+            applicationCategory.setItems(applicationCategoriesList);
+        });
+        HBox applicationCategoryField = new HBox(applicationCategory, categoryName, categoryCode, addButton);
+        getObservations();
+        applicationTopics = new LabeledCheckComboBox<>("Application Topics", FXCollections.observableArrayList(observationList));
+        observationConverter = new StringConverter<>() {
+            @Override
+            public String toString(Observation observation) {
+                return observation.getName();
+            }
+
+            @Override
+            public Observation fromString(String id) {
+                for (Observation observation : observationList) {
+                    if (observation.getId().equals(id)) {
+                        return observation;
+                    }
+                }
+                return null;
+            }
+        };
+        applicationTopics.setConverter(observationConverter);
+
+        FormBox.getChildren().addAll(id, name, priotity, processingRate, applicationCategoryField, applicationTopics);
 
 
-	@FXML 
-	public void saveApp() { 
-		String app="";
-		for (Node node : FormBox.getChildren()) {
-			if(node instanceof LabeledTextField) {				
-				if (((LabeledTextField) node).getText().isEmpty()) {
-				showAlertDialog("Please fill all the fields");
-				return;	
-				}
-				app+=((LabeledTextField) node).getText()+",";
-			
-			}
-			if(node instanceof LabeledCheckComboBox) {
-				System.out.println(((LabeledCheckComboBox) node).getCheckedItems());
-				for(Object topic:((LabeledCheckComboBox) node).getCheckedItems()) {
-					app+=topic.toString()+";";
-				}
-				if(((LabeledCheckComboBox) node).getCheckedItems().size()==0) {
-					app+=";";
-				}
-				
-				app+=",";
-			}			
-			if(node instanceof LabeledListView) {
-				if (((LabeledListView) node).getSelectedItem()==null) {
-					showAlertDialog("Please select a category");
-					return;	
-				}
-				else
-				app+=((LabeledListView) node).getSelectedItem().toString() +",";
-			}
-		}
-		DataParser.addModeltoCsv("applications",app );
-		
-		  Stage stage = (Stage) SubmitButton.getScene().getWindow();
-		  stage.close();
+    }
+
+    public void initData(Application app,Double x,Double y) {
+        id.setText(app.getId());
+        name.setText(app.getName());
+        priotity.setText(((Integer) app.getPriority()).toString());
+        processingRate.setText(((Integer) app.getProcessingRate()).toString());
+        ApplicationCategory selectedCategory = applicationCategoriesList.stream()
+                .filter(category -> category.getId().equals(app.getApplicationCategory()))
+                .findFirst()
+                .orElse(null);
+        applicationCategory.setSelectedItem(selectedCategory);
+
+        List<Observation> selectedTopics = app.getReceivesObservation().stream()
+                .map(observationConverter::fromString)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        applicationTopics.setCheckedItems(selectedTopics);
+        id.setDisable(true);
+        X=x;
+        Y=y;
+
+        SubmitButton.setText("Edit");
+
+    }
 
 
-	}
+    @FXML
+    public void saveApp() {
+        Application app = new Application();
+        app.setId(id.getText());
+        app.setName(name.getText());
+        app.setPriority(Integer.parseInt(priotity.getText()));
+        app.setProcessingRate(Integer.parseInt(processingRate.getText()));
+        app.setApplicationCategory(applicationCategory.getSelectedItem().getId());
+
+        List<String> selectedIds = applicationTopics.getCheckedItems().stream()
+                .map(Observation::getId)
+                .collect(Collectors.toList());
+        applicationTopics.getCheckedItems().forEach(observation -> {
+                    List<String> receivedBy = observation.getIsReceivedBy();
+                    receivedBy.add(app.getId());
+                    observation.setIsReceivedBy(receivedBy);
+                    DataParser.deleteFromCsv("observations", observation.getId());
+                    DataParser.addToCsv("observations", observation.toString());
+
+                });
+
+        app.setReceivesObservation(selectedIds);
+        ApplicationEntity appEntity = new ApplicationEntity(X,Y,70,70);
+        appEntity.setApplication(app);
+        DataParser.addToCsv("applications", appEntity.toString());
+
+        Stage stage = (Stage) SubmitButton.getScene().getWindow();
+        stage.close();
+
+
+    }
 }

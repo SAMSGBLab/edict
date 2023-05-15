@@ -5,8 +5,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 public class LabeledListView<T> extends HBox {
     private Label label;
@@ -48,5 +50,12 @@ public class LabeledListView<T> extends HBox {
 
     public int getSelectedIndex() {
         return listView.getSelectionModel().getSelectedIndex();
+    }
+    public void setConverter(StringConverter<T> converter) {
+        listView.setCellFactory(lv -> {
+            TextFieldListCell<T> cell = new TextFieldListCell<T>();
+            cell.setConverter(converter);
+            return cell;
+        });
     }
 }

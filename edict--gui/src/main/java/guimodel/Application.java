@@ -1,11 +1,12 @@
 package guimodel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 public class Application {
- enum ProcessingDistribution{
+
+
+	enum ProcessingDistribution{
 	 exponential,
 	 deterministic 
 }
@@ -14,35 +15,34 @@ public class Application {
 	
 	private String name;
 	
-	private String applicationCategory;
-	
+
 	private int priority;
 	
 	private int processingRate;
 	private ProcessingDistribution processingDistribution;
+	private String applicationCategory;
+
 	
-	
-	private List<String> recievesObservation;
+	private List<String> receivesObservation;
 
 	public Application() {
 		super();
 	}
 
-	public Application(String appId, String appName, String applicationCategory, int priority,
-			int processingRate, ProcessingDistribution processingDistribution, List<String> recievesObservation) {
-		super();
-		this.id = appId;
-		this.name = appName;
-		this.applicationCategory = applicationCategory;
-		this.priority = priority;
-		this.processingRate = processingRate;
-		this.processingDistribution = processingDistribution;
-		this.recievesObservation = recievesObservation;
-	}
+
 
 	public Application(String id) {
 		super();
 		this.id=id;
+	}
+
+	public Application(String id, String name, int priority, int processingRate, String applicationCategory, List<String> receivesObservation) {
+		this.id = id;
+		this.name = name;
+		this.priority = priority;
+		this.processingRate = processingRate;
+		this.applicationCategory = applicationCategory;
+		this.receivesObservation = receivesObservation;
 	}
 
 	public String getId() {
@@ -93,14 +93,24 @@ public class Application {
 		this.processingDistribution = processingDistribution;
 	}
 
-	public List<String> getRecievesObservation() {
-		return recievesObservation;
+	public List<String> getReceivesObservation() {
+		return receivesObservation;
 	}
 
-	public void setRecievesObservation(List<String> recievesObservation) {
-		this.recievesObservation = recievesObservation;
+	public void setReceivesObservation(List<String> receivesObservation) {
+		this.receivesObservation = receivesObservation;
 	}
-	
+	public String toString() {
+		StringBuilder app= new StringBuilder(id + "," + name + "," + priority + "," + processingRate +"," +applicationCategory+"," );
+		if (receivesObservation.isEmpty()) {
+			app.append(";");
+		}
+		for(String s: receivesObservation) {
+			app.append(s).append(";");
+		}
+
+		return app.toString();
+	}
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -109,7 +119,7 @@ public class Application {
 		map.put("applicationCategory", tempMap("Relationship",applicationCategory));
 		map.put("priority", tempMap("Property",priority));
 		map.put("processingRate", tempMap("Property",processingRate));
-		map.put("receivesObservation", tempMap("Relationship",recievesObservation));
+		map.put("receivesObservation", tempMap("Relationship", receivesObservation));
 		map.put("@context", "https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld");
 		return map;
 	}

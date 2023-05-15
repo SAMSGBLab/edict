@@ -100,4 +100,17 @@ public class Device{
 			map.put("value", value);
 		return map;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder device= new StringBuilder(id + "," + name + "," + publishFrequency + "," + messageSize + "," + dataDistribution + ",");
+		if (capturesObservation.isEmpty()) {
+			device.append(";");
+			return device.toString();
+		}
+		for(String topic:capturesObservation) {
+			device.append(topic).append(";");
+		}
+		return device.toString();
+	}
 }

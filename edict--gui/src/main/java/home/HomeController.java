@@ -1,796 +1,488 @@
 package home;
 
+import dataParser.DataParser;
+import dataParser.NGSIConverter;
+import guimodel.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.*;
+import modelingEntities.ApplicationEntity;
+import modelingEntities.BaseEntity;
+import modelingEntities.BrokerEntity;
+import modelingEntities.DeviceEntity;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.stream.Collectors;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableCell;
 
-import dataParser.DataParser;
-import dataParser.NGSIConverter;
-import guimodel.Application;
-import guimodel.ApplicationCategory;
-import guimodel.Device;
-import guimodel.SystemSpecifications;
-import guimodel.Observation;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class HomeController implements Initializable {
-	@FXML
-	private VBox pnItems = null;
 
-	@FXML
-	private VBox pnDeviceItems = null;
-
-	@FXML
-	private VBox pnAppItems = null;
-
-	@FXML
-	private VBox pnAppCatItems;
-
-	@FXML
-	private Button btnOverview;
-
-	@FXML
-	private Button btnDevices;
-    @FXML
-    private Button btnGenerator;
-
-	@FXML
-	private Button btnCustomers;
-
-	@FXML
-	private Button btnMenus;
-
-	@FXML
-	private Button btnPackages;
-
-	@FXML
-	private Button btnSettings;
-
-	@FXML
-	private Button btnSimulate;
-
-	@FXML
-	private Button btnSignout;
-
-	@FXML
-	private Pane pnlApplication;
-
-	@FXML
-	private Pane pnlOrders;
-	
-	@FXML 
-	private Pane pnlDevices;
-
-	@FXML
-	private Pane pnlMenus;
-
-	@FXML
-	private Pane pnlAppCat;
-	
-	@FXML
-	private Pane pnlGenerator;
-
-	@FXML
-	private Pane pnlSmlSettings;
-	@FXML
-	private Button btnAppCat;
-	
-    @FXML
-    private TableView<Device> deviceTable;
-	
-    @FXML
-    private TableColumn<Device, Void> deviceDelete;
 
     @FXML
-    private TableColumn<Device, Void> deviceEdit;
+    private Button btnPackages;
+
 
     @FXML
-    private TableColumn<Device, Double> deviceMessageSize;
+    private Button btnSimulate;
 
     @FXML
-    private TableColumn<Device, String> deviceName;
+    private Button btnModeling;
 
     @FXML
-    private TableColumn<Device, Integer> devicePublishFrequency;
-    
-    @FXML
-    private TableView<ApplicationCategory> appCatTable;
-    @FXML
-    private TableColumn<ApplicationCategory, String> appCatName;
-    @FXML
-    private TableColumn<ApplicationCategory, Void> appCatEdit;
-    @FXML
-    private TableColumn<ApplicationCategory, Void> appCatDelete;
-    
-    @FXML
-    private TableColumn<Application, Void> appPriority;
-    @FXML
-    private TableColumn<Application, Void> appRate;
-    @FXML
-    private TableColumn<Application, Void> appEdit;
-    @FXML
-    private TableColumn<Application, Void> appDelete;
+    private Pane pnlOrders;
+
 
     @FXML
-    private TableColumn<Application, String> appName;
-    
+    private Pane pnlSmlSettings;
     @FXML
-    private TableView<Application> appTable;
-    
-    @FXML
-    private TableColumn<Observation, Void> obEdit;
-    @FXML
-    private TableColumn<Observation, Void> obDelete;
+    private Pane pnlModeling;
 
     @FXML
-    private TableColumn<Observation, String> obName;
-    
+    private Button btnaddDevice;
     @FXML
-    private TableView<Observation> obTable;
+    private Button btnaddApp;
+    @FXML
+    private Button btnDeleteEntity;
+    @FXML
+    private Button btnSaveEntities;
 
-	@FXML
-	private TextField commChannelLossRT;
-
-	@FXML
-	private TextField commChannelLossTS;
-
-	@FXML
-	private TextField commChannelLossVS;
-
-	@FXML
-	private TextField commChannelLossAN;
-
-	@FXML
-	private TextField bandwidthPolicy;
-
-	@FXML
-	private TextField brokerCapacity;
-
-	@FXML
-	private TextField systemBandwidth;
-
-	@FXML
-	private TextField applicationCategoryId;
-
-	@FXML
-	private TextField applicationCategoryName;
+    @FXML
+    private Pane pnlDraw;
 
 
-	@FXML
-	private TextField durationField;
+    @FXML
+    private TextField commChannelLossRT;
 
-	@FXML
-	private TextField aliasField;
+    @FXML
+    private TextField commChannelLossTS;
 
-	@FXML
-	private TextField messageField;
-	@FXML
-	private Text dirPathId;
-	
-	@FXML
-	private Text dataPathId;
-	
+    @FXML
+    private TextField commChannelLossVS;
 
-	@FXML
-	private Text ngsiOutputPath;
+    @FXML
+    private TextField commChannelLossAN;
 
-	@FXML
-	private ComboBox<String> appCategory;
+    @FXML
+    private TextField bandwidthPolicy;
 
+    @FXML
+    private TextField brokerCapacity;
 
-	@FXML
-	private org.controlsfx.control.CheckComboBox<Observation> appTopics;
+    @FXML
+    private TextField systemBandwidth;
 
-	@FXML
-	private org.controlsfx.control.CheckComboBox<String> qosAttList;
+    @FXML
+    private TextField durationField;
 
+    @FXML
+    private TextField aliasField;
 
-	private SystemSpecifications systemSpecifications = new SystemSpecifications();
-	@FXML
-    private ObservableList<Device> deviceList;
-	@FXML
-    private ObservableList<Application> appList;
-	@FXML
-    private ObservableList<ApplicationCategory> appCatList;
-	@FXML
-    private ObservableList<Observation> obList;
-	
-    private Device devicedata;
-    private ApplicationCategory appCatData;
-    private Application appData;
-    private Observation obData;
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		durationField.textProperty().addListener((observable, oldValue, newValue) -> {
-		    if (!newValue.matches("\\d*")) {
-		    	durationField.setText(newValue.replaceAll("[^\\d]", ""));
-		    }
-		});
-		messageField.textProperty().addListener((observable, oldValue, newValue) -> {
-		    if (!newValue.matches("\\d*\\.?\\d*")) {
-		    	messageField.setText(newValue.replaceAll("[^\\d\\.]", ""));
-		    }
-		});
-		if(systemSpecifications.loadSystemSpecifications())
-			initializeSystemSpecifications();
+    @FXML
+    private TextField messageField;
+    @FXML
+    private Text dirPathId;
 
-		initializeDevicesPane();
-		initializeAppsPane();
-		initializeAppCatsPane();
-		initializeTopicsPane();
-
-	}
-	public void initializeSystemSpecifications () {
-		commChannelLossRT.setText(systemSpecifications.getCommChannelLossRT()+"");
-		commChannelLossTS.setText(systemSpecifications.getCommChannelLossTS()+"");
-		commChannelLossVS.setText(systemSpecifications.getCommChannelLossVS()+"");
-		commChannelLossAN.setText(systemSpecifications.getCommChannelLossAN()+"");
-		bandwidthPolicy.setText(systemSpecifications.getBandwidthPolicy()+"");
-		brokerCapacity.setText(systemSpecifications.getBrokerCapacity()+"");
-		systemBandwidth.setText(systemSpecifications.getSystemBandwidth()+"");
-		durationField.setText(systemSpecifications.getSimulationDuration()+"");
-		aliasField.setText(systemSpecifications.getAlias()+"");
-		messageField.setText(systemSpecifications.getGlobalMessageSize()+"");
-	}
-	
-	public void initializeDevicesPane() {
-	     deviceName.setCellValueFactory(new PropertyValueFactory<Device,String>("name"));
-	        devicePublishFrequency.setCellValueFactory(new PropertyValueFactory<>("publishFrequency"));
-	        deviceMessageSize.setCellValueFactory(new PropertyValueFactory<>("messageSize"));
-
-	        deviceEdit.setCellFactory(param -> 	new TableCell<Device, Void>() {
-				private final Button btn = new Button("Edit");
-	            {
-	                btn.setOnAction((ActionEvent event) -> {
-	                    devicedata = getTableView().getItems().get(getIndex());
-	                    openAddDevice();
-	                });
-	            }
-	            @Override
-	            protected void updateItem(Void item, boolean empty) {
-	                super.updateItem(item, empty);
-
-	                if (empty) {
-	                    setGraphic(null);
-	                } else {
-	                    setGraphic(btn);
-	                    btn.setStyle("-fx-background-color: #4444F9");
-	                }
-	            }
-	        });
-			deviceDelete.setCellFactory(param -> new TableCell<Device, Void>() {
-	            private final Button btn = new Button("Delete");
-
-	            {
-	                btn.setOnAction((ActionEvent event) -> {
-	                    Device data = getTableView().getItems().get(getIndex());
-	                    System.out.println("deleted: " + data);
-	                    DataParser.deleteModel("devices", data.getId());
-	                    deviceTable.getItems().remove(data);
-						
-	                });
-	            }
-
-	            @Override
-	            protected void updateItem(Void item, boolean empty) {
-	                super.updateItem(item, empty);
-
-	                if (empty) {
-	                    setGraphic(null);
-	                } else {
-	                    setGraphic(btn);
-						btn.setStyle("-fx-background-color: #f94444");
-	                }
-	            }
-	        });
-
-	        deviceList = FXCollections.observableArrayList();
-			deviceList.addAll(DataParser.readModelFromCSv("devices", Device.class));
-	        deviceTable.setItems(deviceList);
-
-	}
-
-	public void initializeAppsPane() {
-		appName.setCellValueFactory(new PropertyValueFactory<Application,String>("name"));
-		appPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
-		appRate.setCellValueFactory(new PropertyValueFactory<>("processingRate"));
-		appEdit.setCellFactory(param -> 	new TableCell<Application, Void>() {
-			private final Button btn = new Button("Edit");
-			{
-				btn.setOnAction((ActionEvent event) -> {
-					appData = getTableView().getItems().get(getIndex());
-					openAddApp();
-				});
-			}
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(btn);
-					btn.setStyle("-fx-background-color: #4444F9");
-				}
-			}
-		});
-		appDelete.setCellFactory(param -> new TableCell<Application, Void>() {
-			private final Button btn = new Button("Delete");
-			{
-				btn.setOnAction((ActionEvent event) -> {
-					Application data = getTableView().getItems().get(getIndex());
-					System.out.println("deleted: " + data);
-					DataParser.deleteModel("applications", data.getId());
-					appTable.getItems().remove(data);
-					
-				});
-			}
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(btn);
-					btn.setStyle("-fx-background-color: #f94444");
-				}
-			}
-		});
-		appList = FXCollections.observableArrayList();
-		appList.addAll(DataParser.readModelFromCSv("applications", Application.class));
-		appTable.setItems(appList);
-
-	}
-
-	public void initializeAppCatsPane() {
-		appCatName.setCellValueFactory(new PropertyValueFactory<ApplicationCategory,String>("name"));
+    @FXML
+    private Text dataPathId;
+    private final SystemSpecifications systemSpecifications = new SystemSpecifications();
+    @FXML
+    private ObservableList<DeviceEntity> deviceEntityList;
+    @FXML
+    private ObservableList<BrokerEntity> brokerEntityList;
+    @FXML
+    private ObservableList<ApplicationEntity> applicationEntityList;
 
 
-        appCatEdit.setCellFactory(param -> 	new TableCell<ApplicationCategory, Void>() {
-			private final Button btn = new Button("Edit");
-            {
-                btn.setOnAction((ActionEvent event) -> {
-                    appCatData = getTableView().getItems().get(getIndex());
-                    openAddAppCat();
-                });
-            }
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                    btn.setStyle("-fx-background-color: #4444F9");
-                }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        durationField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                durationField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-		appCatDelete.setCellFactory(param -> new TableCell<ApplicationCategory, Void>() {
-            private final Button btn = new Button("Delete");
-            {
-                btn.setOnAction((ActionEvent event) -> {
-                    ApplicationCategory data = getTableView().getItems().get(getIndex());
-                    System.out.println("deleted: " + data);
-                    DataParser.deleteModel("applicationCategories",data.getId());
-                    appCatTable.getItems().remove(data);
-					
-                });
-            }
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-					btn.setStyle("-fx-background-color: #f94444");
-                }
+        messageField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                messageField.setText(newValue.replaceAll("[^\\d\\.]", ""));
             }
         });
-        appCatList = FXCollections.observableArrayList();
-		appCatList.addAll(DataParser.readModelFromCSv("applicationCategories",ApplicationCategory.class));
-        appCatTable.setItems(appCatList);
+        if (systemSpecifications.loadSystemSpecifications())
+            initializeSystemSpecifications();
+        initializeModelingPane();
 
-	}
-	public void initializeTopicsPane() {
-		obName.setCellValueFactory(new PropertyValueFactory<Observation,String>("name"));
-		obEdit.setCellFactory(param -> 	new TableCell<Observation, Void>() {
-			private final Button btn = new Button("Edit");
-			{
-				btn.setOnAction((ActionEvent event) -> {
-					obData = getTableView().getItems().get(getIndex());
-					openAddObservation();
-				});
-			}
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
+    }
 
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(btn);
-					btn.setStyle("-fx-background-color: #4444F9");
-				}
-			}
-		});
-		obDelete.setCellFactory(param -> new TableCell<Observation, Void>() {
-			private final Button btn = new Button("Delete");
-			{
-				btn.setOnAction((ActionEvent event) -> {
-					Observation data = getTableView().getItems().get(getIndex());
-					System.out.println("deleted: " + data);
-					DataParser.deleteModel("observations",data.getId());
-					obTable.getItems().remove(data);
-					
-				});
-			}
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
+    private void loadEntities() {
 
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(btn);
-					btn.setStyle("-fx-background-color: #f94444");
-				}
-			}
-		});
+        pnlDraw.getChildren().clear();
+        int NUM_ROWS = 80;
+        int NUM_COLS = 80;
+        int CELL_SIZE = 20;
 
-		obList = FXCollections.observableArrayList();
-		obList.addAll(DataParser.readModelFromCSv("observations",Observation.class));
-		obTable.setItems(obList);
+        for (int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                Rectangle cell = new Rectangle(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                cell.setStroke(Color.GRAY);
+                cell.setFill(Color.WHITE);
+                pnlDraw.getChildren().add(cell);
+            }
+        }
+        BrokerEntity entity = new BrokerEntity();
+        pnlDraw.getChildren().add(entity);
 
-	}
+        deviceEntityList = FXCollections.observableArrayList();
+        deviceEntityList.addAll(DataParser.readEntityFromCsv("devices", DeviceEntity.class));
+        applicationEntityList = FXCollections.observableArrayList();
+        applicationEntityList.addAll(DataParser.readEntityFromCsv("applications", ApplicationEntity.class));
+        ObservableList<ApplicationCategory> applicationCategories = FXCollections.observableArrayList();
+        applicationCategories.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
+        HashMap<String, String> applicationCategoryHashMap = new HashMap<>();
+        for (ApplicationCategory applicationCategory : applicationCategories) {
+            applicationCategoryHashMap.put(applicationCategory.getId(), applicationCategory.getName());
+        }
+        ArrayList<Observation> observations = DataParser.readModelFromCSv("observations", Observation.class);
+        HashMap<String, String> observationHashMap = new HashMap<>();
+        for (Observation observation : observations) {
+            observationHashMap.put(observation.getId(), observation.getName());
+        }
+        for (DeviceEntity deviceEntity : deviceEntityList) {
+            deviceEntity.setEntityName(deviceEntity.getDevice().getName());
+            if (deviceEntity.getArrow() != null) {
 
-	public void handleClicks(ActionEvent actionEvent) {
-		if (actionEvent.getSource() == btnCustomers) {
-			pnlApplication.toFront();
-		}
+                StringBuilder Names = new StringBuilder();
+                deviceEntity.getDevice().getCapturesObservation()
+                        .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
+                deviceEntity.getArrow().getLabel().setText(String.valueOf(Names));
+                deviceEntity.getArrow().updateLabelPosition();
+            }
+            deviceEntity.getRectangle().setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
+                    controller.initData(deviceEntity.getDevice(), deviceEntity.getTranslateX(), deviceEntity.getTranslateY());
+                }
 
-		if (actionEvent.getSource() == btnSimulate) {
-			pnlSmlSettings.toFront();
-		}
+            });
 
-		if (actionEvent.getSource() == btnMenus) {
-			pnlMenus.toFront();
-		}
-		if (actionEvent.getSource() == btnPackages) {
-			pnlOrders.toFront();
-		}
-		if (actionEvent.getSource() == btnAppCat) {
-			pnlAppCat.toFront();
-		}
-		if (actionEvent.getSource() == btnDevices) {
-			pnlDevices.toFront();
+            pnlDraw.getChildren().add(deviceEntity);
+        }
+        for (ApplicationEntity applicationEntity : applicationEntityList) {
+            applicationEntity.setEntityName(applicationEntity.getApplication().getName());
+            applicationEntity.getApplicationCategory().setText(applicationCategoryHashMap.get(applicationEntity.getApplication().getApplicationCategory()));
+            if (applicationEntity.getArrow() != null) {
+                StringBuilder Names = new StringBuilder();
+                applicationEntity.getApplication().getReceivesObservation()
+                        .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
+                applicationEntity.getArrow().getLabel().setText(String.valueOf(Names));
+            }
+            applicationEntity.getRectangle().setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    AddAppController controller = showPanel("AddApp.fxml", "Application").getController();
+                    controller.initData(applicationEntity.getApplication(), applicationEntity.getTranslateX(), applicationEntity.getTranslateY());
+                }
+            });
+            pnlDraw.getChildren().add(applicationEntity);
+        }
 
-		}
-		if (actionEvent.getSource() == btnGenerator) {
-			pnlGenerator.toFront();
+    }
 
-		}
-	}
-	public void saveSystemSpecifications() {
-		systemSpecifications.setSystemBandwidth(Integer.valueOf(systemBandwidth.getText()));
-		systemSpecifications.setBandwidthPolicy(bandwidthPolicy.getText());
-		systemSpecifications.setBrokerCapacity(Integer.valueOf(brokerCapacity.getText()));
-		systemSpecifications.setCommChannelLossAN(Integer.valueOf(commChannelLossAN.getText()));
-		systemSpecifications.setCommChannelLossRT(Integer.valueOf(commChannelLossRT.getText()));
-		systemSpecifications.setCommChannelLossTS(Integer.valueOf(commChannelLossTS.getText()));
-		systemSpecifications.setCommChannelLossVS(Integer.valueOf(commChannelLossVS.getText()));
-		systemSpecifications.setSimulationDuration(Integer.valueOf(durationField.getText()));
-		systemSpecifications.setAlias(aliasField.getText());
-		systemSpecifications.setGlobalMessageSize(Double.valueOf(messageField.getText()));
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		if(systemSpecifications.saveSystemSpecifications())
-			alert.setContentText("Settings saved successfully");
-		else
-			alert.setContentText("Settings not saved ");
-		alert.showAndWait();
-	
-	}
+    private void initializeModelingPane() {
 
-	public String openFileChooser() {
-		String path;
-		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("Choose location");
-		File defaultDirectory = new File(System.getProperty("user.dir"));
-		chooser.setInitialDirectory(defaultDirectory);
-		File selectedDirectory = chooser.showDialog(new Stage());
-		if (selectedDirectory == null) {
-			System.out.println("No Directory selected");
-			return null;
-		}
-		path = selectedDirectory.getPath();
-		System.out.println("path: " + path);
-		return path;
-	}
-	public String openCsvChooser() {
-		String path;
-		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("Choose csv File Location");
-//		chooser.getExtensionFilters().add(new ExtensionFilter("csv Files", "*.csv"));
-		File defaultDirectory = new File(System.getProperty("user.dir"));
-		chooser.setInitialDirectory(defaultDirectory);
-		File selectedDirectory = chooser.showDialog(new Stage());
-		path = selectedDirectory.getPath();
-		return path;
-	}
+        loadEntities();
+        btnaddDevice.setOnAction(e -> openAddDevice());
+        btnaddApp.setOnAction(e -> openAddApp());
+
+        btnDeleteEntity.setOnAction(e -> {
+            Thread backgroundThread = new Thread(() -> {
+                for (Node node : pnlDraw.getChildren()) {
+                    if (node instanceof BaseEntity && !((BaseEntity) node).isSelected) {
+                        continue;
+                    }
+                    if (node instanceof DeviceEntity) {
+                        DeviceEntity deviceEntity = (DeviceEntity) node;
+                        DataParser.deleteFromCsv("devices", deviceEntity.getDevice().getId());
+                    } else if (node instanceof ApplicationEntity) {
+                        ApplicationEntity applicationEntity = (ApplicationEntity) node;
+                        DataParser.deleteFromCsv("applications", applicationEntity.getApplication().getId());
+                    }
+                }
+                Platform.runLater(this::loadEntities);
+            });
+
+            backgroundThread.start();
+        });
+        btnSaveEntities.setOnAction(e -> {
+            Thread backgroundThread = new Thread(() -> {
+                for (Node node : pnlDraw.getChildren()) {
+                    if (node instanceof DeviceEntity) {
+                        DeviceEntity deviceEntity = (DeviceEntity) node;
+                        DataParser.addToCsv("devices", deviceEntity.toString());
+                    } else if (node instanceof ApplicationEntity) {
+                        ApplicationEntity applicationEntity = (ApplicationEntity) node;
+                        DataParser.addToCsv("applications", applicationEntity.toString());
+                    }
+                }
+                Platform.runLater(this::loadEntities);
+            });
+            backgroundThread.start();
+        });
+    }
 
 
-	public void chooseDatamodelFolder() {
-		String path = openFileChooser();
-		if(path != null && !path.isEmpty())
-		dataPathId.setText(path);
-	
-	}
-	
-	public void chooseDestinationFile() {
-		String path = openCsvChooser();
-		if(path != null && !path.isEmpty())
-		dirPathId.setText(path);
+    public void initializeSystemSpecifications() {
+        commChannelLossRT.setText(String.valueOf(systemSpecifications.getCommChannelLossRT()));
+        commChannelLossTS.setText(String.valueOf(systemSpecifications.getCommChannelLossTS()));
+        commChannelLossVS.setText(String.valueOf(systemSpecifications.getCommChannelLossVS()));
+        commChannelLossAN.setText(String.valueOf(systemSpecifications.getCommChannelLossAN()));
+        bandwidthPolicy.setText(systemSpecifications.getBandwidthPolicy());
+        brokerCapacity.setText(String.valueOf(systemSpecifications.getBrokerCapacity()));
+        systemBandwidth.setText(String.valueOf(systemSpecifications.getSystemBandwidth()));
+        durationField.setText(String.valueOf(systemSpecifications.getSimulationDuration()));
+        aliasField.setText(systemSpecifications.getAlias());
+        messageField.setText(String.valueOf(systemSpecifications.getGlobalMessageSize()));
+    }
 
-	}
 
-	public void simulate() {
-		if (dataPathId.getText().isEmpty() || dirPathId.getText().isEmpty()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setContentText("Please choose a valid path");
-			alert.showAndWait();
-			return;
-		}
-		
-		 String jarPath= "iotsimulator.jar";
-		int simulationDuration= durationField.getText().isEmpty() ? 0 : Integer.valueOf(durationField.getText());
-		String alias= aliasField.getText();
-		double globalMessageSize= messageField.getText().isEmpty() ? 0 : Double.valueOf(messageField.getText());
-	
-		try {
-			List<String> command = new ArrayList<>();
+    public void handleClicks(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == btnSimulate) {
+            pnlSmlSettings.toFront();
+        }
+        if (actionEvent.getSource() == btnPackages) {
+            pnlOrders.toFront();
+        }
+        if (actionEvent.getSource() == btnModeling) {
+            pnlModeling.toFront();
+            for (DeviceEntity deviceEntity : deviceEntityList) {
+                deviceEntity.getArrow().updateLabelPosition();
+            }
+        }
+    }
+
+    public void saveSystemSpecifications() {
+        systemSpecifications.setSystemBandwidth(Integer.parseInt(systemBandwidth.getText()));
+        systemSpecifications.setBandwidthPolicy(bandwidthPolicy.getText());
+        systemSpecifications.setBrokerCapacity(Integer.parseInt(brokerCapacity.getText()));
+        systemSpecifications.setCommChannelLossAN(Integer.parseInt(commChannelLossAN.getText()));
+        systemSpecifications.setCommChannelLossRT(Integer.parseInt(commChannelLossRT.getText()));
+        systemSpecifications.setCommChannelLossTS(Integer.parseInt(commChannelLossTS.getText()));
+        systemSpecifications.setCommChannelLossVS(Integer.parseInt(commChannelLossVS.getText()));
+        systemSpecifications.setSimulationDuration(Integer.parseInt(durationField.getText()));
+        systemSpecifications.setAlias(aliasField.getText());
+        systemSpecifications.setGlobalMessageSize(Double.parseDouble(messageField.getText()));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (systemSpecifications.saveSystemSpecifications())
+            alert.setContentText("Settings saved successfully");
+        else
+            alert.setContentText("Settings not saved ");
+        alert.showAndWait();
+
+    }
+
+    public String openFileChooser() {
+        String path;
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choose location");
+        File defaultDirectory = new File(System.getProperty("user.dir"));
+        chooser.setInitialDirectory(defaultDirectory);
+        File selectedDirectory = chooser.showDialog(new Stage());
+        if (selectedDirectory == null) {
+            System.out.println("No Directory selected");
+            return null;
+        }
+        path = selectedDirectory.getPath();
+        System.out.println("path: " + path);
+        return path;
+    }
+
+    public String openCsvChooser() {
+        String path;
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choose output Location");
+        File defaultDirectory = new File(System.getProperty("user.dir"));
+        chooser.setInitialDirectory(defaultDirectory);
+        File selectedDirectory = chooser.showDialog(new Stage());
+        path = selectedDirectory.getPath();
+        return path;
+    }
+
+
+    public void chooseDatamodelFolder() {
+        String path = openFileChooser();
+        if (path != null && !path.isEmpty())
+            dataPathId.setText(path);
+
+    }
+
+    public void chooseDestinationFile() {
+        String path = openCsvChooser();
+        if (path != null && !path.isEmpty())
+            dirPathId.setText(path);
+
+    }
+
+    public void simulate() {
+        if (dataPathId.getText().isEmpty() || dirPathId.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("Please choose a valid path");
+            alert.showAndWait();
+            return;
+        }
+
+        String jarPath = "iotsimulator.jar";
+        int simulationDuration = durationField.getText().isEmpty() ? 0 : Integer.parseInt(durationField.getText());
+        String alias = aliasField.getText();
+        double globalMessageSize = messageField.getText().isEmpty() ? 0 : Double.parseDouble(messageField.getText());
+
+        try {
+            List<String> command = new ArrayList<>();
             command.add("java");
             command.add("-jar");
             command.add(jarPath);
-            command.add(dataPathId.getText()); 
-            command.add(dirPathId.getText()); 
-            command.add(simulationDuration+""); 
-            command.add(alias); 
-            command.add(globalMessageSize+""); 
-	    System.out.println("command"+command);
-		System.out.println("current dir = " + System.getProperty("user.dir"));
-		Alert alert = new Alert(AlertType.INFORMATION);
-		Platform.runLater(() -> {
-			alert.setContentText("Simulation started");
-			alert.showAndWait();
-		});
-		Thread t = new Thread(() -> {
-			ProcessBuilder pb = new ProcessBuilder(command);
-			try {
-				Process process = pb.start();
-				 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-				 BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			         StringBuilder outputBuilder = new StringBuilder();
-					 StringBuilder errorOutputBuilder = new StringBuilder();
-			        String line; 
-			        while ((line = reader.readLine()) != null) {
-			            final String currentLine = line; 
-			            Platform.runLater(() -> {
-			            	System.out.println(currentLine);
-			            	if (!alert.isShowing())
-			                    alert.showAndWait();
-			                alert.setContentText( currentLine); 
-			                
-			            });
-			        }
-					while ((line = errorReader.readLine()) != null) {
-						final String currentLine = line;
-						Platform.runLater(() -> {
-							System.out.println(currentLine);
-							if (!alert.isShowing())
-								alert.showAndWait();
-							alert.setContentText(currentLine);
+            command.add(dataPathId.getText());
+            command.add(dirPathId.getText());
+            command.add(simulationDuration + "");
+            command.add(alias);
+            command.add(globalMessageSize + "");
+            System.out.println("command" + command);
+            System.out.println("current dir = " + System.getProperty("user.dir"));
+            Alert alert = new Alert(AlertType.INFORMATION);
+            Platform.runLater(() -> {
+                alert.setContentText("Simulation started");
+                alert.showAndWait();
+            });
+            Thread t = new Thread(() -> {
+                ProcessBuilder pb = new ProcessBuilder(command);
+                try {
+                    Process process = pb.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                    StringBuilder outputBuilder = new StringBuilder();
+                    StringBuilder errorOutputBuilder = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        final String currentLine = line;
+                        Platform.runLater(() -> {
+                            System.out.println(currentLine);
+                            if (!alert.isShowing())
+                                alert.showAndWait();
+                            alert.setContentText(currentLine);
 
-						});
-					}
-				
-			int exitCode = process.waitFor();
-			if (exitCode == 0) {
-				Platform.runLater(() -> {
+                        });
+                    }
+                    while ((line = errorReader.readLine()) != null) {
+                        final String currentLine = line;
+                        Platform.runLater(() -> {
+                            System.out.println(currentLine);
+                            if (!alert.isShowing())
+                                alert.showAndWait();
+                            alert.setContentText(currentLine);
 
-                alert.setContentText( "Simulation finished successfully"); 
-				if (!alert.isShowing())
-                    alert.showAndWait();
+                        });
+                    }
 
-	            });
-			} else {
-				Platform.runLater(() -> {
+                    int exitCode = process.waitFor();
+                    if (exitCode == 0) {
+                        Platform.runLater(() -> {
+                            alert.setContentText("Simulation finished successfully");
+                            if (!alert.isShowing())
+                                alert.showAndWait();
 
-				Alert alertError = new Alert(AlertType.ERROR);
-            	alertError.setContentText( "Simulation failed"); 
-            	alertError.showAndWait();
-            	alert.close();
-	            });
-			}
-		} 
-		catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		});
-		t.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-    @FXML
-    void chooseNGSIOutput(ActionEvent event) {
-    	String path = openFileChooser();
-		if(path != null && !path.isEmpty())
-		ngsiOutputPath.setText(path);
-		
-		
-    }
+                        });
+                    } else {
+                        Platform.runLater(() -> {
 
-    @FXML
-    void generate(ActionEvent event) {
-    	String path=ngsiOutputPath.getText();
-    	if (ngsiOutputPath.getText().isEmpty()) {
-    		File dir = new File("output");
-			dir.mkdirs();
-			path="./output";
-		}
-		NGSIConverter.generateNGSIfromCsv(path);
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("NGSI files generated successfully in :" +path);
-		alert.showAndWait();
-
+                            Alert alertError = new Alert(AlertType.ERROR);
+                            alertError.setContentText("Simulation failed");
+                            alertError.showAndWait();
+                            alert.close();
+                        });
+                    }
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            t.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-	FXMLLoader showPanel(String resource,String type){
-		FXMLLoader fxmlLoader=new FXMLLoader();
-		try {
-			List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).collect(Collectors.toList()); 	
-			fxmlLoader.setLocation((getClass().getResource("/fxml/"+resource)));
-			Parent root  = fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Add "+type);
-			stage.setScene(new Scene(root));
-			stage.initOwner(windows.get(0));
-			stage.initModality(Modality.APPLICATION_MODAL); 
-			stage.setResizable(false);
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		    @Override
-		    public void handle(WindowEvent event) {
-		    	updateList();
-		    }
-		});
-		stage.setOnHidden(new EventHandler<WindowEvent>() {
+    String chooseNGSIOutput() {
+        String path = openFileChooser();
+        if (path != null && !path.isEmpty())
+            return path;
+        return null;
+    }
 
-		    @Override
-		    public void handle(WindowEvent paramT) {
-		    	updateList();
-			     
-		    }
-		});
-		stage.show();
-	} catch (IOException e) {
-	
-		e.printStackTrace();
-	}
-		return fxmlLoader;
-	}
-	void openAddPanel(String type) {
-		String resource = null;
-		if (type.equals("Observation")){
-			resource = "AddObservation.fxml";
-			AddObservationController controller=showPanel(resource,type).getController();
-			if(obData!=null) {
-				controller.initData(obData);
-				obData=null;
-			}
-		}
-		else if (type.equals("Device")){
-			resource = "AddDevice.fxml";
-			AddDeviceController controller=showPanel(resource,type).getController();
-			if(devicedata!=null) {
-				controller.initData(devicedata);
-				devicedata=null;
-			}
-		}
-		else if (type.equals("Application")){
-			resource = "AddApp.fxml";
-			AddAppController controller=showPanel(resource,type).getController();
-			if(appData!=null) {
-				controller.initData(appData);
-				appData=null;
-			}
-		}
-		else if (type.equals("Application Category")){
-			resource = "AddAppCat.fxml";
-			AddAppCategoryController controller=showPanel(resource,type).getController();
-			if(appCatData!=null) {
-				controller.initData(appCatData);
-				appCatData=null;
-			}
-		}
-	}
-	@FXML 
-	void openAddObservation() {
-		openAddPanel("Observation");
-	}
-	@FXML 
-	public void openAddApp() {
-		openAddPanel("Application");
-	}
-	@FXML 
-	public void openAddAppCat() {
-		openAddPanel("Application Category");
-	}
-	@FXML 
-	public  void openAddDevice() {
-		openAddPanel("Device");
-	}
-	 public void updateList() {
-		new Thread(() -> {
-			Platform.runLater(() -> {
-				deviceList.clear();
-				deviceList.addAll(DataParser.readModelFromCSv("devices", Device.class));
-				deviceTable.setItems(deviceList);
-				appCatList.clear();
-				appCatList.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
-				appCatTable.setItems(appCatList);	
-				appList.clear();
-				appList.addAll(DataParser.readModelFromCSv("applications", Application.class));
-				appTable.setItems(appList);	
-				obList.clear();
-				obList.addAll(DataParser.readModelFromCSv("observations", Observation.class));
-				obTable.setItems(obList);
-				
-			});
-		}).start();
-	        
-	}
+    @FXML
+    void generateNGSI(ActionEvent event) {
+        String path = chooseNGSIOutput();
+        if (path == null || path.isEmpty()) {
+            File dir = new File("output");
+            dir.mkdirs();
+            path = "output";
+        }
+        NGSIConverter.generateNGSIfromCsv(path);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setContentText("NGSI files generated successfully in :" + path);
+        alert.showAndWait();
+
+    }
+
+    FXMLLoader showPanel(String resource, String type) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).collect(Collectors.toList());
+            fxmlLoader.setLocation((getClass().getResource("/fxml/" + resource)));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add " + type);
+            stage.setScene(new Scene(root));
+            stage.initOwner(windows.get(0));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setOnCloseRequest(event -> loadEntities());
+            stage.setOnHidden(paramT -> loadEntities());
+            stage.show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+        return fxmlLoader;
+    }
+
+
+    @FXML
+    public void openAddApp() {
+        showPanel("AddApp.fxml", "Application").getController();
+    }
+
+
+    @FXML
+    public void openAddDevice() {
+        showPanel("AddDevice.fxml", "Device").getController();
+    }
+
+
 }

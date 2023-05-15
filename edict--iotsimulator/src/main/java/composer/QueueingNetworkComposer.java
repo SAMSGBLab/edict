@@ -14,7 +14,7 @@ import jmt.gui.common.xml.XMLWriter;
 
 public class QueueingNetworkComposer {
 	 
-	 public String composeNetwork(String inputFolder, int simulationDuration,double globalMessageSize) throws Exception{
+	 public String composeNetwork(String inputFolder, int simulationDuration,double globalMessageSize) {
 		 NgsiParser parser= new NgsiParser();
 		 parser.readJSONLD(inputFolder);
 		 
@@ -23,7 +23,7 @@ public class QueueingNetworkComposer {
 		 CommonModel jmtModel = new CommonModel();
 		 IoTdeviceHandler iotDeviceHandler = new IoTdeviceHandler();
 		 HashMap<String, IoTdevice> iotDevices = parser.iotDevices;
-		 ArrayList<String> deviceNames = new ArrayList<String>();
+		 ArrayList<String> deviceNames = new ArrayList<>();
 		 for(IoTdevice device : iotDevices.values()) {
 			 deviceNames.add(device.deviceName);
 		 }
@@ -34,8 +34,7 @@ public class QueueingNetworkComposer {
 		 
 		 ApplicationHandler applicationHandler = new ApplicationHandler();
 		 HashMap<String, Application> applications = parser.applications;
-		 HashMap<String,ApplicationCategory> applicationCategories = parser.applicationCategories;
-		 applicationHandler.addApplications(jmtModel, applications.values(),applicationCategories.values());
+		 applicationHandler.addApplications(jmtModel, applications.values());
 	 
 		 VirtualSensorHandler virtualSensorHandler = new VirtualSensorHandler();
 		 HashMap<String, VirtualSensor> virtualSensors = parser.virtualSensors;

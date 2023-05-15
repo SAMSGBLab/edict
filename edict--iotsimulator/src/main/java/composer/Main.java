@@ -31,7 +31,7 @@ public class Main {
 		System.out.println("Created simulation file.");
 		System.out.println("Running the simulation ...");
 		DispatcherJSIMschema djss = new DispatcherJSIMschema(jsimgFile);
-		djss.setSimulationMaxDuration(simulationDuration*1000);
+		djss.setSimulationMaxDuration(simulationDuration* 1000L);
 		djss.solveModel();
 		File simResultFile = djss.getOutputFile();
 		System.out.println("Simulation done.");
