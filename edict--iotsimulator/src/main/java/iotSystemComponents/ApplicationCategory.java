@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Map;
 
 public class ApplicationCategory {
-
-//	@JsonProperty("id")
 	public String categoryId;
 	@JsonProperty("name")
 	public String categoryName;
+
+	@JsonProperty("code")
+	public String categoryCode;
+
 	public double processingTime;
 	public ApplicationCategory() {
 	}
@@ -22,6 +24,12 @@ public class ApplicationCategory {
 	private void unpackName(Map<String, Object> nameMap) {
 		if (nameMap.containsKey("value")) {
 			categoryName = (String) nameMap.get("value");
+		}
+	}
+	@JsonProperty("code")
+	private void unpackCode(Map<String, Object> codeMap) {
+		if (codeMap.containsKey("value")) {
+			categoryCode = (String) codeMap.get("value");
 		}
 	}
 	public String getCategoryId() {
@@ -41,5 +49,11 @@ public class ApplicationCategory {
 	}
 	public void setProcessingTime(double processingTime) {
 		this.processingTime = processingTime;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
 	}
 }

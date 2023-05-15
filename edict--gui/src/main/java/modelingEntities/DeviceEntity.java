@@ -26,7 +26,7 @@ public class DeviceEntity extends BaseEntity {
         getChildren().add(arrow);
 
 
-        makeDraggable(this);
+        makeDraggable();
         this.getChildren().addAll(rectangle, rightNode, entityName);
     }
 

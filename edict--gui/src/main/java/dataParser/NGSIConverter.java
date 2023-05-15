@@ -56,7 +56,6 @@ public class NGSIConverter {
         try {
 			mapper.writeValue(file, model);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     } 

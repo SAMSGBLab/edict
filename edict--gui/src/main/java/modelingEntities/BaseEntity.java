@@ -3,7 +3,6 @@ package modelingEntities;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -36,18 +35,14 @@ public class BaseEntity extends Pane {
         entityName = new Label();
         entityName.setLayoutX(0);
         entityName.setLayoutY((height/2)-10);
-        entityName.setText("");
         entityName.setPrefWidth(width);
         entityName.setPrefHeight(20);
-        entityName.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-alignment: center;");
 
+        entityName.setStyle("-fx-background-color: transparent;-fx-text-fill: white; -fx-font-size: 10px;-fx-font-weight: bold; -fx-alignment: center;");
     }
 
-    public void makeDraggable(Node node) {
-        entityName.setOnMouseEntered(e -> {
-            setCursor(Cursor.HAND);
-
-        });
+    public void makeDraggable() {
+        entityName.setOnMouseEntered(e -> setCursor(Cursor.HAND));
         entityName.setOnMousePressed(event -> {
             isSelected = !isSelected;
             Pane parent = (Pane) this.getParent();
@@ -71,8 +66,8 @@ public class BaseEntity extends Pane {
         entityName.setOnMouseDragged(e -> {
 
                 rectangle.setCursor(Cursor.MOVE);
-                double oldX = node.getTranslateX();
-                double oldY = node.getTranslateY();
+                double oldX = getTranslateX();
+                double oldY = getTranslateY();
                 double arrowX = 0;
                 double arrowY = 0;
                 if (arrow != null) {
@@ -83,7 +78,7 @@ public class BaseEntity extends Pane {
                 double newX = e.getSceneX() - startX;
                 double newY = e.getSceneY() - startY;
 
-                Pane parent = (Pane) node.getParent();
+                Pane parent = (Pane) getParent();
 
                 if (newX < 0) {
                     newX = 0;
@@ -97,8 +92,8 @@ public class BaseEntity extends Pane {
                 if (newY > parent.getHeight() - 50) {
                     newY = parent.getHeight() - 50;
                 }
-                node.setTranslateX(newX);
-                node.setTranslateY(newY);
+                setTranslateX(newX);
+                setTranslateY(newY);
                 if (arrow != null) {
                     arrow.updateArrowEnd(arrowX - newX + oldX, arrowY - newY + oldY);
                 }
@@ -135,7 +130,6 @@ public class BaseEntity extends Pane {
 
                     entityName.setPrefWidth(mouseX);
                     entityName.setLayoutY((newHeight / 2) - 10);
-//                    entityName.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: " + (newHeight / 5) + "px; -fx-font-weight: bold; -fx-alignment: center;");
                     if (leftNode != null) {
                         leftNode.setCenterX(0);
                         leftNode.setCenterY(newHeight / 2);

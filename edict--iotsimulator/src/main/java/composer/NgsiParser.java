@@ -101,7 +101,7 @@ public class NgsiParser {
             for(String topicId:a.getSubscribedTopics()){
                 a.getSubscribedTopics().set(a.getSubscribedTopics().indexOf(topicId),topics.get(topicId).getTopicName());
             }
-            a.setApplicationCategory(applicationCategories.get(a.getApplicationCategory()).getCategoryName());
+            a.setApplicationCategory(applicationCategories.get(a.getApplicationCategory()).getCategoryCode());
         }
         for (IoTdevice d:iotDevices.values()){
             for(String topicId:d.getPublishedTopics()){

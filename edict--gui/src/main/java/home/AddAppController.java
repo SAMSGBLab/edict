@@ -71,8 +71,8 @@ public class AddAppController extends BaseAddController {
         priotity = new LabeledTextField("Priotity", LabeledTextField.TYPE_NUM);
         processingRate = new LabeledTextField("Processing Rate", LabeledTextField.TYPE_NUM);
         getApplicationCategories();
-        applicationCategory = new LabeledListView("Application Category", FXCollections.observableArrayList(applicationCategoriesList));
-        applicationCategoryConverter = new StringConverter<ApplicationCategory>() {
+        applicationCategory = new LabeledListView<>("Application Category", FXCollections.observableArrayList(applicationCategoriesList));
+        applicationCategoryConverter = new StringConverter<>() {
             @Override
             public String toString(ApplicationCategory applicationCategory) {
                 return applicationCategory.getName();
@@ -90,23 +90,27 @@ public class AddAppController extends BaseAddController {
         };
 
         applicationCategory.setConverter(applicationCategoryConverter);
-        TextField textField = new TextField();
+        TextField categoryName = new TextField();
+        TextField categoryCode = new TextField();
         Button addButton = new Button("Add");
         addButton.setOnAction(event -> {
-            String newItem = textField.getText();
-            if (!newItem.isEmpty()) {
-                ApplicationCategory ob = new ApplicationCategory(UUID.randomUUID().toString());
-                ob.setName(newItem);
-                DataParser.addToCsv("applicationCategories", ob.toString());
-                textField.clear();
+            String name = categoryName.getText();
+            String code = categoryCode.getText();
+            if (!name.isEmpty() && !code.isEmpty()) {
+                ApplicationCategory ac = new ApplicationCategory(UUID.randomUUID().toString());
+                ac.setName(name);
+                ac.setCode(code);
+                DataParser.addToCsv("applicationCategories", ac.toString());
+                categoryCode.clear();
+                categoryName.clear();
             }
             getApplicationCategories();
             applicationCategory.setItems(applicationCategoriesList);
         });
-        HBox applicationCategoryField = new HBox(applicationCategory, textField, addButton);
+        HBox applicationCategoryField = new HBox(applicationCategory, categoryName, categoryCode, addButton);
         getObservations();
-        applicationTopics = new LabeledCheckComboBox("Application Topics", FXCollections.observableArrayList(observationList));
-        observationConverter = new StringConverter<Observation>() {
+        applicationTopics = new LabeledCheckComboBox<>("Application Topics", FXCollections.observableArrayList(observationList));
+        observationConverter = new StringConverter<>() {
             @Override
             public String toString(Observation observation) {
                 return observation.getName();

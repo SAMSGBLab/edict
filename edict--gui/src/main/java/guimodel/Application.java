@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 public class Application {
- enum ProcessingDistribution{
+
+
+	enum ProcessingDistribution{
 	 exponential,
 	 deterministic 
 }
@@ -13,13 +15,13 @@ public class Application {
 	
 	private String name;
 	
-	private String applicationCategory;
-	
+
 	private int priority;
 	
 	private int processingRate;
 	private ProcessingDistribution processingDistribution;
-	
+	private String applicationCategory;
+
 	
 	private List<String> receivesObservation;
 
@@ -27,21 +29,20 @@ public class Application {
 		super();
 	}
 
-	public Application(String appId, String appName, String applicationCategory, int priority,
-			int processingRate, ProcessingDistribution processingDistribution, List<String> recievesObservation) {
-		super();
-		this.id = appId;
-		this.name = appName;
-		this.applicationCategory = applicationCategory;
-		this.priority = priority;
-		this.processingRate = processingRate;
-		this.processingDistribution = processingDistribution;
-		this.receivesObservation = recievesObservation;
-	}
+
 
 	public Application(String id) {
 		super();
 		this.id=id;
+	}
+
+	public Application(String id, String name, int priority, int processingRate, String applicationCategory, List<String> receivesObservation) {
+		this.id = id;
+		this.name = name;
+		this.priority = priority;
+		this.processingRate = processingRate;
+		this.applicationCategory = applicationCategory;
+		this.receivesObservation = receivesObservation;
 	}
 
 	public String getId() {
