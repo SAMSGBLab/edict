@@ -91,10 +91,10 @@ public class NgsiParser {
         for(Topic t:topics.values()){
             for(String publisherId:t.getPublishers()){
                 
-                t.getPublishers().set(t.getPublishers().indexOf(publisherId),iotDevices.get(publisherId).getDeviceName());
+                t.getPublishers().set(t.getPublishers().indexOf(publisherId),iotDevices.get(publisherId)!=null?iotDevices.get(publisherId).getDeviceName():"");
             }    
             for(String subscriberId:t.getSubscribers()){
-            	t.getSubscribers().set(t.getSubscribers().indexOf(subscriberId),applications.get(subscriberId).getApplicationName());;
+            	t.getSubscribers().set(t.getSubscribers().indexOf(subscriberId),applications.get(subscriberId)!=null?applications.get(subscriberId).getApplicationName():"");
             }
         }
         for (Application a:applications.values()){

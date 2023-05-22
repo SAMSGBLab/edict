@@ -1,10 +1,6 @@
 package modelingEntities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dataParser.DataParser;
 import guimodel.Device;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -29,7 +25,25 @@ public class DeviceEntity extends BaseEntity {
         makeDraggable();
         this.getChildren().addAll(rectangle, rightNode, entityName);
     }
+    public void splitArrow(){
+        String[] obs=arrow.getLabel().getText().split(" ");
+        arrow.getLabel().setText(obs[0]);
+        if(obs.length>1) {
+            double distanceBetweenNodes = rectangle.getHeight() / (obs.length);
+            double start = rectangle.getHeight() / 2 - distanceBetweenNodes * (obs.length - 1) / 2;
+            rightNode.setCenterY(start);
+            arrow.updateArrowStart(rightNode.getCenterX(), rightNode.getCenterY());
+            for (int i = 1; i < obs.length; i++) {
+                Circle circle = new Circle(7, Color.RED);
+                circle.setCenterX(rightNode.getCenterX());
+                circle.setCenterY(rightNode.getCenterY() + distanceBetweenNodes * i);
+                Arrow arrow = new Arrow(circle.getCenterX(), circle.getCenterY(), 320 - this.getTranslateX(), 220 - this.getTranslateY());
+                arrow.getLabel().setText(obs[i]);
 
+                getChildren().addAll(circle, arrow);
+            }
+        }
+    }
     public void setDevice(Device device) {
         this.device = device;
     }

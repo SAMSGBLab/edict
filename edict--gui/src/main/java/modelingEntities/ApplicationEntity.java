@@ -2,7 +2,6 @@ package modelingEntities;
 
 import guimodel.Application;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -20,22 +19,36 @@ public class ApplicationEntity extends BaseEntity {
         leftNode.setCenterY(rectangle.getHeight() / 2);
         applicationCategory = new Label();
         applicationCategory.setLayoutX(0);
-        applicationCategory.setLayoutY((rectangle.getHeight()/2)+20);
-        applicationCategory.setPrefWidth(width);
+        applicationCategory.translateYProperty().bind(this.getEntityName().translateYProperty().add(40));
         applicationCategory.setPrefHeight(10);
-        applicationCategory.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-font-size: 8px; -fx-font-weight: bold; -fx-alignment: center;");
-        this.getEntityName().widthProperty().addListener((observable, oldValue, newValue) -> {
-            applicationCategory.setPrefWidth(newValue.doubleValue());
+        this.rectangle.widthProperty().addListener((observable, oldValue, newValue) -> {
+            applicationCategory.setTranslateX(newValue.doubleValue()*0.7);
         });
-        this.getEntityName().layoutYProperty().addListener((observable, oldValue, newValue) -> {
-            applicationCategory.setLayoutY((rectangle.getHeight()/2)+20);
-        });
-        arrow = new Arrow(leftNode.getCenterX(), leftNode.getCenterY(), 420-this.getTranslateX(), 170+50-this.getTranslateY());
+
+        arrow = new Arrow(leftNode.getCenterX(), leftNode.getCenterY(), 420-this.getTranslateX(), 220-this.getTranslateY());
         getChildren().addAll(arrow);
 
         this.getChildren().addAll(rectangle,leftNode,entityName,applicationCategory);
     }
+    public void splitArrow(){
+        String[] obs=arrow.getLabel().getText().split(" ");
+        arrow.getLabel().setText(obs[0]);
+        if(obs.length>1) {
+            double distanceBetweenNodes = rectangle.getHeight() / (obs.length);
+            double start = rectangle.getHeight() / 2 - distanceBetweenNodes * (obs.length - 1) / 2;
+            leftNode.setCenterY(start);
+            arrow.updateArrowStart(leftNode.getCenterX(), leftNode.getCenterY());
+            for (int i = 1; i < obs.length; i++) {
+                Circle circle = new Circle(7, Color.RED);
+                circle.setCenterX(leftNode.getCenterX());
+                circle.setCenterY(leftNode.getCenterY() + distanceBetweenNodes * i);
+                Arrow arrow = new Arrow(circle.getCenterX(), circle.getCenterY(), 420 - this.getTranslateX(), 220 - this.getTranslateY());
+                arrow.getLabel().setText(obs[i]);
 
+                getChildren().addAll(circle, arrow);
+            }
+        }
+    }
     public Application getApplication() {
         return application;
     }

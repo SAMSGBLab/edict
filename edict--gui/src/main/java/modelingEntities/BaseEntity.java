@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.text.TextAlignment;
 
 public class BaseEntity extends Pane {
 
@@ -19,7 +21,7 @@ public class BaseEntity extends Pane {
     private double startY;
     protected Arrow arrow;
     public boolean isSelected = false;
-
+public TriangleMesh mesh;
     public BaseEntity(double x, double y, double width, double height) {
         this.setLayoutX(0);
         this.setLayoutY(0);
@@ -34,15 +36,19 @@ public class BaseEntity extends Pane {
 
         entityName = new Label();
         entityName.setLayoutX(0);
-        entityName.setLayoutY((height/2)-10);
-        entityName.setPrefWidth(width);
-        entityName.setPrefHeight(20);
+        entityName.setPrefWidth(width-15);
+        entityName.setPrefHeight(40);
+        entityName.setTextAlignment(TextAlignment.CENTER);
+        entityName.setTranslateX(rectangle.getWidth()/2 - entityName.getPrefWidth()/2);
+        entityName.setTranslateY(rectangle.getHeight()/2 - entityName.getPrefHeight()/2);
 
-        entityName.setStyle("-fx-background-color: transparent;-fx-text-fill: white; -fx-font-size: 10px;-fx-font-weight: bold; -fx-alignment: center;");
+        entityName.setWrapText(true);
+        entityName.setStyle("-fx-background-color: transparent;-fx-text-fill: black; -fx-font-size: 10px;-fx-font-weight: bold; -fx-alignment: center;");
     }
 
     public void makeDraggable() {
         entityName.setOnMouseEntered(e -> setCursor(Cursor.HAND));
+        entityName.setOnMouseExited(e -> setCursor(Cursor.DEFAULT));
         entityName.setOnMousePressed(event -> {
             isSelected = !isSelected;
             Pane parent = (Pane) this.getParent();
@@ -65,38 +71,40 @@ public class BaseEntity extends Pane {
 
         entityName.setOnMouseDragged(e -> {
 
-                rectangle.setCursor(Cursor.MOVE);
-                double oldX = getTranslateX();
-                double oldY = getTranslateY();
-                double arrowX = 0;
-                double arrowY = 0;
-                if (arrow != null) {
-                    arrowX = arrow.getEndX();
-                    arrowY = arrow.getEndY();
-                }
+            rectangle.setCursor(Cursor.MOVE);
+            double oldX = getTranslateX();
+            double oldY = getTranslateY();
+            double arrowX = 0;
+            double arrowY = 0;
+            if (arrow != null) {
+                arrowX = arrow.getEndX();
+                arrowY = arrow.getEndY();
+            }
 
-                double newX = e.getSceneX() - startX;
-                double newY = e.getSceneY() - startY;
+            double newX = e.getSceneX() - startX;
+            double newY = e.getSceneY() - startY;
 
-                Pane parent = (Pane) getParent();
+            Pane parent = (Pane) getParent();
 
-                if (newX < 0) {
-                    newX = 0;
+            if (newX < 0) {
+                newX = 0;
+            }
+            if (newX > parent.getWidth() - 100) {
+                newX = parent.getWidth() - 100;
+            }
+            if (newY < 0) {
+                newY = 0;
+            }
+            if (newY > parent.getHeight() - 50) {
+                newY = parent.getHeight() - 50;
+            }
+            setTranslateX(newX);
+            setTranslateY(newY);
+            if (arrow != null) {
+                for (Node a :this.getChildren().filtered(n -> n instanceof Arrow)) {
+                    ((Arrow) a).updateArrowEnd(arrowX - newX + oldX, arrowY - newY + oldY);
                 }
-                if (newX > parent.getWidth() - 100) {
-                    newX = parent.getWidth() - 100;
-                }
-                if (newY < 0) {
-                    newY = 0;
-                }
-                if (newY > parent.getHeight() - 50) {
-                    newY = parent.getHeight() - 50;
-                }
-                setTranslateX(newX);
-                setTranslateY(newY);
-                if (arrow != null) {
-                    arrow.updateArrowEnd(arrowX - newX + oldX, arrowY - newY + oldY);
-                }
+            }
 
         });
 
@@ -127,9 +135,9 @@ public class BaseEntity extends Pane {
                     double newHeight = mouseX / aspectRatio;
                     rectangle.setWidth(mouseX);
                     rectangle.setHeight(newHeight);
-
-                    entityName.setPrefWidth(mouseX);
-                    entityName.setLayoutY((newHeight / 2) - 10);
+                    entityName.setPrefWidth(mouseX-10);
+                    entityName.setTranslateX(rectangle.getWidth()/2 - entityName.getPrefWidth()/2);
+                    entityName.setTranslateY(rectangle.getHeight()/2 - entityName.getPrefHeight()/2);
                     if (leftNode != null) {
                         leftNode.setCenterX(0);
                         leftNode.setCenterY(newHeight / 2);
@@ -170,6 +178,6 @@ public class BaseEntity extends Pane {
 
     @Override
     public String toString() {
-        return (Math.round(this.getTranslateX() * 100.0) / 100.0)+","+(Math.round(this.getTranslateY() * 100.0) / 100.0)+","+rectangle.getWidth()+","+rectangle.getHeight();
+        return (Math.round(this.getTranslateX() * 100.0) / 100.0) + "," + (Math.round(this.getTranslateY() * 100.0) / 100.0) + "," + rectangle.getWidth() + "," + rectangle.getHeight();
     }
 }

@@ -13,7 +13,7 @@ public class BrokerEntity extends BaseEntity {
         double radius = 7;
 
         this.getRectangle().setStyle("-fx-fill: #3f9e8a; -fx-stroke: #000000; -fx-stroke-width: 2px;");
-        this.getEntityName().setText("Broker");
+        this.getEntityName().setText("Messaging System");
         Color color = Color.RED;
         double width = this.getRectangle().getWidth();
         double height;

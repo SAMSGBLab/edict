@@ -13,7 +13,8 @@ public class Arrow extends Group {
         line = new Line(startX, startY, endX, endY);
 
         label = new Label();
-        label.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 13px; -fx-font-weight: bold;");
+
+        label.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-font-size: 13px; -fx-font-style: italic; -fx-font-weight: bold; -fx-font-family: 'Times New Roman';");
 
 
         this.getChildren().addAll(line, label);
@@ -29,17 +30,29 @@ public class Arrow extends Group {
         double endX = line.getEndX();
         double endY = line.getEndY();
         double angle = Math.atan2((endY - startY), (endX - startX)) * 180 / Math.PI;
-        if (Math.abs(angle) > 90) {
-            angle += 180;
-        }
         label.setRotate(angle);
+        if (Math.abs(angle) > 90) {
+            label.setRotate(angle+180);
+        }
+
         double labelWidth = label.getBoundsInLocal().getWidth();
         double labelHeight = label.getBoundsInLocal().getHeight();
         double labelX;
         double labelY;
+        double midX = (startX + endX) / 2;
+        double midY = (startY + endY) / 2;
+        double distance = 10;
+        double offsetX = distance * Math.sin(Math.toRadians(angle));
+        double offsetY = distance * Math.cos(Math.toRadians(angle));
+        if (angle > 90 || angle < -90) {
+            labelX = midX - offsetX;
+            labelY = midY + offsetY;
+        } else {
+            labelX = midX + offsetX;
+            labelY = midY - offsetY;
+        }
 
-        labelX = (startX + endX) / 2;
-        labelY = (startY + endY) / 2;
+
         label.setLayoutX(labelX - labelWidth / 2);
         label.setLayoutY(labelY - labelHeight / 2);
     }
