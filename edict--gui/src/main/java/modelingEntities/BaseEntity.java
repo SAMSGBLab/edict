@@ -7,8 +7,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.TextAlignment;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class BaseEntity extends Pane {
 
@@ -21,7 +23,7 @@ public class BaseEntity extends Pane {
     private double startY;
     protected Arrow arrow;
     public boolean isSelected = false;
-public TriangleMesh mesh;
+
     public BaseEntity(double x, double y, double width, double height) {
         this.setLayoutX(0);
         this.setLayoutY(0);
@@ -34,13 +36,16 @@ public TriangleMesh mesh;
         rectangle.setX(0);
         rectangle.setY(0);
 
+        double[] triangleCoordinates = {width, height, width, height - 10, width - 10, height};
+
+
         entityName = new Label();
         entityName.setLayoutX(0);
-        entityName.setPrefWidth(width-15);
+        entityName.setPrefWidth(width - 15);
         entityName.setPrefHeight(40);
         entityName.setTextAlignment(TextAlignment.CENTER);
-        entityName.setTranslateX(rectangle.getWidth()/2 - entityName.getPrefWidth()/2);
-        entityName.setTranslateY(rectangle.getHeight()/2 - entityName.getPrefHeight()/2);
+        entityName.setTranslateX(rectangle.getWidth() / 2 - entityName.getPrefWidth() / 2);
+        entityName.setTranslateY(rectangle.getHeight() / 2 - entityName.getPrefHeight() / 2);
 
         entityName.setWrapText(true);
         entityName.setStyle("-fx-background-color: transparent;-fx-text-fill: black; -fx-font-size: 10px;-fx-font-weight: bold; -fx-alignment: center;");
@@ -101,7 +106,7 @@ public TriangleMesh mesh;
             setTranslateX(newX);
             setTranslateY(newY);
             if (arrow != null) {
-                for (Node a :this.getChildren().filtered(n -> n instanceof Arrow)) {
+                for (Node a : this.getChildren().filtered(n -> n instanceof Arrow)) {
                     ((Arrow) a).updateArrowEnd(arrowX - newX + oldX, arrowY - newY + oldY);
                 }
             }
@@ -112,7 +117,6 @@ public TriangleMesh mesh;
             double mouseX = e.getX();
             double width = rectangle.getWidth();
             double edgeSize = 10;
-
             if (mouseX > width - edgeSize) {
                 rectangle.setCursor(Cursor.H_RESIZE);
             } else {
@@ -135,22 +139,57 @@ public TriangleMesh mesh;
                     double newHeight = mouseX / aspectRatio;
                     rectangle.setWidth(mouseX);
                     rectangle.setHeight(newHeight);
-                    entityName.setPrefWidth(mouseX-10);
-                    entityName.setTranslateX(rectangle.getWidth()/2 - entityName.getPrefWidth()/2);
-                    entityName.setTranslateY(rectangle.getHeight()/2 - entityName.getPrefHeight()/2);
+                    entityName.setPrefWidth(mouseX - 10);
+                    entityName.setTranslateX(rectangle.getWidth() / 2 - entityName.getPrefWidth() / 2);
+                    entityName.setTranslateY(rectangle.getHeight() / 2 - entityName.getPrefHeight() / 2);
                     if (leftNode != null) {
-                        leftNode.setCenterX(0);
-                        leftNode.setCenterY(newHeight / 2);
-                        arrow.updateArrowStart(0, newHeight / 2);
+                        int count = this.getChildren().filtered(n -> n instanceof Circle).size();
+                        if (count == 1) {
+                            leftNode.setCenterX(0);
+                            leftNode.setCenterY(newHeight / 2);
+                            arrow.updateArrowStart(0, newHeight / 2);
+                        } else {
+                            double distanceBetweenNodes = rectangle.getHeight() / count;
+                            double start = rectangle.getHeight() / 2 - distanceBetweenNodes * (count - 1) / 2;
+                            leftNode.setCenterY(start);
+                            Object[] circles = this.getChildren().filtered(n -> n instanceof Circle).toArray();
+                            for (int i = 1; i < circles.length; i++) {
+                                ((Circle) circles[i]).setCenterX(0);
+                                ((Circle) circles[i]).setCenterY(start + distanceBetweenNodes * i);
 
+                            }
+                            Object[] arrows = this.getChildren().filtered(n -> n instanceof Arrow).toArray();
+                            for (int i = 0; i < arrows.length; i++) {
+                                ((Arrow) arrows[i]).updateArrowStart(0, start + distanceBetweenNodes * i);
+                            }
+                        }
                     }
                     if (rightNode != null) {
-                        rightNode.setCenterX(mouseX);
-                        rightNode.setCenterY(newHeight / 2);
-                        arrow.updateArrowStart(mouseX, newHeight / 2);
+                        int count = this.getChildren().filtered(n -> n instanceof Circle).size();
+                        if (count == 1) {
+                            rightNode.setCenterX(mouseX);
+                            rightNode.setCenterY(newHeight / 2);
+                            arrow.updateArrowStart(mouseX, newHeight / 2);
+                        } else {
+                            double distanceBetweenNodes = rectangle.getHeight() / count;
+                            double start = rectangle.getHeight() / 2 - distanceBetweenNodes * (count - 1) / 2;
+                            rightNode.setCenterX(mouseX);
+                            rightNode.setCenterY(start);
+                            Object[] circles = this.getChildren().filtered(n -> n instanceof Circle).toArray();
+                            for (int i = 1; i < circles.length; i++) {
+                                ((Circle) circles[i]).setCenterX(rightNode.getCenterX());
+                                ((Circle) circles[i]).setCenterY(start + distanceBetweenNodes * i);
+
+                            }
+                            Object[] arrows = this.getChildren().filtered(n -> n instanceof Arrow).toArray();
+                            for (int i = 0; i < arrows.length; i++) {
+                                ((Arrow) arrows[i]).updateArrowStart(mouseX, start + distanceBetweenNodes * i);
+                            }
+                        }
 
                     }
                 }
+
             }
         });
     }

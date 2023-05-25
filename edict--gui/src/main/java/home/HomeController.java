@@ -20,10 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.*;
-import modelingEntities.ApplicationEntity;
-import modelingEntities.BaseEntity;
-import modelingEntities.BrokerEntity;
-import modelingEntities.DeviceEntity;
+import modelingEntities.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -111,6 +108,10 @@ public class HomeController implements Initializable {
     @FXML
     private ObservableList<ApplicationEntity> applicationEntityList;
 
+    //getInstance
+    public static HomeController getInstance() {
+        return new HomeController();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -157,7 +158,7 @@ public class HomeController implements Initializable {
         List<String> colors = Arrays.asList("#e6194b", "#3cb44b", "#ffe119", "#0082c8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#d2f53c", "#fabebe");
         HashMap<String, String> categoryColorHashMap = new HashMap<>();
         for (int i = 0; i < applicationCategories.size(); i++) {
-            categoryColorHashMap.put(applicationCategories.get(i).getId(), colors.get(i));
+            categoryColorHashMap.put(applicationCategories.get(i).getId(), colors.get(i%10));
         }
 
         HashMap<String, String> applicationCategoryHashMap = new HashMap<>();
@@ -179,19 +180,22 @@ public class HomeController implements Initializable {
                 deviceEntity.getArrow().getLabel().setText(String.valueOf(Names));
                 deviceEntity.splitArrow();
             }
-            deviceEntity.getRectangle().setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2) {
-                    AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
-                    controller.initData(deviceEntity.getDevice(), deviceEntity.getTranslateX(), deviceEntity.getTranslateY());
-                }
+            for(Node node:deviceEntity.getChildren()){
+                node.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2) {
+                        AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
+                        controller.initData(deviceEntity.getDevice(), deviceEntity.getTranslateX(), deviceEntity.getTranslateY());
+                    }
 
-            });
+                });
+            }
 
             pnlDraw.getChildren().add(deviceEntity);
+
         }
         for (ApplicationEntity applicationEntity : applicationEntityList) {
             applicationEntity.setEntityName(applicationEntity.getApplication().getName());
-            applicationEntity.getApplicationCategory().setText(applicationCategoryHashMap.get(applicationEntity.getApplication().getApplicationCategory()));
+            applicationEntity.getApplicationCategoryLabel().setText(applicationCategoryHashMap.get(applicationEntity.getApplication().getApplicationCategory()));
 
             if (applicationEntity.getArrow() != null) {
                 StringBuilder Names = new StringBuilder();
@@ -199,22 +203,26 @@ public class HomeController implements Initializable {
                         .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
                 applicationEntity.getArrow().getLabel().setText(String.valueOf(Names));
                 applicationEntity.getRectangle().setStyle("-fx-fill: " + categoryColorHashMap.get(applicationEntity.getApplication().getApplicationCategory()) + ";");
-                        applicationEntity.getApplicationCategory().setStyle("-fx-background-color: "
+                        applicationEntity.getApplicationCategoryLabel().setStyle("-fx-background-color: "
                         + categoryColorHashMap.get(applicationEntity.getApplication().getApplicationCategory())+
                         ";-fx-background-radius: 7px;"+ "-fx-text-alignment: center;"+"-fx-font-weight: bold;");
-                applicationEntity.getApplicationCategory().setPrefWidth(22);
-                applicationEntity.getApplicationCategory().setPrefHeight(22);
-                applicationEntity.getApplicationCategory().setTranslateX(applicationEntity.getRectangle().getWidth() *0.7);
+                applicationEntity.getApplicationCategoryLabel().setPrefWidth(22);
+                applicationEntity.getApplicationCategoryLabel().setPrefHeight(22);
+                applicationEntity.getApplicationCategoryLabel().setTranslateX(applicationEntity.getRectangle().getWidth() *0.7);
 
                 applicationEntity.splitArrow();
             }
-            applicationEntity.getRectangle().setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2) {
-                    AddAppController controller = showPanel("AddApp.fxml", "Application").getController();
-                    controller.initData(applicationEntity.getApplication(), applicationEntity.getTranslateX(), applicationEntity.getTranslateY());
+            for(Node node:applicationEntity.getChildren()){
+                if(node instanceof Arrow)
+                    continue;
+                node.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2) {
+                        AddAppController controller = showPanel("AddApp.fxml", "Application").getController();
+                        controller.initData(applicationEntity.getApplication(), applicationEntity.getTranslateX(), applicationEntity.getTranslateY());
 
-                }
-            });
+                    }
+                });
+            }
             pnlDraw.getChildren().add(applicationEntity);
         }
 

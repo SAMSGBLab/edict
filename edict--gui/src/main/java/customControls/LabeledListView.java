@@ -48,6 +48,10 @@ public class LabeledListView<T> extends HBox {
         listView.getSelectionModel().select(index);
     }
 
+    public ListView<T> getListView() {
+        return listView;
+    }
+
     public int getSelectedIndex() {
         return listView.getSelectionModel().getSelectedIndex();
     }

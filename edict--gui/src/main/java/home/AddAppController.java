@@ -1,5 +1,6 @@
 package home;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,17 +12,25 @@ import dataParser.DataParser;
 import guimodel.Application;
 import guimodel.ApplicationCategory;
 import guimodel.Observation;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
 import modelingEntities.ApplicationEntity;
+import org.controlsfx.control.CheckComboBox;
 
 public class AddAppController extends BaseAddController {
 
@@ -72,6 +81,16 @@ public class AddAppController extends BaseAddController {
         processingRate = new LabeledTextField("Processing Rate", LabeledTextField.TYPE_NUM);
         getApplicationCategories();
         applicationCategory = new LabeledListView<>("Application Category", FXCollections.observableArrayList(applicationCategoriesList));
+
+        applicationCategory.getListView().setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                ApplicationCategory selectedCategory = applicationCategory.getSelectedItem();
+                FXMLLoader loader=showPanel();
+                AddAppCategoryController controller=loader.getController();
+                controller.initData(selectedCategory);
+
+            }
+        });
         applicationCategoryConverter = new StringConverter<>() {
             @Override
             public String toString(ApplicationCategory applicationCategory) {
@@ -90,26 +109,16 @@ public class AddAppController extends BaseAddController {
         };
 
         applicationCategory.setConverter(applicationCategoryConverter);
-        TextField categoryName = new TextField();
-        TextField categoryCode = new TextField();
-        Button addButton = new Button("Add");
-        addButton.setOnAction(event -> {
-            String name = categoryName.getText();
-            String code = categoryCode.getText();
-            if (!name.isEmpty() && !code.isEmpty()) {
-                ApplicationCategory ac = new ApplicationCategory(UUID.randomUUID().toString());
-                ac.setName(name);
-                ac.setCode(code);
-                DataParser.addToCsv("applicationCategories", ac.toString());
-                categoryCode.clear();
-                categoryName.clear();
-            }
-            getApplicationCategories();
-            applicationCategory.setItems(applicationCategoriesList);
+        Button addApplicationCategory = new Button("+");
+        addApplicationCategory.setOnAction(event -> {
+            showPanel();
         });
-        HBox applicationCategoryField = new HBox(applicationCategory, categoryName, categoryCode, addButton);
+        HBox applicationCategoryField = new HBox(applicationCategory, addApplicationCategory);
+
+
         getObservations();
         applicationTopics = new LabeledCheckComboBox<>("Application Topics", FXCollections.observableArrayList(observationList));
+
         observationConverter = new StringConverter<>() {
             @Override
             public String toString(Observation observation) {
@@ -128,9 +137,35 @@ public class AddAppController extends BaseAddController {
         };
         applicationTopics.setConverter(observationConverter);
 
-        FormBox.getChildren().addAll(id, name, priotity, processingRate, applicationCategoryField, applicationTopics);
+        FormBox.getChildren().addAll(id, name, priotity, processingRate, applicationCategoryField,applicationTopics);
 
 
+    }
+
+    FXMLLoader showPanel() {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            List<Window> windows = Stage.getWindows().stream().filter(Window::isShowing).collect(Collectors.toList());
+            fxmlLoader.setLocation((getClass().getResource("/fxml/AddAppCat.fxml")));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add application category");
+            stage.setScene(new Scene(root));
+            stage.initOwner(windows.get(0));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setOnCloseRequest(event -> loadData());
+            stage.setOnHidden(paramT -> loadData());
+            stage.show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+        return fxmlLoader;
+    }
+    public void loadData() {
+        getApplicationCategories();
+        applicationCategory.setItems(applicationCategoriesList);
     }
 
     public void initData(Application app,Double x,Double y) {

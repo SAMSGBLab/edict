@@ -89,6 +89,11 @@ public class AddDeviceController extends BaseAddController {
 
     }
 
+
+    public void loadData() {
+
+    }
+
     public void initData(Device device,Double x,Double y) {
         id.setText(device.getId());
         name.setText(device.getName());

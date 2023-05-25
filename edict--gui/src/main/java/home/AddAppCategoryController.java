@@ -26,16 +26,18 @@ public class AddAppCategoryController extends BaseAddController{
 
     @FXML
     private Button SubmitButton;
-
 	LabeledTextField id;
 	LabeledTextField name;
+	LabeledTextField code;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		id=new LabeledTextField("Id",LabeledTextField.TYPE_TEXT);
 		id.setText("urn:ngsi-ld:edict:ApplicationCategory:"+UUID.randomUUID().toString());
 		id.setDisable(true);
 		name= new LabeledTextField("Name",LabeledTextField.TYPE_TEXT);
-		FormBox.getChildren().addAll(id,name);
+		code= new LabeledTextField("Code",LabeledTextField.TYPE_TEXT);
+		FormBox.getChildren().addAll(id,name,code);
 		
 		
 	}
@@ -43,7 +45,7 @@ public class AddAppCategoryController extends BaseAddController{
 		id.setText(appCat.getId());
 		name.setText(appCat.getName());
 		id.setDisable(true);
-
+		code.setText(appCat.getCode());
 
 		SubmitButton.setText("Edit");
 	}
@@ -52,33 +54,21 @@ public class AddAppCategoryController extends BaseAddController{
 	@FXML 
 	public void SaveCategory() { 
 		String app_cat="";
-		for (Node node : FormBox.getChildren()) {
-			if(node instanceof LabeledTextField) {
-				if (((LabeledTextField) node).getText().isEmpty()) {
-					showAlertDialog("Please fill all the fields");
-					return;	
-				}
-				app_cat+=((LabeledTextField) node).getText()+",";
-			
-			}
-			if(node instanceof LabeledCheckComboBox) {
-				System.out.println(((LabeledCheckComboBox) node).getCheckedItems());
-				for(Object topic:((LabeledCheckComboBox) node).getCheckedItems()) {
-					app_cat+=topic.toString()+";";
-				}
-				if(((LabeledCheckComboBox) node).getCheckedItems().size()==0) {
-					app_cat+=";";
-				}
-				
-				app_cat+=",";
-			}
-		}
+		app_cat+=id.getText()+",";
+		app_cat+=name.getText()+",";
+		app_cat+=code.getText();
 		DataParser.addToCsv("applicationCategories",app_cat );
 		
 		  Stage stage = (Stage) SubmitButton.getScene().getWindow();
 		  stage.close();
 
 
+	}
+	@FXML
+	public void deleteAppCat() {
+		DataParser.deleteFromCsv("applicationCategories", id.getText());
+		Stage stage = (Stage) SubmitButton.getScene().getWindow();
+		stage.close();
 	}
 			   
 }

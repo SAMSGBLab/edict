@@ -44,6 +44,7 @@ public class LabeledCheckComboBox<T> extends HBox {
         }
         
     }
+
     public CheckComboBox<T> getCheckComboBox() {
         return checkComboBox;
     }

@@ -7,7 +7,7 @@ import javafx.scene.shape.Circle;
 
 public class ApplicationEntity extends BaseEntity {
     private Application application;
-    private Label applicationCategory;
+    private Label applicationCategoryLabel;
     public ApplicationEntity(double x,double y,double width,double height) {
         super(x, y, width, height);
         this.getRectangle().setStyle("-fx-fill: #3fb0dc; -fx-stroke: #000000; -fx-stroke-width: 2px;");
@@ -17,18 +17,18 @@ public class ApplicationEntity extends BaseEntity {
         leftNode = new Circle(radius, Color.RED);
         leftNode.setCenterX(0);
         leftNode.setCenterY(rectangle.getHeight() / 2);
-        applicationCategory = new Label();
-        applicationCategory.setLayoutX(0);
-        applicationCategory.translateYProperty().bind(this.getEntityName().translateYProperty().add(40));
-        applicationCategory.setPrefHeight(10);
+        applicationCategoryLabel = new Label();
+        applicationCategoryLabel.setLayoutX(0);
+        applicationCategoryLabel.translateYProperty().bind(this.getEntityName().translateYProperty().add(40));
+        applicationCategoryLabel.setPrefHeight(10);
         this.rectangle.widthProperty().addListener((observable, oldValue, newValue) -> {
-            applicationCategory.setTranslateX(newValue.doubleValue()*0.7);
+            applicationCategoryLabel.setTranslateX(newValue.doubleValue()*0.7);
         });
 
         arrow = new Arrow(leftNode.getCenterX(), leftNode.getCenterY(), 420-this.getTranslateX(), 220-this.getTranslateY());
         getChildren().addAll(arrow);
 
-        this.getChildren().addAll(rectangle,leftNode,entityName,applicationCategory);
+        this.getChildren().addAll(rectangle,leftNode,entityName, applicationCategoryLabel);
     }
     public void splitArrow(){
         String[] obs=arrow.getLabel().getText().split(" ");
@@ -57,12 +57,12 @@ public class ApplicationEntity extends BaseEntity {
         this.application = application;
     }
 
-    public Label getApplicationCategory() {
-        return applicationCategory;
+    public Label getApplicationCategoryLabel() {
+        return applicationCategoryLabel;
     }
 
-    public void setApplicationCategory(Label applicationCategory) {
-        this.applicationCategory = applicationCategory;
+    public void setApplicationCategoryLabel(Label applicationCategoryLabel) {
+        this.applicationCategoryLabel = applicationCategoryLabel;
     }
 
     public String toString() {
