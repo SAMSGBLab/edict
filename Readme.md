@@ -8,35 +8,25 @@ This repository contains the following directories:
 * **edict--gui**: This directory contains the source code of the interface of the application.
 * **edict--iotsimulator**: This directory contains the source code of the simulator that simulates the iot systems which is needed by the application.
 
-
+## Installation Requirements
+This artifact has been prepared for a host that supports X11 forwarding on Docker containers(ex: [Xming](https://sourceforge.net/projects/xming/) or [VcXsrv](https://sourceforge.net/projects/vcxsrv/) For Windows, or X11 server for Linux).<br>
+Users can also run the application from source code on any host that supports [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or higher,[Maven](https://maven.apache.org/download.cgi), [JavaFx](https://gluonhq.com/products/javafx/) and [Java Modelling Tools (JMT)](http://sourceforge.net/projects/jmt/files/jmt/JMT-1.2.0/JMT-singlejar-1.2.0.jar/download).
+The artifact has been tested on GNU/Linux systems such as Debian or Ubuntu, and on Windows 10.The artifact has NOT been tested with MacOS.
 ## Installation
-### <B>Docker</B> :
-### Installation Requirements
-- Docker is required to run the application. You can download it from [here](https://www.docker.com/products/docker-desktop).
-- Display server is required to run the application.
-
-<B> For windows: </B>
-- Xming you can download it from [here](https://sourceforge.net/projects/xming/).
-OR
-- VcXsrv you can download it from [here](https://sourceforge.net/projects/vcxsrv/).
-  
-<B>For linux: </B>
-- X11 server is already installed in linux.
-
-### Installation Steps
-- Clone the repository.
+### <B>Using Docker</B> :
+Clone the repository.
 ```
 git clone https://github.com/SAMSGBLab/edict 
 cd edict
 ```
-- Build the docker image.
+Build the docker image.
 ```
 docker build -t <ImageName> .
 ```
 
-### Running the application
-- Run the docker image.
-<B> For windows: </B>
+## Running the application
+Run the docker image.<br>
+**For windows:**
 ```
 docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v <local/path>:<path/in/docker> <ImageName>
 # example:
@@ -56,14 +46,9 @@ docker run -it --rm -e  DISPLAY=$DISPLAY -v <local/path>:<path/in/docker> --net=
 # docker run -it --rm -e  DISPLAY=$DISPLAY -v /home/edict:/home --net=host edict
 
 ```
+<B> Now you are ready to start the [application](#usage).</B>
 
-### <B>From source code</B> :
-### Installation Requirements
-- Java 11 or higher is required to run the application. You can download it from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-- Maven is required to build the application. You can download it from [here](https://maven.apache.org/download.cgi).
-- JavaFX is required to run the application. You can download it from [here](https://gluonhq.com/products/javafx/).
-- JMT is required to run the application. You can download it from [here](http://sourceforge.net/projects/jmt/files/jmt/JMT-1.2.0/JMT-singlejar-1.2.0.jar/download).
-
+## <B>From source code</B> :
 ### Installation Steps
 - Clone the repository.
 ```
@@ -99,13 +84,13 @@ Running the application will open the following interface with modeling tab sele
 
 ### Modeling
 
-You can create a new device or application by clciking on the suitable button  then a modal will open to fill the details,then you can drag the created entities and resize them as you want.once you finish modeling you can click on save design button to save the design for later or click on the generate NGSI-LD button to generate the NGSI-LD representation of the model.
+You can create a new device or application by clicking on the suitable button  then a modal will open to fill the details,then you can drag the created entities and resize them as you want.once you finish modeling you can click on save design button to save the design for later or click on the generate NGSI-LD button to generate the NGSI-LD representation of the model.if no location is specified for the generated model it will be saved in the output folder in the same directory of the application.
 
 ![modeling screen](/images/modeling.png)
 
 ### Simulation
 
-You can simulate the iot system to generate useful data by clicking on the simulation tab then choose the data model location if you have a previous one or choose the one you just generated and choose the output location for the generated data then click on simulate button to start the simulation.
+You can simulate the iot system to generate useful data by clicking on the simulation tab then choose the data model location if you have a previous one or choose the one you just generated and choose the output location for the generated data then click on simulate button to start the simulation and generate the data.The generated data will be saved in 2 csv files one for the current simulation(output_{alias}.csv) and the other(output.csv) will be appended with the previous simulations.
 
 
 ![simulation screen](/images/simulation.png)

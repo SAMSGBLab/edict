@@ -29,20 +29,20 @@ public class BaseEntity extends Pane {
         this.setLayoutY(0);
         this.setTranslateX(x);
         this.setTranslateY(y);
-
+        this.setPrefWidth(width-10);
+        this.setPrefHeight(height-10);
         rectangle = new Rectangle(width, height, Color.GRAY);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(2);
         rectangle.setX(0);
         rectangle.setY(0);
 
-        double[] triangleCoordinates = {width, height, width, height - 10, width - 10, height};
-
 
         entityName = new Label();
         entityName.setLayoutX(0);
         entityName.setPrefWidth(width - 15);
         entityName.setPrefHeight(40);
+
         entityName.setTextAlignment(TextAlignment.CENTER);
         entityName.setTranslateX(rectangle.getWidth() / 2 - entityName.getPrefWidth() / 2);
         entityName.setTranslateY(rectangle.getHeight() / 2 - entityName.getPrefHeight() / 2);

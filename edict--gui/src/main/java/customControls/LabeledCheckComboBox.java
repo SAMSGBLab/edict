@@ -16,6 +16,7 @@ public class LabeledCheckComboBox<T> extends HBox {
 
     public LabeledCheckComboBox(String labelText) {
         label = new Label(labelText);
+        label.setMinWidth(150);
         checkComboBox = new CheckComboBox<>();
         setSpacing(10);
         setPadding(new Insets(10));

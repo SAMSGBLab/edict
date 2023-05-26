@@ -39,8 +39,7 @@ public class Main {
 		System.out.println("Writing results to csv ...");
 		SimulationResultsWriter writer = new SimulationResultsWriter();
 		writer.readXML(simResultFile.getCanonicalPath());
-		String metricsFile = inputFile.split(".json")[0] + "_" + alias + ".csv";
-		writer.writeToCsv(metricsFile);
+		writer.writeToCsv(outputFile+"/output_"+alias+".csv");
 		System.out.println("Done writing to csv.");
 		
 		System.out.println("Adding results to dataset");

@@ -282,6 +282,8 @@ public class HomeController implements Initializable {
         durationField.setText(String.valueOf(systemSpecifications.getSimulationDuration()));
         aliasField.setText(systemSpecifications.getAlias());
         messageField.setText(String.valueOf(systemSpecifications.getGlobalMessageSize()));
+
+
     }
 
 

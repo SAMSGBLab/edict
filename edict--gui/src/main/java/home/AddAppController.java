@@ -3,6 +3,7 @@ package home;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import customControls.LabeledCheckComboBox;
@@ -22,6 +23,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -77,7 +80,7 @@ public class AddAppController extends BaseAddController {
         id.setText("urn:ngsi-ld:edict:Application:" + UUID.randomUUID().toString());
         id.setDisable(true);
         name = new LabeledTextField("Name", LabeledTextField.TYPE_TEXT);
-        priotity = new LabeledTextField("Priotity", LabeledTextField.TYPE_NUM);
+        priotity = new LabeledTextField("Priority", LabeledTextField.TYPE_NUM);
         processingRate = new LabeledTextField("Processing Rate", LabeledTextField.TYPE_NUM);
         getApplicationCategories();
         applicationCategory = new LabeledListView<>("Application Category", FXCollections.observableArrayList(applicationCategoriesList));
@@ -109,11 +112,38 @@ public class AddAppController extends BaseAddController {
         };
 
         applicationCategory.setConverter(applicationCategoryConverter);
-        Button addApplicationCategory = new Button("+");
-        addApplicationCategory.setOnAction(event -> {
-            showPanel();
+
+        TextField categoryName = new TextField();
+        categoryName.setPromptText("Name");
+        TextField categoryCode = new TextField();
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+            if (text.matches("[a-zA-Z]*") && change.getControlNewText().length() <= 3) {
+                change.setText(text.toUpperCase());
+                return change;
+            }
+            return null;
+        };
+        TextFormatter<String> formatter = new TextFormatter<>(filter);
+        categoryCode.setTextFormatter(formatter);
+        categoryCode.setPromptText("Code");
+
+        Button addButton = new Button("Add");
+        addButton.setOnAction(event -> {
+            String name = categoryName.getText();
+            String code = categoryCode.getText();
+            if (!name.isEmpty() && !code.isEmpty()) {
+                ApplicationCategory ac = new ApplicationCategory(UUID.randomUUID().toString());
+                ac.setName(name);
+                ac.setCode(code);
+                DataParser.addToCsv("applicationCategories", ac.toString());
+                categoryCode.clear();
+                categoryName.clear();
+            }
+            getApplicationCategories();
+            applicationCategory.setItems(applicationCategoriesList);
         });
-        HBox applicationCategoryField = new HBox(applicationCategory, addApplicationCategory);
+        HBox applicationCategoryField = new HBox(applicationCategory, categoryName, categoryCode, addButton);
 
 
         getObservations();

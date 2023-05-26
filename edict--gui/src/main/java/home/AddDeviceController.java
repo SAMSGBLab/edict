@@ -76,6 +76,7 @@ public class AddDeviceController extends BaseAddController {
             String newItem = textField.getText();
             if (!newItem.isEmpty()) {
                 Observation ob = new Observation(UUID.randomUUID().toString());
+                newItem = newItem.replaceAll(" ", "_");
                 ob.setName(newItem);
                 DataParser.addToCsv("observations", ob.toString());
                 textField.clear();

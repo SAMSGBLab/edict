@@ -1,17 +1,15 @@
 package composer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
-import iotSystemComponents.IoTdevice;
 import iotSystemComponents.Application;
-import iotSystemComponents.Subscriber;
 import iotSystemComponents.Subtopic;
 import iotSystemComponents.Topic;
 import iotSystemComponents.VirtualSensor;
 import jmt.gui.common.CommonConstants;
 import jmt.gui.common.definitions.CommonModel;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class TopicHandler {
 

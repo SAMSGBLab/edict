@@ -7,14 +7,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
 public class LabeledTextField extends HBox {
     private Label label;
+
     private TextField textField;
     public static final String TYPE_NUM="number";
     public static final String TYPE_TEXT="text";
     public LabeledTextField(String labelText,String type) {
         label = new Label(labelText +" :");
-        if(type=="number"){
+        label.setMinWidth(150);
+        if(Objects.equals(type, "number")){
             textField = new TextField();
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (!newValue.matches("\\d*")) {

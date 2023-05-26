@@ -16,9 +16,10 @@ public class QueueingNetworkComposer {
 	 
 	 public String composeNetwork(String inputFolder, int simulationDuration,double globalMessageSize) {
 		 NgsiParser parser= new NgsiParser();
+			parser.readSystemData("SystemSpecifications.st");
 		 parser.readJSONLD(inputFolder);
 		 
-		 String priorityPolicy = NgsiParser.priorityPolicy;
+		 String priorityPolicy = parser.priorityPolicy;
 		 
 		 CommonModel jmtModel = new CommonModel();
 		 IoTdeviceHandler iotDeviceHandler = new IoTdeviceHandler();

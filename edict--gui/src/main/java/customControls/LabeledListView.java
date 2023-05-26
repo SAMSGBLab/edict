@@ -17,6 +17,7 @@ public class LabeledListView<T> extends HBox {
     public LabeledListView(String labelText ) {
 
         label = new Label(labelText);
+        label.setMinWidth(150);
         listView = new ListView<>();
         setSpacing(10);
         setPadding(new Insets(10));
