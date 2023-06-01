@@ -79,7 +79,7 @@ public class HomeController implements Initializable {
     private TextField commChannelLossAN;
 
     @FXML
-    private TextField bandwidthPolicy;
+    private ChoiceBox bandwidthPolicy;
 
     @FXML
     private TextField brokerCapacity;
@@ -272,11 +272,13 @@ public class HomeController implements Initializable {
 
 
     public void initializeSystemSpecifications() {
+        String[] bandwidthPolicies={"none","shared"};
         commChannelLossRT.setText(String.valueOf(systemSpecifications.getCommChannelLossRT()));
         commChannelLossTS.setText(String.valueOf(systemSpecifications.getCommChannelLossTS()));
         commChannelLossVS.setText(String.valueOf(systemSpecifications.getCommChannelLossVS()));
         commChannelLossAN.setText(String.valueOf(systemSpecifications.getCommChannelLossAN()));
-        bandwidthPolicy.setText(systemSpecifications.getBandwidthPolicy());
+        bandwidthPolicy.getItems().addAll(bandwidthPolicies);
+        bandwidthPolicy.setValue(systemSpecifications.getBandwidthPolicy());
         brokerCapacity.setText(String.valueOf(systemSpecifications.getBrokerCapacity()));
         systemBandwidth.setText(String.valueOf(systemSpecifications.getSystemBandwidth()));
         durationField.setText(String.valueOf(systemSpecifications.getSimulationDuration()));
@@ -304,7 +306,7 @@ public class HomeController implements Initializable {
 
     public void saveSystemSpecifications() {
         systemSpecifications.setSystemBandwidth(Integer.parseInt(systemBandwidth.getText()));
-        systemSpecifications.setBandwidthPolicy(bandwidthPolicy.getText());
+        systemSpecifications.setBandwidthPolicy((String) bandwidthPolicy.getValue());
         systemSpecifications.setBrokerCapacity(Integer.parseInt(brokerCapacity.getText()));
         systemSpecifications.setCommChannelLossAN(Integer.parseInt(commChannelLossAN.getText()));
         systemSpecifications.setCommChannelLossRT(Integer.parseInt(commChannelLossRT.getText()));

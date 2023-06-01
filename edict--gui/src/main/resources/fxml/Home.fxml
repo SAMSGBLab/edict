@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -145,7 +146,7 @@
                                                    </image>
                                                 </ImageView>
                                                 <Text fx:id="dirPathId" fill="#a19d9d" layoutX="356.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
-                                                <Hyperlink layoutX="275.0" layoutY="20.0" onAction="#chooseDestinationFile" text="choose csv file" />
+                                                <Hyperlink layoutX="275.0" layoutY="20.0" onAction="#chooseDestinationFile" text="choose output location" />
                                              </children>
                                           </Pane>
                                        </children>
@@ -316,7 +317,7 @@
                                                             <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="bandwidthPolicy" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="193.0" promptText="Enter Network Allocation Policy" />
+                                                      <ChoiceBox fx:id="bandwidthPolicy" prefHeight="26.0" prefWidth="192.0" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="28.0" text="❓" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />

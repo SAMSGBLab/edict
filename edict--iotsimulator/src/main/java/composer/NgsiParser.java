@@ -59,7 +59,7 @@ public class NgsiParser {
                         systemBandwidth = Integer.parseInt(data[1].trim());
                         break;
                     case "BandwidthPolicy":
-                        bandwidthPolicy = "none";
+                        bandwidthPolicy = data[1].trim();
                         break;
                     case "BrokerCapacity":
                         BROKER_CAPACITY = Integer.parseInt(data[1].trim());
