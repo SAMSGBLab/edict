@@ -102,10 +102,10 @@ public class AddDeviceController extends BaseAddController {
         messageSize.setText(((Integer) device.getMessageSize()).toString());
         distribution.setSelectedItem(device.getDataDistribution());
 
-        List<Observation> selectedTopics = device.getCapturesObservation().stream()
+        Set<Observation> selectedTopics = device.getCapturesObservation().stream()
                 .map(converter::fromString)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         topics.setCheckedItems(selectedTopics);
         id.setDisable(true);
         X=x;
@@ -126,7 +126,7 @@ public class AddDeviceController extends BaseAddController {
                 .map(Observation::getId)
                 .collect(Collectors.toList());
         topics.getCheckedItems().forEach(observation -> {
-            List<String> capturedBy = observation.getIsCapturedBy();
+            Set<String> capturedBy = observation.getIsCapturedBy();
             capturedBy.add(device.getId());
             observation.setIsCapturedBy(capturedBy);
             DataParser.deleteFromCsv("observations", observation.getId());

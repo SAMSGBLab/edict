@@ -8,10 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 import guimodel.*;
 import modelingEntities.ApplicationEntity;
 import modelingEntities.DeviceEntity;
@@ -176,8 +174,8 @@ public class DataParser {
         return new ApplicationCategory(data[0], data[1], data[2]);
     }
     private static Observation readObservation(String[] data) {
-        List<String> topicPublishers = new ArrayList<>(Arrays.asList( data[2].split(";")));
-        List<String> topicSubscribers = new ArrayList<>(Arrays.asList(data[3].split(";")));
+        Set<String> topicPublishers = new HashSet<>(Arrays.asList( data[2].split(";")));
+        Set<String> topicSubscribers = new HashSet<>(Arrays.asList(data[3].split(";")));
         return new Observation(data[0], data[1], topicPublishers, topicSubscribers);
     }
 }

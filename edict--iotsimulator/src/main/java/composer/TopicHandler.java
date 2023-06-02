@@ -40,6 +40,8 @@ public class TopicHandler {
        
     public void addSubTopics(CommonModel jmtModel, Collection<Topic> topics, HashMap<String, Application> applications, HashMap<String, VirtualSensor> virtualSensors, String priorityPolicy) {
 		for (Topic topic : topics) {
+			System.out.println("Topic: " + topic.topicName);
+			System.out.println("Subscribers: " + topic.subscribers);
 			ArrayList<String> subtopicsList = new ArrayList<String>();
 			int priority = 0;
 			int jmtPriority = 0;
@@ -59,7 +61,8 @@ public class TopicHandler {
 				}
 				String subTopicName = "";
 				if (priorityPolicy.equals("apps")) {
-					subTopicName = topic.topicName + "_" + subscriberName + "_" + applicationCategory + new Integer(priority).toString();	
+					subTopicName = topic.topicName + "_" + subscriberName + "_" + applicationCategory + new Integer(priority).toString();
+					System.out.println(subTopicName);
 				}
 					
 				else if (priorityPolicy.equals("topics")) {

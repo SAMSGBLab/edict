@@ -209,10 +209,10 @@ public class AddAppController extends BaseAddController {
                 .orElse(null);
         applicationCategory.setSelectedItem(selectedCategory);
 
-        List<Observation> selectedTopics = app.getReceivesObservation().stream()
+        Set<Observation> selectedTopics = app.getReceivesObservation().stream()
                 .map(observationConverter::fromString)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         applicationTopics.setCheckedItems(selectedTopics);
         id.setDisable(true);
@@ -237,7 +237,7 @@ public class AddAppController extends BaseAddController {
                 .map(Observation::getId)
                 .collect(Collectors.toList());
         applicationTopics.getCheckedItems().forEach(observation -> {
-                    List<String> receivedBy = observation.getIsReceivedBy();
+                    Set<String> receivedBy = observation.getIsReceivedBy();
                     receivedBy.add(app.getId());
                     observation.setIsReceivedBy(receivedBy);
                     DataParser.deleteFromCsv("observations", observation.getId());

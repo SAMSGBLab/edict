@@ -121,8 +121,8 @@ public class HomeController implements Initializable {
             }
         });
         messageField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*\\.?\\d*")) {
-                messageField.setText(newValue.replaceAll("[^\\d\\.]", ""));
+            if (!newValue.matches("\\d*")) {
+                messageField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
         if (systemSpecifications.loadSystemSpecifications())
@@ -155,7 +155,7 @@ public class HomeController implements Initializable {
         applicationEntityList.addAll(DataParser.readEntityFromCsv("applications", ApplicationEntity.class));
         ObservableList<ApplicationCategory> applicationCategories = FXCollections.observableArrayList();
         applicationCategories.addAll(DataParser.readModelFromCSv("applicationCategories", ApplicationCategory.class));
-        List<String> colors = Arrays.asList("#e6194b", "#3cb44b", "#ffe119", "#0082c8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#d2f53c", "#fabebe");
+        List<String> colors = Arrays.asList("#e6194b", "#3cb44b", "#ffe119", "#0882c8", "#558231", "#911eb4", "#46f0f0", "#f032e6", "#d2f53c", "#fabebe");
         HashMap<String, String> categoryColorHashMap = new HashMap<>();
         for (int i = 0; i < applicationCategories.size(); i++) {
             categoryColorHashMap.put(applicationCategories.get(i).getId(), colors.get(i%10));
@@ -314,7 +314,7 @@ public class HomeController implements Initializable {
         systemSpecifications.setCommChannelLossVS(Integer.parseInt(commChannelLossVS.getText()));
         systemSpecifications.setSimulationDuration(Integer.parseInt(durationField.getText()));
         systemSpecifications.setAlias(aliasField.getText());
-        systemSpecifications.setGlobalMessageSize(Double.parseDouble(messageField.getText()));
+        systemSpecifications.setGlobalMessageSize(Integer.parseInt(messageField.getText()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (systemSpecifications.saveSystemSpecifications())
             alert.setContentText("Settings saved successfully");
@@ -378,7 +378,6 @@ public class HomeController implements Initializable {
         int simulationDuration = durationField.getText().isEmpty() ? 0 : Integer.parseInt(durationField.getText());
         String alias = aliasField.getText();
         double globalMessageSize = messageField.getText().isEmpty() ? 0 : Double.parseDouble(messageField.getText());
-
         try {
             List<String> command = new ArrayList<>();
             command.add("java");
@@ -389,8 +388,6 @@ public class HomeController implements Initializable {
             command.add(simulationDuration + "");
             command.add(alias);
             command.add(globalMessageSize + "");
-            System.out.println("command" + command);
-            System.out.println("current dir = " + System.getProperty("user.dir"));
             Alert alert = new Alert(AlertType.INFORMATION);
             Platform.runLater(() -> {
                 alert.setContentText("Simulation started");
@@ -402,8 +399,6 @@ public class HomeController implements Initializable {
                     Process process = pb.start();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                    StringBuilder outputBuilder = new StringBuilder();
-                    StringBuilder errorOutputBuilder = new StringBuilder();
                     String line;
                     while ((line = reader.readLine()) != null) {
                         final String currentLine = line;

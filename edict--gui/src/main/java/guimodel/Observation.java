@@ -1,9 +1,6 @@
 package guimodel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class Observation {
 	
@@ -12,9 +9,9 @@ public class Observation {
 
 	
 	
-	private List<String> isCapturedBy = new ArrayList<>(); //publishers
+	private Set<String> isCapturedBy = new LinkedHashSet<>();
 	
-	private List<String> isReceivedBy = new ArrayList<>(); //subscribers
+	private Set<String> isReceivedBy = new LinkedHashSet<>();
 	public Observation() {
 		super();
 	}
@@ -23,7 +20,7 @@ public class Observation {
 		this.id = "urn:ngsi-ld:edict:Observation:"+id;
 	}
 
-	public Observation(String id, String name, List<String> isCapturedBy, List<String> isReceivedBy) {
+	public Observation(String id, String name, Set<String> isCapturedBy, Set<String> isReceivedBy) {
 		this.id = id;
 		this.name = name;
 		this.isCapturedBy = isCapturedBy;
@@ -42,19 +39,23 @@ public class Observation {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<String> getIsCapturedBy() {
+
+	public Set<String> getIsCapturedBy() {
 		return isCapturedBy;
 	}
-	public void setIsCapturedBy(List<String> isCapturedBy) {
+
+	public void setIsCapturedBy(Set<String> isCapturedBy) {
 		this.isCapturedBy = isCapturedBy;
 	}
-	public List<String> getIsReceivedBy() {
+
+	public Set<String> getIsReceivedBy() {
 		return isReceivedBy;
 	}
-	public void setIsReceivedBy(List<String> isRecievedBy) {
-		this.isReceivedBy = isRecievedBy;
+
+	public void setIsReceivedBy(Set<String> isReceivedBy) {
+		this.isReceivedBy = isReceivedBy;
 	}
-	
+
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -68,7 +69,7 @@ public class Observation {
 	private Map<String, Object> tempMap(String type,Object value) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("type", type);
-		if(type=="Relationship")
+		if(Objects.equals(type, "Relationship"))
 			map.put("object", value);
 		else
 			map.put("value", value);
