@@ -85,6 +85,7 @@ public class QueueingNetworkComposer {
 		 
 		 NetworkResourcesManager networkManager = new NetworkResourcesManager(parser.systemBandwidth, parser.bandwidthPolicy, 
 				 globalMessageSize);
+		 networkManager.calculateDemands(parser);
 		 networkManager.allocateResources();
 		 
 		 
