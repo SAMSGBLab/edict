@@ -19,7 +19,7 @@ public class ApplicationEntity extends BaseEntity {
         leftNode.setCenterY(rectangle.getHeight() / 2);
         applicationCategoryLabel = new Label();
         applicationCategoryLabel.setLayoutX(0);
-        applicationCategoryLabel.translateYProperty().bind(this.getEntityName().translateYProperty().add(40));
+        applicationCategoryLabel.translateYProperty().bind(this.getEntityName().translateYProperty().add(25));
         applicationCategoryLabel.setPrefHeight(10);
         this.rectangle.widthProperty().addListener((observable, oldValue, newValue) -> {
             applicationCategoryLabel.setTranslateX(newValue.doubleValue()*0.7);

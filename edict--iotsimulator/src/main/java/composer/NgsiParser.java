@@ -23,8 +23,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class NgsiParser {
 
-    //read the data from text file called "input.txt"
-
     public int CHANNEL_LOSS_AN = 0;
     public int CHANNEL_LOSS_RT = 0;
     public int CHANNEL_LOSS_TS = 0;

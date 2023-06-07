@@ -88,6 +88,10 @@ public class NetworkResourcesManager {
 		HashMap<String, Topic> topics = ngsiParser.topics;
 		HashMap<String,Double> topicLoad = new HashMap<>();
 		HashMap<String,Double> categoryLoad = new HashMap<>();
+		categoryLoad.put("RT",0.0);
+		categoryLoad.put("AN",0.0);
+		categoryLoad.put("VS",0.0);
+		categoryLoad.put("TS",0.0);
 		for(Topic topic:topics.values()){
 			topicLoad.put(topic.topicName,0.0);
 		}
@@ -107,6 +111,5 @@ public class NetworkResourcesManager {
 		}
 		categoryLoad.replaceAll((c, v) -> categoryLoad.get(c) / globalMessageSize);
 		demands=categoryLoad.values().stream().mapToDouble(Double::doubleValue).toArray();
-		System.out.println(demands[0]+" "+demands[1]+" "+demands[2]+" "+demands[3]);
 	}
 }

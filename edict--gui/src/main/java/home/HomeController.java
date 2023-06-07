@@ -158,7 +158,7 @@ public class HomeController implements Initializable {
         List<String> colors = Arrays.asList("#e6194b", "#3cb44b", "#ffe119", "#0882c8", "#558231", "#911eb4", "#46f0f0", "#f032e6", "#d2f53c", "#fabebe");
         HashMap<String, String> categoryColorHashMap = new HashMap<>();
         for (int i = 0; i < applicationCategories.size(); i++) {
-            categoryColorHashMap.put(applicationCategories.get(i).getId(), colors.get(i%10));
+            categoryColorHashMap.put(applicationCategories.get(i).getId(), colors.get(i % 10));
         }
 
         HashMap<String, String> applicationCategoryHashMap = new HashMap<>();
@@ -180,7 +180,7 @@ public class HomeController implements Initializable {
                 deviceEntity.getArrow().getLabel().setText(String.valueOf(Names));
                 deviceEntity.splitArrow();
             }
-            for(Node node:deviceEntity.getChildren()){
+            for (Node node : deviceEntity.getChildren()) {
                 node.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2) {
                         AddDeviceController controller = showPanel("AddDevice.fxml", "Device").getController();
@@ -203,17 +203,14 @@ public class HomeController implements Initializable {
                         .forEach(observation -> Names.append(observationHashMap.get(observation)).append(" "));
                 applicationEntity.getArrow().getLabel().setText(String.valueOf(Names));
                 applicationEntity.getRectangle().setStyle("-fx-fill: " + categoryColorHashMap.get(applicationEntity.getApplication().getApplicationCategory()) + ";");
-                        applicationEntity.getApplicationCategoryLabel().setStyle("-fx-background-color: "
-                        + categoryColorHashMap.get(applicationEntity.getApplication().getApplicationCategory())+
-                        ";-fx-background-radius: 7px;"+ "-fx-text-alignment: center;"+"-fx-font-weight: bold;");
                 applicationEntity.getApplicationCategoryLabel().setPrefWidth(22);
                 applicationEntity.getApplicationCategoryLabel().setPrefHeight(22);
-                applicationEntity.getApplicationCategoryLabel().setTranslateX(applicationEntity.getRectangle().getWidth() *0.7);
+                applicationEntity.getApplicationCategoryLabel().setTranslateX(applicationEntity.getRectangle().getWidth() * 0.7);
 
                 applicationEntity.splitArrow();
             }
-            for(Node node:applicationEntity.getChildren()){
-                if(node instanceof Arrow)
+            for (Node node : applicationEntity.getChildren()) {
+                if (node instanceof Arrow)
                     continue;
                 node.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2) {
@@ -272,7 +269,7 @@ public class HomeController implements Initializable {
 
 
     public void initializeSystemSpecifications() {
-        String[] bandwidthPolicies={"none","shared","max_min"};
+        String[] bandwidthPolicies = {"none", "shared", "max_min"};
         commChannelLossRT.setText(String.valueOf(systemSpecifications.getCommChannelLossRT()));
         commChannelLossTS.setText(String.valueOf(systemSpecifications.getCommChannelLossTS()));
         commChannelLossVS.setText(String.valueOf(systemSpecifications.getCommChannelLossVS()));
