@@ -272,7 +272,7 @@ public class HomeController implements Initializable {
 
 
     public void initializeSystemSpecifications() {
-        String[] bandwidthPolicies={"none","shared"};
+        String[] bandwidthPolicies={"none","shared","max_min"};
         commChannelLossRT.setText(String.valueOf(systemSpecifications.getCommChannelLossRT()));
         commChannelLossTS.setText(String.valueOf(systemSpecifications.getCommChannelLossTS()));
         commChannelLossVS.setText(String.valueOf(systemSpecifications.getCommChannelLossVS()));
