@@ -108,11 +108,6 @@ public class HomeController implements Initializable {
     @FXML
     private ObservableList<ApplicationEntity> applicationEntityList;
 
-    //getInstance
-    public static HomeController getInstance() {
-        return new HomeController();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         durationField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -125,8 +120,11 @@ public class HomeController implements Initializable {
                 messageField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        if (systemSpecifications.loadSystemSpecifications())
-            initializeSystemSpecifications();
+        if (!systemSpecifications.loadSystemSpecifications())
+            createSystemSpecifications();
+        initializeSystemSpecifications();
+
+
         initializeModelingPane();
 
     }
@@ -285,7 +283,20 @@ public class HomeController implements Initializable {
 
     }
 
+    public void createSystemSpecifications(){
+        systemSpecifications.setCommChannelLossRT(0);
+        systemSpecifications.setCommChannelLossTS(0);
+        systemSpecifications.setCommChannelLossVS(0);
+        systemSpecifications.setCommChannelLossAN(0);
+        systemSpecifications.setBandwidthPolicy("none");
+        systemSpecifications.setBrokerCapacity(Integer.MAX_VALUE);
+        systemSpecifications.setSystemBandwidth(100);
+        systemSpecifications.setSimulationDuration(10);
+        systemSpecifications.setAlias("default");
+        systemSpecifications.setGlobalMessageSize(52428800);
+        systemSpecifications.saveSystemSpecifications();
 
+    }
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnSimulate) {
             pnlSmlSettings.toFront();
