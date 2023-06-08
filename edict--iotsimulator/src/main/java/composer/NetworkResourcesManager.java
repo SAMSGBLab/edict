@@ -45,7 +45,12 @@ public class NetworkResourcesManager {
 		else if (allocationPolicy.equals("max_min")) {
 			double[] allocatedBw = new double[]{0, 0, 0, 0};
 			double remainingResources = totalResources;
-			int remainingUsers = 4;
+			int remainingUsers =4;
+			for (int i = 0; i < 4; i++) {
+				if (demands[i]==0) {
+					remainingUsers--;
+				}
+			}
 			while (remainingResources > 0 && remainingUsers > 0) {
 				double minDemand = Double.MAX_VALUE;
 				for (int i = 0; i < 4; i++) {
@@ -110,6 +115,8 @@ public class NetworkResourcesManager {
 			}
 		}
 		categoryLoad.replaceAll((c, v) -> categoryLoad.get(c) / globalMessageSize);
+
 		demands=categoryLoad.values().stream().mapToDouble(Double::doubleValue).toArray();
+
 	}
 }
