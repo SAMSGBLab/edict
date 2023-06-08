@@ -14,7 +14,7 @@ public class Arrow extends Group {
 
         label = new Label();
 
-        label.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-font-size: 13px; -fx-font-style: italic; -fx-font-weight: bold; -fx-font-family: 'Times New Roman';");
+        label.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-font-size: 13px; -fx-font-style: italic; -fx-font-weight: bold; -fx-font-family: 'Helvetica';");
 
 
         this.getChildren().addAll(line, label);
