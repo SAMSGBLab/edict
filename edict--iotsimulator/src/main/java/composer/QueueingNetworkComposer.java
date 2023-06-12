@@ -108,7 +108,7 @@ public class QueueingNetworkComposer {
 		 
 		 
 		 
-		 String jsimgFilePath = inputFolder+"\\simulation.jsimg";
+		 String jsimgFilePath = inputFolder+"/simulation.jsimg";
 		 File jsimFile = new File(jsimgFilePath);
 		 XMLWriter.writeXML(jsimFile, jmtModel);
 		 

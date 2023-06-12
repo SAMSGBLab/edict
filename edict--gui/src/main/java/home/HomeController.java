@@ -316,10 +316,10 @@ public class HomeController implements Initializable {
         systemSpecifications.setSystemBandwidth(Integer.parseInt(systemBandwidth.getText()));
         systemSpecifications.setBandwidthPolicy((String) bandwidthPolicy.getValue());
         systemSpecifications.setBrokerCapacity(Integer.parseInt(brokerCapacity.getText()));
-        systemSpecifications.setCommChannelLossAN(Integer.parseInt(commChannelLossAN.getText()));
-        systemSpecifications.setCommChannelLossRT(Integer.parseInt(commChannelLossRT.getText()));
-        systemSpecifications.setCommChannelLossTS(Integer.parseInt(commChannelLossTS.getText()));
-        systemSpecifications.setCommChannelLossVS(Integer.parseInt(commChannelLossVS.getText()));
+        systemSpecifications.setCommChannelLossAN(Double.parseDouble(commChannelLossAN.getText()));
+        systemSpecifications.setCommChannelLossRT(Double.parseDouble(commChannelLossRT.getText()));
+        systemSpecifications.setCommChannelLossTS(Double.parseDouble(commChannelLossTS.getText()));
+        systemSpecifications.setCommChannelLossVS(Double.parseDouble(commChannelLossVS.getText()));
         systemSpecifications.setSimulationDuration(Integer.parseInt(durationField.getText()));
         systemSpecifications.setAlias(aliasField.getText());
         systemSpecifications.setGlobalMessageSize(Integer.parseInt(messageField.getText()));

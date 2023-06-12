@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -33,7 +24,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="1012.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="1012.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.HomeController">
 	<children>
 		<VBox alignment="TOP_CENTER" layoutX="-44.0" layoutY="52.0" prefHeight="526.0" prefWidth="302.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="52.0">
 			<children>
@@ -257,7 +248,7 @@
 																</HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="378.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="148.0" text="Dropping Rate For Analytics Apps (In %)" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Analytics Apps (In %)" wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
@@ -272,7 +263,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="146.0" text="Dropping Rate For Video Streaming Apps (In %)" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Video Streaming Apps (In %)" wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
@@ -287,7 +278,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="142.0" text="System Capacity" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="System Capacity" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
@@ -302,7 +293,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="300.0" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="142.0" text="Simulation Duration" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Simulation Duration" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
@@ -324,12 +315,12 @@
 															<children>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="334.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="134.0" text="Network Allocation Policy" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="150.0" text="Network Allocation Policy" wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
                                                       </Label>
-                                                      <ChoiceBox fx:id="bandwidthPolicy" prefHeight="26.0" prefWidth="192.0" />
+                                                      <ChoiceBox fx:id="bandwidthPolicy" prefHeight="26.0" prefWidth="205.0" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="28.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -339,12 +330,12 @@
                                                 </HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0">
 																	<children>
-																		<Label prefHeight="45.0" prefWidth="129.0" text="Dropping Rate For Realtime Apps (In %)" wrapText="true">
+																		<Label prefHeight="45.0" prefWidth="150.0" text="Dropping Rate For Realtime Apps (In %)" wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
 																		</Label>
-																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="202.0" promptText="Enter Dropping Rate" />
+																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="39.0" prefWidth="27.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -354,12 +345,12 @@
 																</HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
 																	<children>
-																		<Label prefHeight="38.0" prefWidth="134.0" text=" Dropping Rate Ror Transactional Apps (In %)" wrapText="true">
+																		<Label prefHeight="38.0" prefWidth="150.0" text=" Dropping Rate Ror Transactional Apps (In %)" wrapText="true">
 																			<font>
 																				<Font size="11.0" />
 																			</font>
 																		</Label>
-																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="198.0" promptText="Enter Dropping Rate" />
+																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="18.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -369,12 +360,12 @@
 																</HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="117.0" text="Alias" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="150.0" text="Alias" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="222.0" promptText="Enter Alias" />
+                                                      <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Alias" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="23.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
@@ -384,12 +375,12 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="296.0" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="151.0" text="Global Message Size" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="170.0" text="Global Message Size" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Global Message Size" />
+                                                      <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="198.0" promptText="Enter Global Message Size" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="40.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
                                                             <Tooltip height="50.0" text="This is a tool tip" width="50.0" />

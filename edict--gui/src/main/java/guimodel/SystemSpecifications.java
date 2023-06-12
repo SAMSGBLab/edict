@@ -10,13 +10,13 @@ public class SystemSpecifications {
 	
 	private  String bandwidthPolicy;
 	
-	private int commChannelLossRT;
+	private double commChannelLossRT;
 	
-	private int commChannelLossTS;
+	private double commChannelLossTS;
 	
-	private int commChannelLossVS;
+	private double commChannelLossVS;
 	
-	private int commChannelLossAN;
+	private double commChannelLossAN;
 	
 	private int brokerCapacity;
 	
@@ -56,35 +56,35 @@ public class SystemSpecifications {
 		this.bandwidthPolicy = bandwidthPolicy;
 	}
 
-	public int getCommChannelLossRT() {
+	public double getCommChannelLossRT() {
 		return commChannelLossRT;
 	}
 
-	public void setCommChannelLossRT(int commChannelLossRT) {
+	public void setCommChannelLossRT(double commChannelLossRT) {
 		this.commChannelLossRT = commChannelLossRT;
 	}
 
-	public int getCommChannelLossTS() {
+	public double getCommChannelLossTS() {
 		return commChannelLossTS;
 	}
 
-	public void setCommChannelLossTS(int commChannelLossTS) {
+	public void setCommChannelLossTS(double commChannelLossTS) {
 		this.commChannelLossTS = commChannelLossTS;
 	}
 
-	public int getCommChannelLossVS() {
+	public double getCommChannelLossVS() {
 		return commChannelLossVS;
 	}
 
-	public void setCommChannelLossVS(int commChannelLossVS) {
+	public void setCommChannelLossVS(double commChannelLossVS) {
 		this.commChannelLossVS = commChannelLossVS;
 	}
 
-	public int getCommChannelLossAN() {
+	public double getCommChannelLossAN() {
 		return commChannelLossAN;
 	}
 
-	public void setCommChannelLossAN(int commChannelLossAN) {
+	public void setCommChannelLossAN(double commChannelLossAN) {
 		this.commChannelLossAN = commChannelLossAN;
 	}
 
@@ -166,13 +166,13 @@ public class SystemSpecifications {
 					else if(parts[0].equals("BandwidthPolicy"))
 						bandwidthPolicy = parts[1];
 					else if(parts[0].equals("CommChannelLossRT"))
-						commChannelLossRT = Integer.parseInt(parts[1]);
+						commChannelLossRT = Double.parseDouble(parts[1]);
 					else if(parts[0].equals("CommChannelLossTS"))
-						commChannelLossTS = Integer.parseInt(parts[1]);
+						commChannelLossTS = Double.parseDouble(parts[1]);
 					else if(parts[0].equals("CommChannelLossVS"))
-						commChannelLossVS = Integer.parseInt(parts[1]);
+						commChannelLossVS = Double.parseDouble(parts[1]);
 					else if(parts[0].equals("CommChannelLossAN"))
-						commChannelLossAN = Integer.parseInt(parts[1]);
+						commChannelLossAN = Double.parseDouble(parts[1]);
 					else if(parts[0].equals("BrokerCapacity"))
 						brokerCapacity = Integer.parseInt(parts[1]);
 					else if(parts[0].equals("SimulationDuration"))

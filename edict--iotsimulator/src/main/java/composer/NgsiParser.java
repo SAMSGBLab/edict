@@ -23,10 +23,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class NgsiParser {
 
-    public int CHANNEL_LOSS_AN = 0;
-    public int CHANNEL_LOSS_RT = 0;
-    public int CHANNEL_LOSS_TS = 0;
-    public int CHANNEL_LOSS_VS = 0;
+    public double CHANNEL_LOSS_AN = 0;
+    public double CHANNEL_LOSS_RT = 0;
+    public double CHANNEL_LOSS_TS = 0;
+    public double CHANNEL_LOSS_VS = 0;
     public int systemBandwidth = 230;
     public String bandwidthPolicy = "none";
     public int BROKER_CAPACITY = -1;
@@ -42,16 +42,16 @@ public class NgsiParser {
                 String[] data = line.split(":");
                 switch (data[0]) {
                     case "CommChannelLossAN":
-                        CHANNEL_LOSS_AN = Integer.parseInt(data[1].trim());
+                        CHANNEL_LOSS_AN = Double.parseDouble(data[1].trim());
                         break;
                     case "CommChannelLossRT":
-                        CHANNEL_LOSS_RT = Integer.parseInt(data[1].trim());
+                        CHANNEL_LOSS_RT = Double.parseDouble(data[1].trim());
                         break;
                     case "CommChannelLossTS":
-                        CHANNEL_LOSS_TS = Integer.parseInt(data[1].trim());
+                        CHANNEL_LOSS_TS = Double.parseDouble(data[1].trim());
                         break;
                     case "CommChannelLossVS":
-                        CHANNEL_LOSS_VS = Integer.parseInt(data[1].trim());
+                        CHANNEL_LOSS_VS = Double.parseDouble(data[1].trim());
                         break;
                     case "SystemBandwidth":
                         systemBandwidth = Integer.parseInt(data[1].trim());
