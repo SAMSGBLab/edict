@@ -236,14 +236,23 @@ public class AddAppController extends BaseAddController {
         List<String> selectedIds = applicationTopics.getCheckedItems().stream()
                 .map(Observation::getId)
                 .collect(Collectors.toList());
-        applicationTopics.getCheckedItems().forEach(observation -> {
-                    Set<String> receivedBy = observation.getIsReceivedBy();
-                    receivedBy.add(app.getId());
-                    observation.setIsReceivedBy(receivedBy);
-                    DataParser.deleteFromCsv("observations", observation.getId());
-                    DataParser.addToCsv("observations", observation.toString());
-
-                });
+        applicationTopics.getItems().forEach(observation -> {
+            if (!selectedIds.contains(observation.getId())) {
+                Set<String> receivedBy = observation.getIsReceivedBy();
+                receivedBy.remove(app.getId());
+                observation.setIsReceivedBy(receivedBy);
+                DataParser.deleteFromCsv("observations", observation.getId());
+                DataParser.addToCsv("observations", observation.toString());
+            }
+            else
+            {
+                Set<String> receivedBy = observation.getIsReceivedBy();
+                receivedBy.add(app.getId());
+                observation.setIsReceivedBy(receivedBy);
+                DataParser.deleteFromCsv("observations", observation.getId());
+                DataParser.addToCsv("observations", observation.toString());
+            }
+        });
 
         app.setReceivesObservation(selectedIds);
         ApplicationEntity appEntity = new ApplicationEntity(X,Y,70,70);

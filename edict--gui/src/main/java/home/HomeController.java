@@ -238,8 +238,21 @@ public class HomeController implements Initializable {
                     if (node instanceof DeviceEntity) {
                         DeviceEntity deviceEntity = (DeviceEntity) node;
                         DataParser.deleteFromCsv("devices", deviceEntity.getDevice().getId());
+                        for (Object observation : DataParser.readModelFromCSv("observations", Observation.class)) {
+                            Observation obs = (Observation) observation;
+                            obs.getIsCapturedBy().remove(deviceEntity.getDevice().getId());
+                            DataParser.addToCsv("observations", obs.toString());
+                        }
                     } else if (node instanceof ApplicationEntity) {
                         ApplicationEntity applicationEntity = (ApplicationEntity) node;
+
+                        for (Object observation : DataParser.readModelFromCSv("observations", Observation.class)) {
+                            Observation obs = (Observation) observation;
+                            obs.getIsReceivedBy().remove(applicationEntity.getApplication().getId());
+                            DataParser.addToCsv("observations", obs.toString());
+                        }
+
+
                         DataParser.deleteFromCsv("applications", applicationEntity.getApplication().getId());
                     }
                 }
@@ -283,7 +296,7 @@ public class HomeController implements Initializable {
 
     }
 
-    public void createSystemSpecifications(){
+    public void createSystemSpecifications() {
         systemSpecifications.setCommChannelLossRT(0);
         systemSpecifications.setCommChannelLossTS(0);
         systemSpecifications.setCommChannelLossVS(0);
@@ -297,6 +310,7 @@ public class HomeController implements Initializable {
         systemSpecifications.saveSystemSpecifications();
 
     }
+
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnSimulate) {
             pnlSmlSettings.toFront();

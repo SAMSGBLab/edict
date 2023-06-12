@@ -125,12 +125,21 @@ public class AddDeviceController extends BaseAddController {
         List<String> selectedIds = topics.getCheckedItems().stream()
                 .map(Observation::getId)
                 .collect(Collectors.toList());
-        topics.getCheckedItems().forEach(observation -> {
-            Set<String> capturedBy = observation.getIsCapturedBy();
-            capturedBy.add(device.getId());
-            observation.setIsCapturedBy(capturedBy);
-            DataParser.deleteFromCsv("observations", observation.getId());
-            DataParser.addToCsv("observations", observation.toString());
+        topics.getItems().forEach(observation -> {
+            if (!selectedIds.contains(observation.getId())) {
+                Set<String> capturedBy = observation.getIsCapturedBy();
+                capturedBy.remove(device.getId());
+                observation.setIsCapturedBy(capturedBy);
+                DataParser.deleteFromCsv("observations", observation.getId());
+                DataParser.addToCsv("observations", observation.toString());
+            }
+            else {
+                Set<String> capturedBy = observation.getIsCapturedBy();
+                capturedBy.add(device.getId());
+                observation.setIsCapturedBy(capturedBy);
+                DataParser.deleteFromCsv("observations", observation.getId());
+                DataParser.addToCsv("observations", observation.toString());
+            }
         });
         device.setCapturesObservation(selectedIds);
 
