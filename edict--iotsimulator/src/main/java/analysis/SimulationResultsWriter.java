@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -70,10 +71,10 @@ public class SimulationResultsWriter {
                   String subscription = "";
                   if (!classType.equals("")) {
                 	  String[] parts = classType.split("_");
-                      String topic = parts[1];
+                      String topic = parts[0];
                       String app;
                       try {
-      				   app = parts[3];
+      				   app = parts[1];
                       }
                       catch (Exception e) {
                 	  for(String p:parts) {
@@ -113,7 +114,7 @@ public class SimulationResultsWriter {
 				String[] parts = key.split("_");
 				String topic = parts[0];
 				String app = parts[1];
-				
+
 				String responseTime = responseTimes.get(key).toString();
 				String throughput = throughputs.get(key).toString();
 				String dropRate = dropRates.get(key).toString();

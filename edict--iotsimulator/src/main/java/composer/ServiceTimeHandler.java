@@ -31,36 +31,23 @@ public class ServiceTimeHandler {
 		for (Subtopic subtopic : subtopics.values()) {
 			if (subtopic.category.equals("RT")) {
 				Deterministic serviceTimeDistribution = new Deterministic();
-				if (networkManager.allocationPolicy.equals("none")) {
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_RT * (1048576.0 / networkManager.globalMessageSize)));
-				}
-				else
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_RT));
+				serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_RT));
 				jmtModel.setServiceTimeDistribution(outputQueue, jmtModel.getClassByName(subtopic.name + "_class"), serviceTimeDistribution);
 				
 			}
 			else if (subtopic.category.equals("AN")) {
 				Deterministic serviceTimeDistribution = new Deterministic();
-				if (networkManager.allocationPolicy.equals("none"))
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_AN * (1048576.0/networkManager.globalMessageSize)));
-				else 
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_AN));
+				serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_AN));
 				jmtModel.setServiceTimeDistribution(outputQueue, jmtModel.getClassByName(subtopic.name + "_class"), serviceTimeDistribution);
 			}
 			else if (subtopic.category.equals("TS")) {
 				Deterministic serviceTimeDistribution = new Deterministic();
-				if (networkManager.allocationPolicy.equals("none"))
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_TS * (1048576.0/networkManager.globalMessageSize)));
-				else
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_TS));
+				serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_TS));
 				jmtModel.setServiceTimeDistribution(outputQueue, jmtModel.getClassByName(subtopic.name + "_class"), serviceTimeDistribution);
 			}
 			else if (subtopic.category.equals("VS")) {
 				Deterministic serviceTimeDistribution = new Deterministic();
-				if (networkManager.allocationPolicy.equals("none"))
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_VS * (1048576.0/networkManager.globalMessageSize)));
-				else 
-					serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_VS));
+				serviceTimeDistribution.setMean(1/(networkManager.allocatedBw_VS));
 				jmtModel.setServiceTimeDistribution(outputQueue, jmtModel.getClassByName(subtopic.name + "_class"), serviceTimeDistribution);
 			}
 		}

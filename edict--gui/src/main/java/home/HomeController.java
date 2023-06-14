@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -527,5 +529,79 @@ public class HomeController implements Initializable {
         showPanel("AddDevice.fxml", "Device").getController();
     }
 
+    @FXML
+    public void ImportModel() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(null);
 
+        if (selectedDirectory != null) {
+            try {
+                Path source = selectedDirectory.toPath();
+                Path destination = Paths.get(System.getProperty("user.dir"), "data");
+                moveDirectory(source, destination);
+                loadEntities();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @FXML
+    public void ExportModel() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(null);
+
+        if (selectedDirectory != null) {
+            try {
+                Path source = Paths.get(System.getProperty("user.dir"), "data");
+                Path destination = selectedDirectory.toPath().resolve("data");
+                Files.createDirectories(destination);
+                moveDirectory(source, destination);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void moveDirectory(Path source, Path destination) throws IOException {
+        Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                Path targetDir = destination.resolve(source.relativize(dir));
+                Files.createDirectories(targetDir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Path targetFile = destination.resolve(source.relativize(file));
+                Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    @FXML
+    public void DeleteModel() {
+        try {
+            Path dataDirectory = Paths.get(System.getProperty("user.dir"), "data");
+            Files.walkFileTree(dataDirectory, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    Files.delete(dir);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+            loadEntities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

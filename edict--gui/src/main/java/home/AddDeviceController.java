@@ -46,7 +46,7 @@ public class AddDeviceController extends BaseAddController {
         id.setDisable(true);
         name = new LabeledTextField("Name", LabeledTextField.TYPE_TEXT);
         publishFrequency = new LabeledTextField("Publish Frequency", LabeledTextField.TYPE_NUM);
-        messageSize = new LabeledTextField("Message Size", LabeledTextField.TYPE_NUM);
+        messageSize = new LabeledTextField("Message Size (Bytes)", LabeledTextField.TYPE_NUM);
         distribution = new LabeledListView<String>("Distribution", FXCollections.observableArrayList("deterministic", "exponential"));
         observationList = FXCollections.observableArrayList();
 

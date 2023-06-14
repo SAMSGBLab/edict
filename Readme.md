@@ -85,7 +85,7 @@ Running the application will open the following interface with modeling tab sele
 ### Modeling
 
 You can create a new device or application by clicking on the suitable button  then a modal will open to fill the details,then you can drag the created entities and resize them as you want.once you finish modeling you can click on save design button to save the design for later or click on the generate NGSI-LD button to generate the NGSI-LD representation of the model.if no location is specified for the generated model it will be saved in the output folder in the same directory of the application.
-
+- Note: device name and attribute name should not contain spaces or underscores.
 ![modeling screen](/images/modeling.png)
 
 ### Simulation

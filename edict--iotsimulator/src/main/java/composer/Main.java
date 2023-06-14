@@ -11,7 +11,7 @@ public class Main {
 	   		 [1]: dataset path (output file)
 	   		 [2]: simulation duration (in sec)
 	   		 [3]: alias 
-	   		 [4]: global message size (ex:52428800.0)
+	   		 [4]: global message size (ex:50.0 MB)
 	*/
 	public static void main(String[] args) throws Exception {
 		if(args.length!=5) {
@@ -21,9 +21,9 @@ public class Main {
 		}
 		String inputFile = args[0];
 		String outputFile = args[1];
-		int simulationDuration = Integer.valueOf(args[2]);
+		int simulationDuration = Integer.parseInt(args[2]);
 		String alias = args[3];
-		double GLOBAL_MESSAGE_SIZE=Double.valueOf(args[4]);
+		double GLOBAL_MESSAGE_SIZE=Double.parseDouble(args[4])* 1048576;//converted to Bytes
 
 		QueueingNetworkComposer composer = new QueueingNetworkComposer();
 		System.out.println("Composing the queueing network ...");
