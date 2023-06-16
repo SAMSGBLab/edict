@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 public class SystemSpecifications {
 
-	private  int systemBandwidth;
+	private  double systemBandwidth;
 	
 	private  String bandwidthPolicy;
 	
@@ -40,11 +40,11 @@ public class SystemSpecifications {
 		this.brokerCapacity = brokerCapacity;
 	}
 
-	public int getSystemBandwidth() {
+	public double getSystemBandwidth() {
 		return systemBandwidth;
 	}
 
-	public  void setSystemBandwidth(int systemBandwidth) {
+	public  void setSystemBandwidth(double systemBandwidth) {
 		this.systemBandwidth = systemBandwidth;
 	}
 
@@ -162,7 +162,7 @@ public class SystemSpecifications {
 				while(line!=null){
 					String[] parts = line.split(": ");
 					if(parts[0].equals("SystemBandwidth"))
-						systemBandwidth = Integer.parseInt(parts[1]);
+						systemBandwidth = Double.parseDouble(parts[1]);
 					else if(parts[0].equals("BandwidthPolicy"))
 						bandwidthPolicy = parts[1];
 					else if(parts[0].equals("CommChannelLossRT"))

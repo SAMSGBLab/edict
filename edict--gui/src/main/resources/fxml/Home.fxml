@@ -252,7 +252,7 @@
                                                          </HBox.margin></TextField>
                                                       <Label alignment="CENTER" prefHeight="39.0" prefWidth="25.0" text="?">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="bandwidth between the data exchange system and applications" width="50.0" />
                                                          </tooltip>
                                                          <font>
                                                             <Font name="Noto Mono" size="13.0" />
@@ -262,7 +262,7 @@
 																</HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="378.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Analytics Apps (In %)" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Analytics Apps " wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
@@ -270,14 +270,14 @@
                                                       <TextField fx:id="commChannelLossAN" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="210.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="23.0" text="?">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="rate of messages to be dropped at the application layer for Analytics applications " width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Video Streaming Apps (In %)" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Dropping Rate For Video Streaming Apps " wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
@@ -285,7 +285,7 @@
                                                       <TextField fx:id="commChannelLossVS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="209.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="26.0" text="?">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="rate of messages to be dropped at the application layer for Video streaming applications" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
@@ -300,7 +300,7 @@
                                                       <TextField fx:id="brokerCapacity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="216.0" promptText="Enter System Capacity" />
                                                       <Label alignment="CENTER" layoutX="368.0" layoutY="14.0" prefHeight="38.0" prefWidth="28.0" text="?">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="capacity of the data exchange system (in bytes)" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
@@ -315,7 +315,7 @@
                                                       <TextField fx:id="durationField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="206.0" promptText="Enter simulation  duration" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="34.0" text="?">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="duration of the simulation (in sec)" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
@@ -337,14 +337,14 @@
                                                       <ChoiceBox fx:id="bandwidthPolicy" prefHeight="26.0" prefWidth="205.0" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="28.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="allocation policy (default, shared, max-min) to be applied at the output of the data exchange system" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
                                                 </HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0">
 																	<children>
-																		<Label prefHeight="45.0" prefWidth="150.0" text="Dropping Rate For Realtime Apps (In %)" wrapText="true">
+																		<Label prefHeight="45.0" prefWidth="150.0" text="Dropping Rate For Realtime Apps " wrapText="true">
                                                          <font>
                                                             <Font size="11.0" />
                                                          </font>
@@ -352,14 +352,14 @@
 																		<TextField fx:id="commChannelLossRT" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="39.0" prefWidth="27.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="rate of messages to be dropped at the application layer for Realtime applications" width="50.0" />
                                                          </tooltip>
                                                       </Label>
 																	</children>
 																</HBox>
 																<HBox alignment="BASELINE_LEFT" prefHeight="25.0" prefWidth="478.0">
 																	<children>
-																		<Label prefHeight="38.0" prefWidth="150.0" text=" Dropping Rate Ror Transactional Apps (In %)" wrapText="true">
+																		<Label prefHeight="38.0" prefWidth="150.0" text=" Dropping Rate Ror Transactional Apps" wrapText="true">
 																			<font>
 																				<Font size="11.0" />
 																			</font>
@@ -367,7 +367,7 @@
 																		<TextField fx:id="commChannelLossTS" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Dropping Rate" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="18.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="rate of messages to be dropped at the application layer for Transactional applications" width="50.0" />
                                                          </tooltip>
                                                       </Label>
 																	</children>
@@ -382,7 +382,7 @@
                                                       <TextField fx:id="aliasField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="205.0" promptText="Enter Alias" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="23.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text=" alias to be used to identify the simulation in the output dataset" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>
@@ -397,7 +397,7 @@
                                                       <TextField fx:id="messageField" minHeight="-Infinity" minWidth="-Infinity" opacity="0.94" prefHeight="42.0" prefWidth="198.0" promptText="Enter Global Message Size" />
                                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="40.0" text="?" textAlignment="CENTER" wrapText="true">
                                                          <tooltip>
-                                                            <Tooltip height="50.0" text="This is a tool tip" width="50.0" />
+                                                            <Tooltip height="50.0" text="message size (in MB) to be used during the simulation" width="50.0" />
                                                          </tooltip>
                                                       </Label>
                                                    </children>

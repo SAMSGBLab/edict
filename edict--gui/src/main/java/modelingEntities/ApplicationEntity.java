@@ -26,9 +26,9 @@ public class ApplicationEntity extends BaseEntity {
         });
 
         arrow = new Arrow(leftNode.getCenterX(), leftNode.getCenterY(), 420-this.getTranslateX(), 220-this.getTranslateY());
-        getChildren().addAll(arrow);
 
-        this.getChildren().addAll(rectangle,leftNode,entityName, applicationCategoryLabel);
+
+        this.getChildren().addAll(rectangle,leftNode,entityName, applicationCategoryLabel,arrow);
     }
     public void splitArrow(){
         String[] obs=arrow.getLabel().getText().split(" ");

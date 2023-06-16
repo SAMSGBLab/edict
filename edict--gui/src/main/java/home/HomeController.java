@@ -227,7 +227,6 @@ public class HomeController implements Initializable {
 
     private void initializeModelingPane() {
 
-        loadEntities();
         btnaddDevice.setOnAction(e -> openAddDevice());
         btnaddApp.setOnAction(e -> openAddApp());
 
@@ -278,6 +277,8 @@ public class HomeController implements Initializable {
             });
             backgroundThread.start();
         });
+        loadEntities();
+
     }
 
 
@@ -305,10 +306,10 @@ public class HomeController implements Initializable {
         systemSpecifications.setCommChannelLossAN(0);
         systemSpecifications.setBandwidthPolicy("none");
         systemSpecifications.setBrokerCapacity(Integer.MAX_VALUE);
-        systemSpecifications.setSystemBandwidth(100);
+        systemSpecifications.setSystemBandwidth(10);
         systemSpecifications.setSimulationDuration(10);
         systemSpecifications.setAlias("default");
-        systemSpecifications.setGlobalMessageSize(52428800);
+        systemSpecifications.setGlobalMessageSize(50);
         systemSpecifications.saveSystemSpecifications();
 
     }
@@ -329,7 +330,7 @@ public class HomeController implements Initializable {
     }
 
     public void saveSystemSpecifications() {
-        systemSpecifications.setSystemBandwidth(Integer.parseInt(systemBandwidth.getText()));
+        systemSpecifications.setSystemBandwidth(Double.parseDouble(systemBandwidth.getText()));
         systemSpecifications.setBandwidthPolicy((String) bandwidthPolicy.getValue());
         systemSpecifications.setBrokerCapacity(Integer.parseInt(brokerCapacity.getText()));
         systemSpecifications.setCommChannelLossAN(Double.parseDouble(commChannelLossAN.getText()));

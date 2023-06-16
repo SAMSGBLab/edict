@@ -14,6 +14,7 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import composer.NgsiParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +28,7 @@ public class SimulationResultsWriter {
 	HashMap<String, Double> throughputs;
 	HashMap<String, Double> dropRates;
 	double utilization;
-	
+	NgsiParser parser= new NgsiParser();
 	public SimulationResultsWriter() {
 		responseTimes = new HashMap<String, Double>();
 		throughputs = new HashMap<String, Double>();
@@ -38,6 +39,8 @@ public class SimulationResultsWriter {
 	
 	//Read the results from the XML file produced by JMT
 	public void readXML(String inputFile){
+		parser.readSystemData("SystemSpecifications.st");
+
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();		
 		try {
           // optional, but recommended
@@ -77,12 +80,9 @@ public class SimulationResultsWriter {
       				   app = parts[1];
                       }
                       catch (Exception e) {
-                	  for(String p:parts) {
-                		  System.out.println(p);
-                	  }
                 	  app ="exception";
                       }
-      				  subscription = topic + "_" + app;
+      				  subscription = topic + "_" + app+ "_" + parts[2];
                   }
                   if (measureType.equals("Response Time"))
                 	  responseTimes.put(subscription, meanValue);
@@ -115,10 +115,23 @@ public class SimulationResultsWriter {
 				String topic = parts[0];
 				String app = parts[1];
 
+				String category = parts[2];
+
 				String responseTime = responseTimes.get(key).toString();
 				String throughput = throughputs.get(key).toString();
 				String dropRate = dropRates.get(key).toString();
-				
+				double dropRateDouble = Double.parseDouble(dropRate);
+				if(category.startsWith("AN")) {
+					dropRateDouble+=parser.CHANNEL_LOSS_AN;
+				} else if (category.startsWith("RT")) {
+					dropRateDouble+=parser.CHANNEL_LOSS_RT;
+				} else if (category.startsWith("TS")) {
+					dropRateDouble+=parser.CHANNEL_LOSS_TS;
+				} else if (category.startsWith("VS")) {
+					dropRateDouble+=parser.CHANNEL_LOSS_VS;
+				}
+				dropRate = Double.toString(dropRateDouble);
+
 				String[] data = {topic, app, responseTime, throughput, dropRate};
 				writer.writeNext(data);
 			}
@@ -179,6 +192,7 @@ public class SimulationResultsWriter {
 					String topic = data.get(0).replace("\"", "");
 					String app = data.get(1).replace("\"", "");
 					String subscription = topic + "_" + app;
+
 					if (responseTimes.containsKey(subscription)) {
 						Double responseTime = responseTimes.get(subscription);
 						data.add(responseTime.toString());

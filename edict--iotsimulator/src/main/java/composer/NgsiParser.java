@@ -27,7 +27,7 @@ public class NgsiParser {
     public double CHANNEL_LOSS_RT = 0;
     public double CHANNEL_LOSS_TS = 0;
     public double CHANNEL_LOSS_VS = 0;
-    public int systemBandwidth = 100; //MB
+    public double systemBandwidth = 100; //MB
     public String bandwidthPolicy = "none";
     public int BROKER_CAPACITY = -1;
     public String priorityPolicy = "apps";
@@ -54,7 +54,7 @@ public class NgsiParser {
                         CHANNEL_LOSS_VS = Double.parseDouble(data[1].trim());
                         break;
                     case "SystemBandwidth":
-                        systemBandwidth = Integer.parseInt(data[1].trim())*1048576;//converted to Bytes
+                        systemBandwidth = Double.parseDouble(data[1].trim())*1048576;//converted to Bytes
                         break;
                     case "BandwidthPolicy":
                         bandwidthPolicy = data[1].trim();
