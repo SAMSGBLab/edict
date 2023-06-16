@@ -192,7 +192,9 @@ public class SimulationResultsWriter {
 					String topic = data.get(0).replace("\"", "");
 					String app = data.get(1).replace("\"", "");
 					String subscription = topic + "_" + app;
-
+					for (String key : responseTimes.keySet())
+						if (key.startsWith(subscription))
+							subscription = key;
 					if (responseTimes.containsKey(subscription)) {
 						Double responseTime = responseTimes.get(subscription);
 						data.add(responseTime.toString());
