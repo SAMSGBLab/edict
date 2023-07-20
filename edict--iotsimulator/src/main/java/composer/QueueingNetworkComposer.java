@@ -81,9 +81,6 @@ public class QueueingNetworkComposer {
         routingHandler.setInputQueueRouting(jmtModel, topics);
         routingHandler.setOutputQueueRouting(jmtModel, subtopics);
         routingHandler.setVirtualSensorsRouting(jmtModel, virtualSensors);
-        routingHandler.addDroppingRouting(jmtModel, subtopics, topicHandler.subtopicsClassSwitches,
-                parser.CHANNEL_LOSS_AN, parser.CHANNEL_LOSS_RT, parser.CHANNEL_LOSS_TS, parser.CHANNEL_LOSS_VS);
-
         NetworkResourcesManager networkManager = new NetworkResourcesManager(parser.systemBandwidth, parser.bandwidthPolicy,
                 globalMessageSize);
         networkManager.calculateDemands(parser);
@@ -101,7 +98,8 @@ public class QueueingNetworkComposer {
         serviceTimeHandler.setOutputQueueServiceTime(jmtModel, networkManager, subtopics);
         serviceTimeHandler.setApplicationsServiceTime(jmtModel, applications);
         serviceTimeHandler.setVirtualSensorsServiceTime(jmtModel, virtualSensors);
-
+        routingHandler.addDroppingRouting(jmtModel, subtopics, topicHandler.subtopicsClassSwitches,
+                parser.CHANNEL_LOSS_AN, parser.CHANNEL_LOSS_RT, parser.CHANNEL_LOSS_TS, parser.CHANNEL_LOSS_VS);
         PerformanceMetricsHandler performanceMetricsHandler = new PerformanceMetricsHandler();
         double confInterval = 0.95;
         double relErr = 0.05;
