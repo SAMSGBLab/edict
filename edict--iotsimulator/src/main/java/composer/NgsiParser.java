@@ -54,7 +54,7 @@ public class NgsiParser {
                         CHANNEL_LOSS_VS = Double.parseDouble(data[1].trim());
                         break;
                     case "SystemBandwidth":
-                        systemBandwidth = Double.parseDouble(data[1].trim())*1048576;//converted to Bytes
+                        systemBandwidth = Double.parseDouble(data[1].trim());//converted to Bytes
                         break;
                     case "BandwidthPolicy":
                         bandwidthPolicy = data[1].trim();
@@ -101,6 +101,7 @@ public class NgsiParser {
                 ObjectNode node;
                 try {
                     node = new ObjectMapper().readValue(file, ObjectNode.class);
+                    System.out.println("Parsing file: " + file.getName());
                 } catch (Exception e) {
                     System.out.println("Error parsing file: " + file.getName());
                     continue;

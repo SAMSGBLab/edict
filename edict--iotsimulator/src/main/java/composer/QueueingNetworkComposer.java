@@ -18,8 +18,9 @@ public class QueueingNetworkComposer {
     public String composeNetwork(String inputFolder, int simulationDuration, double globalMessageSize) {
         NgsiParser parser = new NgsiParser();
         parser.readSystemData("SystemSpecifications.st");
+        System.out.println("System data read");
         parser.readJSONLD(inputFolder);
-
+        System.out.println("JSONLD read");
         String priorityPolicy = parser.priorityPolicy;
 
         CommonModel jmtModel = new CommonModel();
@@ -52,7 +53,7 @@ public class QueueingNetworkComposer {
         topicHandler.addTopicsJoin(jmtModel);
         topicHandler.addTopicsSink(jmtModel);
         topicHandler.addTopicsClassSwitches(jmtModel, topicNames);
-
+        System.out.println("Topics added");
         ClassHandler classHandler = new ClassHandler();
         classHandler.addClassesForIoTdevices(jmtModel, iotDevices.values(), globalMessageSize);
         classHandler.addClassesForVirtualSensors(jmtModel, virtualSensors.values(), globalMessageSize);
@@ -69,7 +70,7 @@ public class QueueingNetworkComposer {
         priorityHandler.convertTopicPrioritiesToJmtPriorities(jmtModel, topics, subtopics);
 
         classHandler.addClassesForSubtopics(jmtModel, subtopics);
-
+        System.out.println("Classes added");
         topicHandler.setClassSwitchMatrix(jmtModel, topics);
         topicHandler.setClassSwitchMatrixForSubtopics(jmtModel, subtopics);
         topicHandler.setTopicsClassSwitchMatrix(jmtModel, subtopics);
@@ -78,8 +79,6 @@ public class QueueingNetworkComposer {
         RoutingHandler routingHandler = new RoutingHandler();
         routingHandler.setTopicsClassSwitchRouting(jmtModel, subtopics);
         routingHandler.setApplicationsRouting(jmtModel, applications);
-        routingHandler.setInputQueueRouting(jmtModel, topics);
-        routingHandler.setOutputQueueRouting(jmtModel, subtopics);
         routingHandler.setVirtualSensorsRouting(jmtModel, virtualSensors);
         NetworkResourcesManager networkManager = new NetworkResourcesManager(parser.systemBandwidth, parser.bandwidthPolicy,
                 globalMessageSize);
@@ -101,14 +100,18 @@ public class QueueingNetworkComposer {
         routingHandler.addDroppingRouting(jmtModel, subtopics, topicHandler.subtopicsClassSwitches,
                 parser.CHANNEL_LOSS_AN, parser.CHANNEL_LOSS_RT, parser.CHANNEL_LOSS_TS, parser.CHANNEL_LOSS_VS);
         PerformanceMetricsHandler performanceMetricsHandler = new PerformanceMetricsHandler();
+
+        routingHandler.setInputQueueRouting(jmtModel, topics);
+        routingHandler.setOutputQueueRouting(jmtModel, subtopics);
         double confInterval = 0.95;
         double relErr = 0.05;
         performanceMetricsHandler.setPerformanceMetrics(jmtModel, subtopics, fcrObj, confInterval, relErr);
 
-
+        System.out.println("before writing xml");
         String jsimgFilePath = inputFolder + "/simulation.jsimg";
         File jsimFile = new File(jsimgFilePath);
         XMLWriter.writeXML(jsimFile, jmtModel);
+        System.out.println("after writing xml");
 
         return jsimgFilePath;
 
