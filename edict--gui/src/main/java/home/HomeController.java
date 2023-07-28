@@ -125,11 +125,11 @@ public class HomeController implements Initializable {
                 durationField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        messageField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                messageField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
+//        messageField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.matches("\\d*")) {
+//                messageField.setText(newValue.replaceAll("[^\\d]", ""));
+//            }
+//        });
         if (!systemSpecifications.loadSystemSpecifications())
             createSystemSpecifications();
         initializeSystemSpecifications();
@@ -347,7 +347,7 @@ public class HomeController implements Initializable {
         systemSpecifications.setCommChannelLossVS(Double.parseDouble(commChannelLossVS.getText()));
         systemSpecifications.setSimulationDuration(Integer.parseInt(durationField.getText()));
         systemSpecifications.setAlias(aliasField.getText());
-        systemSpecifications.setGlobalMessageSize(Integer.parseInt(messageField.getText()));
+        systemSpecifications.setGlobalMessageSize( Double.parseDouble(messageField.getText()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (systemSpecifications.saveSystemSpecifications())
             alert.setContentText("Settings saved successfully");
