@@ -27,11 +27,12 @@ $ docker build -t <ImageName> .
 ```
 
 To run the docker container, execute the following commands
+
 **For windows:**
 ```
-$ docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v <local/path>:<path/in/docker> <ImageName>
+$ docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v C:\Users\<Your Username>\.m2:/root/.m2 -v <local/path>:<path/in/docker> <ImageName>
 # example:
-# docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v /home/edict:/home edict
+# docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v C:\Users\user\.m2:/root/.m2 -v C:\Users\user\:/home edict
 ```
 <B> For linux: </B>
 
@@ -41,10 +42,10 @@ $ docker run -it --rm -e  DISPLAY=host.docker.internal:0.0 -v <local/path>:<path
 $ export DISPLAY=:0.0
 $ xhost +local:docker
 
-$ docker run -it --rm -e  DISPLAY=$DISPLAY -v <local/path>:<path/in/docker> --net=host <ImageName>
+$ docker run -it --rm -e  DISPLAY=$DISPLAY -v ~/.m2:/root/.m2 -v <local/path>:<path/in/docker> --net=host <ImageName>
 
 # example:
-# docker run -it --rm -e  DISPLAY=$DISPLAY -v /home/edict:/home --net=host edict
+# docker run -it --rm -e  DISPLAY=$DISPLAY -v ~/.m2:/root/.m2 -v /home/edict:/home --net=host edict
 
 ```
  Now you are ready to start  [using EDICT](#using-edict).
