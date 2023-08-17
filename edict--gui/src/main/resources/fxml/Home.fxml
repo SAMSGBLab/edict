@@ -183,7 +183,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="System Capacity" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="System Capacity (B)" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
@@ -198,7 +198,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="300.0" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Simulation Duration" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Simulation Duration (s)" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>

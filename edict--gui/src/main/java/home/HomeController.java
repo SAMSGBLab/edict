@@ -125,11 +125,6 @@ public class HomeController implements Initializable {
                 durationField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-//        messageField.textProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue.matches("\\d*")) {
-//                messageField.setText(newValue.replaceAll("[^\\d]", ""));
-//            }
-//        });
         if (!systemSpecifications.loadSystemSpecifications())
             createSystemSpecifications();
         initializeSystemSpecifications();
@@ -317,7 +312,7 @@ public class HomeController implements Initializable {
         systemSpecifications.setSystemBandwidth(10);
         systemSpecifications.setSimulationDuration(10);
         systemSpecifications.setAlias("default");
-        systemSpecifications.setGlobalMessageSize(50);
+        systemSpecifications.setGlobalMessageSize(1);
         systemSpecifications.saveSystemSpecifications();
 
     }

@@ -180,7 +180,7 @@ public class SystemSpecifications {
 					else if(parts[0].equals("Alias"))
 						alias = parts[1];
 					else if(parts[0].equals("GlobalMessageSize"))
-						globalMessageSize = Integer.parseInt(parts[1]);
+						globalMessageSize = Double.parseDouble(parts[1]);
 					line = br.readLine();
 				}
 				br.close();
