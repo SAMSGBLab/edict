@@ -21,11 +21,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 import modelingEntities.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -97,6 +101,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private TextField messageField;
+
+
+    @FXML
+    private TextField urlField;
     @FXML
     private Text dirPathId;
 
@@ -115,11 +123,6 @@ public class HomeController implements Initializable {
         durationField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 durationField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        messageField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                messageField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
         if (!systemSpecifications.loadSystemSpecifications())
@@ -309,7 +312,7 @@ public class HomeController implements Initializable {
         systemSpecifications.setSystemBandwidth(10);
         systemSpecifications.setSimulationDuration(10);
         systemSpecifications.setAlias("default");
-        systemSpecifications.setGlobalMessageSize(50);
+        systemSpecifications.setGlobalMessageSize(1);
         systemSpecifications.saveSystemSpecifications();
 
     }
@@ -339,7 +342,7 @@ public class HomeController implements Initializable {
         systemSpecifications.setCommChannelLossVS(Double.parseDouble(commChannelLossVS.getText()));
         systemSpecifications.setSimulationDuration(Integer.parseInt(durationField.getText()));
         systemSpecifications.setAlias(aliasField.getText());
-        systemSpecifications.setGlobalMessageSize(Integer.parseInt(messageField.getText()));
+        systemSpecifications.setGlobalMessageSize( Double.parseDouble(messageField.getText()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (systemSpecifications.saveSystemSpecifications())
             alert.setContentText("Settings saved successfully");
@@ -391,14 +394,92 @@ public class HomeController implements Initializable {
 
     }
 
+    public String getData(String baseUrl) throws IOException {
+        String[] entityTypes = {"Device", "ApplicationCategory", "Observation", "Application"};
+        Path tempDir = Files.createTempDirectory("tempData");
+        for (String type : entityTypes) {
+            URL url = new URL(baseUrl + "?type=" + type);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Link", "<https://raw.githubusercontent.com/SAMSGBLab/edict--datamodels/main/context.jsonld>");
+
+            if (conn.getResponseCode() == 200) {
+                Scanner scanner = new Scanner(conn.getInputStream());
+                String response = scanner.useDelimiter("\\A").next();
+                scanner.close();
+
+                JSONArray entities = new JSONArray(response);
+
+                for (int i = 0; i < entities.length(); i++) {
+                    JSONObject entity = entities.getJSONObject(i);
+
+                    String entityId = entity.getString("id");
+                    entityId = entityId.replace(":", "_");
+                    switch (type) {
+                        case "Observation":
+                            type = "observations";
+                            break;
+                        case "ApplicationCategory":
+                            type = "applicationCategories";
+                            break;
+                        case "Application":
+                            type = "applications";
+                            break;
+                        case "Device":
+                            type = "devices";
+                            break;
+                    }
+                    Path dirPath = tempDir.resolve(type);
+
+                    if (!Files.exists(dirPath)) {
+                        Files.createDirectory(dirPath);
+                    }
+
+                    Path filePath = dirPath.resolve(entityId + ".jsonld");
+
+                    Files.write(filePath, entity.toString().getBytes());
+                }
+            }
+            else {
+                throw new IOException("Failed to get data from url");
+            }
+
+            conn.disconnect();
+        }
+        return tempDir.toAbsolutePath().toString();
+
+    }
+
     public void simulate() {
-        if (dataPathId.getText().isEmpty() || dirPathId.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("Please choose a valid path");
-            alert.showAndWait();
+        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert error = new Alert(AlertType.ERROR);
+
+        if ((dataPathId.getText().isEmpty() && urlField.getText().trim().isEmpty()) || dirPathId.getText().isEmpty()) {
+            error.setContentText("Please choose a valid path");
+            error.showAndWait();
             return;
         }
+        String dataPath = dataPathId.getText();
+        if (!urlField.getText().trim().isEmpty()) {
+            try {
+                Platform.runLater(() -> {
+                    alert.setContentText("getting data from url");
+                    alert.showAndWait();
+                });
+                dataPath = getData(urlField.getText().trim());
 
+            } catch (IOException e) {
+                e.printStackTrace();
+                Platform.runLater(() -> {
+                    error.setContentText("Failed to get data from url");
+                    error.showAndWait();
+                });
+                return;
+
+            }
+        }
         String jarPath = "iotsimulator.jar";
         int simulationDuration = durationField.getText().isEmpty() ? 0 : Integer.parseInt(durationField.getText());
         String alias = aliasField.getText();
@@ -408,15 +489,15 @@ public class HomeController implements Initializable {
             command.add("java");
             command.add("-jar");
             command.add(jarPath);
-            command.add(dataPathId.getText());
+            command.add(dataPath);
             command.add(dirPathId.getText());
-            command.add(simulationDuration + "");
+            command.add(String.valueOf(simulationDuration));
             command.add(alias);
-            command.add(globalMessageSize + "");
-            Alert alert = new Alert(AlertType.INFORMATION);
+            command.add(String.valueOf(globalMessageSize));
             Platform.runLater(() -> {
                 alert.setContentText("Simulation started");
-                alert.showAndWait();
+                if (!alert.isShowing())
+                    alert.showAndWait();
             });
             Thread t = new Thread(() -> {
                 ProcessBuilder pb = new ProcessBuilder(command);

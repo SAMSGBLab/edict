@@ -7,19 +7,19 @@ RUN apt-get install maven -y
 RUN apt-get install libgtk-3-0 -y
 RUN apt-get install wget -y
 RUN cd /opt; \
-    mkdir JMT-v1.0; \
-    cd JMT-v1.0; \
+    mkdir JMT-v1.2.0; \
+    cd JMT-v1.2.0; \
     wget --progress dot:mega -O jmt-singlejar-1.2.0.jar http://sourceforge.net/projects/jmt/files/jmt/JMT-1.2.0/JMT-singlejar-1.2.0.jar/download
 WORKDIR /app
 
-RUN mvn install:install-file -Dfile=/opt/JMT-v1.0/jmt-singlejar-1.2.0.jar \
+RUN mvn install:install-file -Dfile=/opt/JMT-v1.2.0/jmt-singlejar-1.2.0.jar \
         -DgroupId=jmt \
         -DartifactId=java-modelling-tools \
-        -Dversion=1.0\
+        -Dversion=1.2.0\
         -Dpackaging=jar \
         -DgeneratePom=true
 
-RUN echo "export CLASSPATH=/usr/lib/jvm/java-11-openjdk-amd64/lib:/opt/JMT-v1.0/jmt-singlejar-1.2.0.jar" >> /home/$UNAME/.bashrc; 
+RUN echo "export CLASSPATH=/opt/JMT-v1.0/jmt-singlejar-1.2.0.jar" >> /home/$UNAME/.bashrc; 
 # Copy the broker project files into the container
 COPY edict--iotsimulator/pom.xml .
 COPY edict--iotsimulator/src ./src

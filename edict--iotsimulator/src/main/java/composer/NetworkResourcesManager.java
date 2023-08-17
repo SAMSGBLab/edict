@@ -22,7 +22,7 @@ public class NetworkResourcesManager {
 	public double[] demands ;
 	
 	public NetworkResourcesManager(double totalResources, String allocationPolicy, double globalMessageSize) {
-		this.totalResources = totalResources/globalMessageSize;
+		this.totalResources = totalResources;
 		this.allocationPolicy = allocationPolicy;
 		this.globalMessageSize = globalMessageSize;
 		this.demands = new double[]{0, 0, 0, 0};

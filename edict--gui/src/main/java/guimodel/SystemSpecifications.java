@@ -22,7 +22,7 @@ public class SystemSpecifications {
 	
 	private int simulationDuration;
 	private String alias;
-	private int globalMessageSize;
+	private double globalMessageSize;
 	
 	public SystemSpecifications() {
 		super();
@@ -112,11 +112,11 @@ public class SystemSpecifications {
 		this.alias = alias;
 	}
 
-	public int getGlobalMessageSize() {
+	public double getGlobalMessageSize() {
 		return globalMessageSize;
 	}
 
-	public void setGlobalMessageSize(int globalMessageSize) {
+	public void setGlobalMessageSize(double globalMessageSize) {
 		this.globalMessageSize = globalMessageSize;
 	}
 	public boolean saveSystemSpecifications() {
@@ -180,7 +180,7 @@ public class SystemSpecifications {
 					else if(parts[0].equals("Alias"))
 						alias = parts[1];
 					else if(parts[0].equals("GlobalMessageSize"))
-						globalMessageSize = Integer.parseInt(parts[1]);
+						globalMessageSize = Double.parseDouble(parts[1]);
 					line = br.readLine();
 				}
 				br.close();

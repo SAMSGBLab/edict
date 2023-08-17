@@ -83,115 +83,6 @@
 		</VBox>
 		<StackPane layoutX="220.0" layoutY="91.0" prefHeight="492.0" prefWidth="854.0" style="-fx-background-color: #ffffff;">
 			<children>
-            <Pane fx:id="pnlSmlSettings" prefHeight="492.0" prefWidth="843.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <ScrollPane prefHeight="485.0" prefWidth="822.0">
-                     <content>
-                        <VBox prefHeight="526.0" prefWidth="836.0">
-                           <children>
-                              <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="796.0" style="-fx-background-color: #B6D6E6;" text="Simulator" textFill="WHITE">
-                                 <font>
-                                    <Font name="Cambria" size="23.0" />
-                                 </font>
-                              </Label>
-                              <VBox alignment="TOP_CENTER" prefHeight="451.0" prefWidth="796.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
-                                 <children>
-                                    <VBox prefHeight="136.0" prefWidth="817.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
-                                       <padding>
-                                          <Insets left="15.0" right="15.0" />
-                                       </padding>
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose data model location">
-                                             <VBox.margin>
-                                                <Insets bottom="5.0" left="10.0" top="15.0" />
-                                             </VBox.margin>
-                                             <font>
-                                                <Font name="Calibri" size="14.0" />
-                                             </font>
-                                          </Text>
-                                          <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
-                                             <VBox.margin>
-                                                <Insets left="10.0" right="10.0" top="5.0" />
-                                             </VBox.margin>
-                                             <children>
-                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/folder.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Text fx:id="dataPathId" fill="#a19d9d" layoutX="356.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
-                                                <Hyperlink layoutX="275.0" layoutY="15.0" onAction="#chooseDatamodelFolder" text="choose folder" />
-                                             </children>
-                                          </Pane>
-                                          <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model in NGSI-LD notation">
-                                             <VBox.margin>
-                                                <Insets left="15.0" top="3.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="15.0" right="15.0" />
-                                       </VBox.margin>
-                                    </VBox>
-                                    <VBox prefHeight="166.0" prefWidth="812.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
-                                       <padding>
-                                          <Insets left="15.0" right="15.0" />
-                                       </padding>
-                                       <VBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose dataset destination">
-                                             <VBox.margin>
-                                                <Insets bottom="5.0" left="10.0" top="15.0" />
-                                             </VBox.margin>
-                                             <font>
-                                                <Font name="Calibri" size="14.0" />
-                                             </font>
-                                          </Text>
-                                          <Pane prefHeight="66.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
-                                             <VBox.margin>
-                                                <Insets left="10.0" right="10.0" top="5.0" />
-                                             </VBox.margin>
-                                             <children>
-                                                <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="252.0" layoutY="24.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/file.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Text fx:id="dirPathId" fill="#a19d9d" layoutX="356.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="339.0" />
-                                                <Hyperlink layoutX="275.0" layoutY="20.0" onAction="#chooseDestinationFile" text="choose output location" />
-                                             </children>
-                                          </Pane>
-                                       </children>
-                                    </VBox>
-                                    <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
-                                       <VBox.margin>
-                                          <Insets left="15.0" right="15.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Pane prefHeight="118.0" prefWidth="761.0">
-                                             <children>
-                                                <Button layoutX="266.0" layoutY="49.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </Pane>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
 				<Pane fx:id="pnlOrders" prefHeight="417.0" prefWidth="669.0" style="-fx-background-color: #ffffff;">
 					<children>
 						<VBox prefHeight="614.0" prefWidth="870.0" styleClass="vbox">
@@ -292,7 +183,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="System Capacity" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="System Capacity (B)" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
@@ -307,7 +198,7 @@
                                                 </HBox>
                                                 <HBox alignment="BASELINE_LEFT" layoutX="15.0" layoutY="300.0" prefHeight="18.0" prefWidth="478.0">
                                                    <children>
-                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Simulation Duration" wrapText="true">
+                                                      <Label prefHeight="38.0" prefWidth="152.0" text="Simulation Duration (s)" wrapText="true">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
@@ -417,6 +308,129 @@
 						</VBox>
 					</children>
 				</Pane>
+            <Pane fx:id="pnlSmlSettings" prefHeight="492.0" prefWidth="843.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <ScrollPane prefHeight="485.0" prefWidth="822.0">
+                     <content>
+                        <VBox prefHeight="526.0" prefWidth="836.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="796.0" style="-fx-background-color: #B6D6E6;" text="Simulator" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria" size="23.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="TOP_CENTER" prefHeight="451.0" prefWidth="796.0" spacing="15.0" style="-fx-background-color: #F1F7F8;">
+                                 <children>
+                                    <VBox prefHeight="251.0" prefWidth="766.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose data model location or url">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="10.0" top="15.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font name="Calibri" size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="252.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/folder.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text fx:id="dataPathId" fill="#a19d9d" layoutX="382.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="302.0" />
+                                                <Hyperlink layoutX="275.0" layoutY="15.0" onAction="#chooseDatamodelFolder" text="choose folder" />
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="61.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                             <children>
+                                                <TextField fx:id="urlField" alignment="CENTER" layoutX="20.0" layoutY="13.0" prefHeight="26.0" prefWidth="666.0" promptText="Data url ex: https://edict.ngsi/ngsi-ld/v1/entities" style="-fx-background-radius: 20; -fx-border-radius: 20;">
+                                                   <padding>
+                                                      <Insets top="10.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font></TextField>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="20.0" />
+                                             </VBox.margin>
+                                          </Pane>
+                                          <Text fill="#a19d9d" strokeType="OUTSIDE" strokeWidth="0.0" text="Data model in NGSI-LD notation">
+                                             <VBox.margin>
+                                                <Insets left="15.0" top="3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="166.0" prefWidth="812.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" styleClass="shadow">
+                                       <padding>
+                                          <Insets left="15.0" right="15.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets left="15.0" right="15.0" top="15.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose dataset destination">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="10.0" top="15.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font name="Calibri" size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <Pane prefHeight="66.0" prefWidth="711.0" style="-fx-stroke-dash-array: 9; -fx-border-color: #a19d9d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-style: dashed; -fx-border-width: 2;">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="5.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="252.0" layoutY="24.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/file.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text fx:id="dirPathId" fill="#a19d9d" layoutX="419.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="277.0" />
+                                                <Hyperlink layoutX="275.0" layoutY="20.0" onAction="#chooseDestinationFile" text="choose output location" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
+                                    <HBox prefHeight="133.0" prefWidth="761.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="shadow" VBox.vgrow="NEVER">
+                                       <VBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Pane prefHeight="118.0" prefWidth="761.0">
+                                             <children>
+                                                <Button layoutX="266.0" layoutY="20.0" mnemonicParsing="false" onAction="#simulate" prefHeight="34.0" prefWidth="201.0" styleClass="button1" text="Simulate">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets right="40.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
             <Pane fx:id="pnlModeling" layoutX="10.0" layoutY="10.0" prefHeight="417.0" prefWidth="669.0" style="-fx-background-color: #ffffff;">
                <children>
                   <GridPane layoutX="1.0" layoutY="-3.0" prefHeight="38.0" prefWidth="822.0" style="-fx-background-color: cccccc;">
